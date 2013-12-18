@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="templates/mainTemplate.xhtml">
+
+    <ui:define name="content">
+
+        <h:dataTable value="#{dayReportBean.allDayReports}" var="us"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                     cellpadding="3px">
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="ID"/>
+                </f:facet>
+                <h:outputText value="#{us.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="user" >
+                    <h:outputText value="user"/>
+                </f:facet>
+                <h:outputText value="#{us.user.login}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="date" >
+                    <h:outputText value="date"/>
+                </f:facet>
+                <!--<h:outputText value="#{us.date.timeInMillis}"/>-->
+                <h:outputText value="#{us.date.time}">
+                     <f:convertDateTime type="date" dateStyle="short" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="text" >
+                    <h:outputText value="text"/>
+                </f:facet>
+                <h:outputText value="#{us.text}"/>
+            </h:column>
+        </h:dataTable>
+
+    </ui:define>
+</ui:composition>

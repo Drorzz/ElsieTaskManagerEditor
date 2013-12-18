@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Denis Ivansky
+  Date: 06.12.13
+  Time: 17:15
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="templates/mainTemplate.xhtml">
+    <ui:define name="content">
+        <h:dataTable value="#{userBean.allUsers}" var="us"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row">
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Department"/>
+                </f:facet>
+                <h:outputText value="#{us.department.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{us.lastName} #{us.firstName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Login"/>
+                </f:facet>
+                <h:outputText value="#{us.login}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Access level"/>
+                </f:facet>
+                <h:outputText value="#{us.accessLevel}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Active"/>
+                </f:facet>
+                <h:outputText value="#{us.active}"/>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>

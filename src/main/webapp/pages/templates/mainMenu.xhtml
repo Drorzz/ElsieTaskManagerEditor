@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:h="http://java.sun.com/jsf/html">
+
+        <h:outputStylesheet library="css" name="menu.css" />
+
+        <ul id="menu">
+            <li><a href="#">Home</a></li>
+            <li><h:link value="Day reports" outcome="dayReports"/></li>
+            <li>
+                <a>References</a>
+                <ul>
+                    <li>
+                        <h:link value="Departments" outcome="departments"/>
+                    </li>
+                    <li>
+                        <h:link value="Users" outcome="users">
+                            <f:param name="params" value="000" />
+                        </h:link>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </ui:composition>
+</html>
