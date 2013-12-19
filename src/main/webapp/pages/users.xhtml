@@ -37,13 +37,13 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.accessLevel']}"/>
                 </f:facet>
-                <h:outputText value="#{us.accessLevel}"/>
+                <h:outputText value="#{i18n['user.accessLevel.'.concat(us.accessLevel)]}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
-                <h:outputText value="#{us.active}"/>
+                <h:outputText value="#{us.active}" />
             </h:column>
         </h:dataTable>
     </ui:define>
