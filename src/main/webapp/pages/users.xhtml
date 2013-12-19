@@ -17,31 +17,31 @@
                      rowClasses="order-table-odd-row,order-table-even-row">
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="Department"/>
+                    <h:outputText value="#{i18n['user.department']}"/>
                 </f:facet>
                 <h:outputText value="#{us.department.name}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="Name"/>
+                    <h:outputText value="#{i18n['user.name']}"/>
                 </f:facet>
                 <h:outputText value="#{us.lastName} #{us.firstName}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="Login"/>
+                    <h:outputText value="#{i18n['user.login']}"/>
                 </f:facet>
                 <h:outputText value="#{us.login}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="Access level"/>
+                    <h:outputText value="#{i18n['user.accessLevel']}"/>
                 </f:facet>
                 <h:outputText value="#{us.accessLevel}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="Active"/>
+                    <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
                 <h:outputText value="#{us.active}"/>
             </h:column>
