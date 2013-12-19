@@ -6,12 +6,12 @@
               version="2.2">
     <application>
         <resource-bundle>
-            <base-name>i18n</base-name>
+            <base-name>locale.i18n</base-name>
             <var>i18n</var>
         </resource-bundle>
         <locale-config>
             <default-locale>en</default-locale>
-            <!--<supported-locale>ru</supported-locale>-->
+            <supported-locale>ru</supported-locale>
         </locale-config>
         <el-resolver>
             org.springframework.web.jsf.el.SpringBeanFacesELResolver

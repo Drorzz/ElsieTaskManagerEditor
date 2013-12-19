@@ -8,22 +8,22 @@
         <h:outputStylesheet library="css" name="menu.css" />
 
         <ul id="menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="#">#{i18n['mainMenu.home']}</a></li>
             <li><h:link value="#{i18n['mainMenu.dayReports']}" outcome="dayReports"/></li>
             <li>
-                <a>References</a>
+                <a>#{i18n['mainMenu.References']}</a>
                 <ul>
                     <li>
-                        <h:link value="Departments" outcome="departments"/>
+                        <h:link value="#{i18n['mainMenu.departments']}" outcome="departments"/>
                     </li>
                     <li>
-                        <h:link value="Users" outcome="users">
+                        <h:link value="#{i18n['mainMenu.users']}" outcome="users">
                             <f:param name="params" value="000" />
                         </h:link>
                     </li>
                 </ul>
             </li>
-            <li><a href="#">About</a></li>
+            <li><a href="#">#{i18n['mainMenu.about']}</a></li>
         </ul>
     </ui:composition>
 </html>

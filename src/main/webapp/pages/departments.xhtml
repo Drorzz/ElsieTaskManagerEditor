@@ -26,32 +26,29 @@
                 template="templates/mainTemplate.xhtml">
 
     <ui:define name="content">
-
-    <h:dataTable value="#{departmentBean.allDepartments}" var="us"
-                 styleClass="order-table"
-                 headerClass="order-table-header"
-                 rowClasses="order-table-odd-row,order-table-even-row"
-                 cellpadding="3px">
-        <h:column>
-            <f:facet name="header" >
-                <h:outputText value="Name"/>
-            </f:facet>
-            <h:outputText value="#{us.name}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header" >
-                <h:outputText value="level"/>
-            </f:facet>
-            <h:outputText value="#{us.level}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header" >
-                <h:outputText value="listOrder"/>
-            </f:facet>
-            <h:outputText value="#{us.listOrder}"/>
-        </h:column>
-    </h:dataTable>
-
+        <h:dataTable value="#{departmentBean.allDepartments}" var="us"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row">
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{us.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="level"/>
+                </f:facet>
+                <h:outputText value="#{us.level}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header" >
+                    <h:outputText value="listOrder"/>
+                </f:facet>
+                <h:outputText value="#{us.listOrder}"/>
+            </h:column>
+        </h:dataTable>
     </ui:define>
 </ui:composition>
 <!--
