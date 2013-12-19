@@ -30,6 +30,11 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
     }
 
     @Override
+    public <T> T create() throws IllegalAccessException, InstantiationException {
+        return (T)genericClass.newInstance();
+    }
+
+    @Override
     public void save(T obj) {
         getCurrentSession().saveOrUpdate(obj);
     }

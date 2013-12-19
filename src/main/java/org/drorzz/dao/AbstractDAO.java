@@ -14,6 +14,7 @@ import java.util.List;
 @Transactional
 public interface AbstractDAO<T> {
 
+    public <T> T create() throws IllegalAccessException, InstantiationException;
     public void save(T obj);
     public void delete(T obj);
     public void deleteById(int id);

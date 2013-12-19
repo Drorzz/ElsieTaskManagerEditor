@@ -22,11 +22,14 @@ body {
 
 }
 
+.padding05td td{
+    padding: 0px 5px;
+}
+
 .center-align {
     text-align: center;
     vertical-align:middle;
 }
-
 
  /*Header-----------------------------------------------------------------------------*/
 #header {

@@ -11,7 +11,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="templates/mainTemplate.xhtml">
     <ui:define name="content">
-        <h:dataTable value="#{userBean.allUsers}" var="us"
+        <h:dataTable value="#{usersBean.allUsers}" var="us"
                      styleClass="order-table"
                      headerClass="order-table-header"
                      rowClasses="order-table-odd-row,order-table-even-row"
@@ -44,7 +44,15 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
-                <h:graphicImage library="img" name="#{us.active?'check.png':'delete.png'}" height="12" width="12" />
+                <h:graphicImage rendered="#{us.active}" library="img" name="check.png" height="12" width="12" />
+            </h:column>
+            <h:column>
+                <h:link outcome="user">
+                    <h:graphicImage library="img" name="edit.png" height="12" width="12" />
+                    <f:param name="id" value="#{us.id}"/>
+                </h:link>
+
+                <h:graphicImage library="img" name="delete.png" height="12" width="12" />
             </h:column>
         </h:dataTable>
     </ui:define>
