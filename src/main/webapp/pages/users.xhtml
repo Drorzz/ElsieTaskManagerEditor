@@ -14,7 +14,8 @@
         <h:dataTable value="#{userBean.allUsers}" var="us"
                      styleClass="order-table"
                      headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row">
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                     columnClasses="none,none,none,none,center-align">
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.department']}"/>
@@ -43,9 +44,7 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
-                <!--<h:outputText value="#{us.active}" />-->
-                <!--<h:graphicImage value="#{us.active?'':''}" />-->
-                <h:graphicImage library="img" name=""/>
+                <h:graphicImage library="img" name="#{us.active?'check.png':'delete.png'}" height="12" width="12" />
             </h:column>
         </h:dataTable>
     </ui:define>
