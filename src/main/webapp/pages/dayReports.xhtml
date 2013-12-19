@@ -20,14 +20,14 @@
                 <h:outputText value="#{us.id}"/>
             </h:column>
             <h:column>
-                <f:facet name="user" >
-                    <h:outputText value="user"/>
+                <f:facet name="header" >
+                    <h:outputText value="#{i18n['dayReport.user']}"/>
                 </f:facet>
                 <h:outputText value="#{us.user.login}"/>
             </h:column>
             <h:column>
-                <f:facet name="date" >
-                    <h:outputText value="date"/>
+                <f:facet name="header" >
+                    <h:outputText value="#{i18n['dayReport.date']}"/>
                 </f:facet>
                 <!--<h:outputText value="#{us.date.timeInMillis}"/>-->
                 <h:outputText value="#{us.date.time}">
@@ -35,8 +35,8 @@
                 </h:outputText>
             </h:column>
             <h:column>
-                <f:facet name="text" >
-                    <h:outputText value="text"/>
+                <f:facet name="header" >
+                    <h:outputText value="#{i18n['dayReport.text']}"/>
                 </f:facet>
                 <h:outputText value="#{us.text}"/>
             </h:column>
