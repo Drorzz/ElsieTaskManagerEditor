@@ -43,7 +43,9 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
-                <h:outputText value="#{us.active}" />
+                <!--<h:outputText value="#{us.active}" />-->
+                <!--<h:graphicImage value="#{us.active?'':''}" />-->
+                <h:graphicImage library="img" name=""/>
             </h:column>
         </h:dataTable>
     </ui:define>
