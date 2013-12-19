@@ -29,7 +29,8 @@
         <h:dataTable value="#{departmentBean.allDepartments}" var="us"
                      styleClass="order-table"
                      headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row">
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                     columnClasses="none,center-align,center-align">
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['department.name']}"/>
