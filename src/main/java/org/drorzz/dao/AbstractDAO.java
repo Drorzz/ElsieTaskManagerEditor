@@ -17,10 +17,10 @@ public interface AbstractDAO<T> {
     public <T> T create() throws IllegalAccessException, InstantiationException;
     public void save(T obj);
     public void delete(T obj);
-    public void deleteById(int id);
+    public void deleteById(Integer id);
 
     public  <T> List<T> getAll();
 
-    public <T> T getById(int id);
+    public <T> T getById(Integer id);
     public <T> List<T> getByField(String fieldName,Object fieldValue);
 }

@@ -55,13 +55,13 @@ body {
     overflow: hidden;
 }
 #content {
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 10%;
+    margin-right: 5%;
     padding: 7px 5px 5px 15px;
     display: block;
-    border: 1px solid #222;
+/*    border: 1px solid #BBBBBB;
     border-radius: 6px;
-    box-shadow: 0 1px 1px #777;
+    box-shadow: 0 1px 1px #777;*/
 }
 
 /* Footer-----------------------------------------------------------------------------*/

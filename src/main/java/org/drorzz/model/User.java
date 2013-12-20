@@ -4,8 +4,6 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +15,7 @@ import java.util.Set;
 @Table(name = "crew")
 public class User {
 
-    private int id;//crew_id;
+    private Integer id;//crew_id;
     private String login;//crew_log;
     private String password;//crew_pass;
     private String email;//crew_email;
@@ -34,11 +32,11 @@ public class User {
     @Id
     @Column(name="crew_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -146,8 +144,9 @@ public class User {
         isActive = active;
     }
 
-    @Transient
-    public String getFullName(){
-        return lastName + " " + firstName;
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User)){return false;}
+        return ((User)obj).getId()==this.getId();
     }
 }

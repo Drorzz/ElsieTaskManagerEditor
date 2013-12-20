@@ -26,28 +26,34 @@
                 template="templates/mainTemplate.xhtml">
 
     <ui:define name="content">
-        <h:dataTable value="#{departmentBean.allDepartments}" var="us"
+        <h:dataTable value="#{departmentsBean.allDepartments}" var="dep"
                      styleClass="order-table"
                      headerClass="order-table-header"
                      rowClasses="order-table-odd-row,order-table-even-row"
-                     columnClasses="none,center-align,center-align">
+                     columnClasses="none,none,center-align,center-align">
+            <h:column>
+                <h:link outcome="department">
+                    <h:graphicImage library="img" name="edit.png" height="12" width="12" />
+                    <f:param name="id" value="#{dep.id}"/>
+                </h:link>
+            </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['department.name']}"/>
                 </f:facet>
-                <h:outputText value="#{us.name}"/>
+                <h:outputText value="#{dep.name}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['department.level']}"/>
                 </f:facet>
-                <h:outputText value="#{us.level}"/>
+                <h:outputText value="#{dep.level}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['department.listOrder']}"/>
                 </f:facet>
-                <h:outputText value="#{us.listOrder}"/>
+                <h:outputText value="#{dep.listOrder}"/>
             </h:column>
         </h:dataTable>
     </ui:define>

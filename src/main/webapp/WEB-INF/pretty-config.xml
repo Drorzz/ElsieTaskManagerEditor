@@ -32,6 +32,11 @@
         <view-id value="/pages/departments.xhtml" />
     </url-mapping>
 
+    <url-mapping id="departmentEdite">
+        <pattern value="/department" />
+        <view-id value="/pages/department.xhtml" />
+    </url-mapping>
+
     <url-mapping id="dayReports">
         <pattern value="/dayReports" />
         <view-id value="/pages/dayReports.xhtml" />

@@ -10,7 +10,6 @@ import javax.faces.bean.ViewScoped;
 import org.drorzz.dao.UserDAO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

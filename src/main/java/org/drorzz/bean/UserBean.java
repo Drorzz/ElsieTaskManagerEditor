@@ -1,6 +1,7 @@
 package org.drorzz.bean;
 
 import org.drorzz.dao.UserDAO;
+import org.drorzz.model.AccessLevel;
 import org.drorzz.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -22,7 +24,7 @@ import java.io.Serializable;
 @ViewScoped
 public class UserBean implements Serializable{
 
-    private Long userId;
+    private String userId;
     private User user;
 
     @Autowired
@@ -35,10 +37,7 @@ public class UserBean implements Serializable{
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
             return;
         }
-
-        user = userDAO.getById(userId.intValue());
-
-        if (user == null) {
+        if (userId.trim().toLowerCase().equals("new")){
             try {
                 user = userDAO.create();
             } catch (IllegalAccessException e) {
@@ -48,7 +47,21 @@ public class UserBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
             }
+        } else {
+            user = userDAO.getById(Integer.valueOf(userId));
+            if (user == null) {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("user?id=new");
+                } catch (IOException e) {
+                    FacesContext.getCurrentInstance().addMessage(null,
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+                }
+            }
         }
+    }
+
+    public AccessLevel[] getAccessLevelList(){
+        return AccessLevel.values();
     }
 
     public void saveUser(){
@@ -59,11 +72,11 @@ public class UserBean implements Serializable{
         return user;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 }
