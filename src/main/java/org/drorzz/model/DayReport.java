@@ -15,7 +15,7 @@ import java.util.Calendar;
  */
 @Entity
 @Table(name = "day_reports")
-public class DayReport {
+public class DayReport extends PersistentObject{
     private Integer id;//dayr_id
     private User user;//dayr_crew_id
     private Calendar date;//dayr_date
@@ -82,11 +82,5 @@ public class DayReport {
 
     public void setFullDate(int fullDate) {
         this.fullDate = fullDate;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof DayReport)){return false;}
-        return ((DayReport)obj).getId()==this.getId();
     }
 }

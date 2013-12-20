@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "crew")
-public class User {
+public class User extends PersistentObject{
 
     private Integer id;//crew_id;
     private String login;//crew_log;
@@ -142,11 +142,5 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof User)){return false;}
-        return ((User)obj).getId()==this.getId();
     }
 }

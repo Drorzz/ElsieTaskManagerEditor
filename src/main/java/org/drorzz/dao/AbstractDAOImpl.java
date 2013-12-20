@@ -35,7 +35,6 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
 
     @Override
     public void save(T obj) {
-        System.out.println("save="+obj.toString());
         getCurrentSession().saveOrUpdate(obj);
     }
 
