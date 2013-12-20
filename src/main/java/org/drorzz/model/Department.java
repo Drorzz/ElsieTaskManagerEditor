@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "departments")
 public class Department {
-    private int id;//depart_id
+    private Integer id;//depart_id
     private String name;//depart_name
     private int level;//depart_lvl
     private int listOrder;//depart_list_order
@@ -20,11 +20,11 @@ public class Department {
     @Id
     @Column(name = "depart_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -62,5 +62,11 @@ public class Department {
 
     public void setProjectActive(int projectActive) {
         this.projectActive = projectActive;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Department)){return false;}
+        return ((Department)obj).getId()==this.getId();
     }
 }

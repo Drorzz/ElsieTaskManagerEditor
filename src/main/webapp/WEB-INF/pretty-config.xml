@@ -22,9 +22,19 @@
         <view-id value="/pages/users.xhtml" />
     </url-mapping>
 
+    <url-mapping id="userEdite">
+        <pattern value="/user" />
+        <view-id value="/pages/user.xhtml" />
+    </url-mapping>
+
     <url-mapping id="departments">
         <pattern value="/departments" />
         <view-id value="/pages/departments.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="departmentEdite">
+        <pattern value="/department" />
+        <view-id value="/pages/department.xhtml" />
     </url-mapping>
 
     <url-mapping id="dayReports">
