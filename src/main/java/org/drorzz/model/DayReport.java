@@ -5,7 +5,6 @@ import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Calendar;
 @Entity
 @Table(name = "day_reports")
 public class DayReport {
-    private int id;//dayr_id
+    private Integer id;//dayr_id
     private User user;//dayr_crew_id
     private Calendar date;//dayr_date
     private String projectText;//dayr_proj_text
@@ -27,11 +26,11 @@ public class DayReport {
     @Id
     @Column(name = "dayr_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,5 +82,11 @@ public class DayReport {
 
     public void setFullDate(int fullDate) {
         this.fullDate = fullDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DayReport)){return false;}
+        return ((DayReport)obj).getId()==this.getId();
     }
 }

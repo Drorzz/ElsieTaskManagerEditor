@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -30,7 +29,13 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
     }
 
     @Override
+    public <T> T create() throws IllegalAccessException, InstantiationException {
+        return (T)genericClass.newInstance();
+    }
+
+    @Override
     public void save(T obj) {
+        System.out.println("save="+obj.toString());
         getCurrentSession().saveOrUpdate(obj);
     }
 
@@ -40,7 +45,7 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Integer id) {
         delete((T)getById(id));
     }
 
@@ -58,7 +63,7 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
 
     @Override
     @Transactional(readOnly = true)
-    public <T> T getById(int id) {
+    public <T> T getById(Integer id) {
         return (T) getCurrentSession().byId(genericClass).load(id);
     }
 }

@@ -15,11 +15,23 @@
                 <ul>
                     <li>
                         <h:link value="#{i18n['mainMenu.departments']}" outcome="departments"/>
+                        <ul>
+                            <li>
+                                <h:link value="#{i18n['mainMenu.newDepartment']}" outcome="department">
+                                    <f:param name="id" value="new"/>
+                                </h:link>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <h:link value="#{i18n['mainMenu.users']}" outcome="users">
-                            <f:param name="params" value="000" />
-                        </h:link>
+                        <h:link value="#{i18n['mainMenu.users']}" outcome="users"/>
+                        <ul>
+                            <li>
+                                <h:link value="#{i18n['mainMenu.newUser']}" outcome="user">
+                                    <f:param name="id" value="new"/>
+                                </h:link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Denis Ivansky
+  Date: 06.12.13
+  Time: 17:15
+-->
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="templates/mainTemplate.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{userBean.userId}" >
+                <f:viewAction action="#{userBean.init}" />
+            </f:viewParam>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:link value="#{i18n['user.returnToList']}" outcome="users"/>
+        <h:form prependId="false">
+            <h:panelGrid columns="2" rowClasses="padding05td">
+                <h:outputLabel value="#{i18n['user.login']}" for="login" />
+                    <h:inputText id="login" value="#{userBean.user.login}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.password']}" for="password" />
+                    <h:inputSecret id="password" value="#{userBean.user.password}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.lastName']}" for="lastName"/>
+                    <h:inputText id="lastName" value="#{userBean.user.lastName}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.firstName']}" for="firstName" />
+                     <h:inputText id="firstName" value="#{userBean.user.firstName}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.email']}" for="email" />
+                    <h:inputText id="email" value="#{userBean.user.email}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.position']}" for="position" />
+                    <h:inputText id="position" value="#{userBean.user.position}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.department']}" for="department" />
+                    <h:selectOneMenu id="department" value="#{userBean.user.department}">
+                        <f:converter binding="#{departmentConverter}"/>
+                        <f:selectItems value="#{departmentsBean.allDepartments}" var="dep"
+                                       itemValue="#{dep}" itemLabel="#{dep.name}"/>
+                    </h:selectOneMenu>
+
+                <h:outputLabel value="#{i18n['user.chief']}" for="chief" />
+                    <h:inputText id="chief" value="#{userBean.user.chief}" size="30"/>
+
+                <h:outputLabel value="#{i18n['user.accessLevel']}" for="accessLevel" />
+                    <h:selectOneMenu id="accessLevel" value="#{userBean.user.accessLevel}">
+                        <f:selectItems value="#{userBean.accessLevelList}" var="lvl"
+                                       itemValue="#{lvl}" itemLabel="#{i18n['user.accessLevel.'.concat(lvl)]}"/>
+                    </h:selectOneMenu>
+
+                <h:outputLabel value="#{i18n['user.vacation']}" for="vacation" />
+                    <h:selectBooleanCheckbox id="vacation" value="#{userBean.user.vacation}" />
+
+                <h:outputLabel value="#{i18n['user.active']}" for="active"   />
+                    <h:selectBooleanCheckbox id="active" value="#{userBean.user.active}" />
+            </h:panelGrid>
+
+            <h:commandButton value="#{i18n['button.save']}"
+                             style="padding: 3px"
+                             action="#{userBean.saveUser}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

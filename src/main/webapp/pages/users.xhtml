@@ -11,10 +11,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="templates/mainTemplate.xhtml">
     <ui:define name="content">
-        <h:dataTable value="#{userBean.allUsers}" var="us"
+
+        <h:dataTable value="#{usersBean.allUsers}" var="us"
                      styleClass="order-table"
                      headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row">
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                     columnClasses="none,none,none,none,none,center-align">
+            <h:column>
+                <h:link outcome="user">
+                    <h:graphicImage library="img" name="edit.png" height="12" width="12" />
+                    <f:param name="id" value="#{us.id}"/>
+                </h:link>
+            </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.department']}"/>
@@ -37,13 +45,13 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.accessLevel']}"/>
                 </f:facet>
-                <h:outputText value="#{us.accessLevel}"/>
+                <h:outputText value="#{i18n['user.accessLevel.'.concat(us.accessLevel)]}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.active']}"/>
                 </f:facet>
-                <h:outputText value="#{us.active}"/>
+                <h:graphicImage rendered="#{us.active}" library="img" name="check.png" height="12" width="12" />
             </h:column>
         </h:dataTable>
     </ui:define>
