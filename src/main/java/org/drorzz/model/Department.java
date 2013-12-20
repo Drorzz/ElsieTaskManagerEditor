@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "departments")
-public class Department {
+public class Department extends PersistentObject{
     private Integer id;//depart_id
     private String name;//depart_name
     private int level;//depart_lvl
@@ -62,11 +62,5 @@ public class Department {
 
     public void setProjectActive(int projectActive) {
         this.projectActive = projectActive;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Department)){return false;}
-        return ((Department)obj).getId()==this.getId();
     }
 }

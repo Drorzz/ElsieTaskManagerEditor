@@ -1,7 +1,7 @@
 package org.drorzz.bean.convert;
 
-import org.drorzz.dao.DepartmentDAO;
-import org.drorzz.model.Department;
+import org.drorzz.dao.UserDAO;
+import org.drorzz.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,25 +13,24 @@ import javax.faces.convert.FacesConverter;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Drorzz
- * Date: 19.12.13
- * Time: 22:33
- * To change this template use File | Settings | File Templates.
+ * User: Denis Ivansky
+ * Date: 20.12.13
+ * Time: 11:13
  */
 @Component
 @Scope("request")
-@FacesConverter(value = "departmentConverter", forClass = org.drorzz.model.Department.class)
-public class DepartmentConverter extends ObjectIdAbstractConverter<Department> {
+@FacesConverter(value = "userConverter", forClass = User.class)
+public class UserConverter  extends ObjectIdAbstractConverter<User> {
     @Autowired
-    private DepartmentDAO departmentDAO;
+    private UserDAO userDAO;
 
-    protected DepartmentConverter() {
-        super(Department.class);
+    protected UserConverter() {
+        super(User.class);
     }
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) throws ConverterException {
-        return getAsObject(departmentDAO,value);
+        return getAsObject(userDAO,value);
     }
 
     @Override
