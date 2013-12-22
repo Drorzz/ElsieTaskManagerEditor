@@ -1,10 +1,8 @@
 package org.drorzz.bean.convert;
 
 import org.drorzz.dao.AbstractDAO;
-import org.drorzz.dao.DepartmentDAO;
 import org.drorzz.model.PersistentObject;
 
-import javax.el.ELResolver;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
