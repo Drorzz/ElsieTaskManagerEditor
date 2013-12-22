@@ -10,7 +10,6 @@ import org.drorzz.model.PersistentObject;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
