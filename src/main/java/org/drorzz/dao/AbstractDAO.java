@@ -14,13 +14,14 @@ import java.util.List;
 @Transactional
 public interface AbstractDAO<T> {
 
-    public <T> T create() throws IllegalAccessException, InstantiationException;
+    public T create() throws IllegalAccessException, InstantiationException;
     public void save(T obj);
     public void delete(T obj);
     public void deleteById(Integer id);
+    public void refresh(T obj);
 
-    public  <T> List<T> getAll();
+    public List<T> getAll();
 
-    public <T> T getById(Integer id);
-    public <T> List<T> getByField(String fieldName,Object fieldValue);
+    public T getById(Integer id);
+    public List<T> getByField(String fieldName,Object fieldValue);
 }

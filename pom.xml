@@ -10,13 +10,13 @@
 
     <properties>
         <spring.version>3.2.3.RELEASE</spring.version>
-        <aspectj.version>1.5.4</aspectj.version>
+        <el.version>2.2</el.version>
+        <!--<aspectj.version>1.5.4</aspectj.version>-->
 
         <hibernate.version>4.2.7.SP1</hibernate.version>
         <mysqlConnector.version>5.1.25</mysqlConnector.version>
 
-        <!--<jsf.version>2.2.4</jsf.version>-->
-        <richfaces.version>4.3.4.Final</richfaces.version>
+        <myfaces.version>2.2.0-beta</myfaces.version>
         <prettyFaces.version>3.3.3</prettyFaces.version>
 
         <junit.version>4.10</junit.version>
@@ -39,6 +39,11 @@
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>${el.version}</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>org.aspectj</groupId>-->
             <!--<artifactId>aspectjweaver</artifactId>-->
@@ -50,7 +55,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
+            <version> ${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -59,38 +64,16 @@
         </dependency>
 
         <!-- JSF 2 -->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.myfaces.core</groupId>-->
-            <!--<artifactId>myfaces-api</artifactId>-->
-            <!--<version>2.2.0-beta</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.myfaces.core</groupId>-->
-            <!--<artifactId>myfaces-impl</artifactId>-->
-            <!--<version>2.2.0-beta</version>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-bom</artifactId>
-            <version>${richfaces.version}</version>
-            <scope>import</scope>
-            <type>pom</type>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
-        </dependency>
-
-        <!--PrimeFaces-->
-        <!--<dependency>-->
-            <!--<groupId>org.primefaces</groupId>-->
-            <!--<artifactId>primefaces</artifactId>-->
-            <!--<version>4.0</version>-->
-        <!--</dependency>-->
 
         <!--PrettyFaces-->
         <dependency>

@@ -98,13 +98,4 @@
         <param-value>server</param-value>
     </context-param>
 
-    <!-- Rich Faces -->
-    <context-param>
-        <param-name>org.richfaces.SKIN</param-name>
-        <param-value>blueSky</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.richfaces.CONTROL_SKINNING</param-name>
-        <param-value>enable</param-value>
-    </context-param>
 </web-app>

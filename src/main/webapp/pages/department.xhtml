@@ -14,7 +14,7 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="id" value="#{departmentBean.departmentId}" >
+            <f:viewParam name="id" value="#{departmentBean.id}" >
                 <f:viewAction action="#{departmentBean.init}" />
             </f:viewParam>
         </f:metadata>
@@ -27,16 +27,16 @@
             <h:panelGrid columns="2" rowClasses="padding05td">
 
                 <h:outputLabel value="#{i18n['department.name']}" for="name" />
-                    <h:inputText id="name" value="#{departmentBean.department.name}" size="30"/>
+                    <h:inputText id="name" value="#{departmentBean.entity.name}" size="30"/>
 
                 <h:outputLabel value="#{i18n['department.level']}" for="level"/>
-                    <h:inputText id="level" value="#{departmentBean.department.level}" size="30"/>
+                    <h:inputText id="level" value="#{departmentBean.entity.level}" size="30"/>
 
                 <h:outputLabel value="#{i18n['department.listOrder']}" for="listOrder" />
-                     <h:inputText id="listOrder" value="#{departmentBean.department.listOrder}" size="30"/>
+                     <h:inputText id="listOrder" value="#{departmentBean.entity.listOrder}" size="30"/>
 
                 <h:outputLabel value="#{i18n['department.projectActive']}" for="projectActive" />
-                    <h:inputText id="projectActive" value="#{departmentBean.department.projectActive}" size="30"/>
+                    <h:inputText id="projectActive" value="#{departmentBean.entity.projectActive}" size="30"/>
             </h:panelGrid>
 
             <h:commandButton value="#{i18n['button.save']}"
