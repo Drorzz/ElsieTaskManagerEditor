@@ -1,10 +1,9 @@
 package org.drorzz.bean;
 
 import org.drorzz.model.Department;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 import org.drorzz.dao.DepartmentDAO;
@@ -16,13 +15,21 @@ import org.drorzz.dao.DepartmentDAO;
  * Time: 15:52
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean
+@ManagedBean(name="departmentsBean")
 @ViewScoped
 public class DepartmentsBean {
-    @Autowired
+    @ManagedProperty("#{departmentDAO}")
     private DepartmentDAO departmentDAO;
 
     public List<Department> getAllDepartments(){
         return departmentDAO.getAll();
+    }
+
+    public DepartmentDAO getDepartmentDAO() {
+        return departmentDAO;
+    }
+
+    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
+        this.departmentDAO = departmentDAO;
     }
 }

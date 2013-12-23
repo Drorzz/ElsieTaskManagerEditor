@@ -18,4 +18,25 @@
         </el-resolver>
     </application>
 
+
+    <managed-bean>
+        <managed-bean-name>userBean</managed-bean-name>
+        <managed-bean-class>org.drorzz.bean.UserBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>dao</property-name>
+            <value>#{userDAO}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>departmentBean</managed-bean-name>
+        <managed-bean-class>org.drorzz.bean.DepartmentBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>dao</property-name>
+            <value>#{departmentDAO}</value>
+        </managed-property>
+    </managed-bean>
+
 </faces-config>

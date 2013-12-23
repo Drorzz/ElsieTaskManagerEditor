@@ -1,10 +1,9 @@
 package org.drorzz.bean;
 
 import org.drorzz.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.drorzz.dao.UserDAO;
@@ -18,13 +17,21 @@ import java.util.List;
  * Date: 10.12.13
  * Time: 9:55
  */
-@ManagedBean
+@ManagedBean(name="usersBean")
 @ViewScoped
-public class UsersBean implements Serializable{
-    @Autowired
+public class UsersBean{
+    @ManagedProperty("#{userDAO}")
     private UserDAO userDAO;
 
     public List<User> getAllUsers(){
         return userDAO.getAll();
+    }
+
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 }
