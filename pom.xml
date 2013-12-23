@@ -17,6 +17,9 @@
         <mysqlConnector.version>5.1.25</mysqlConnector.version>
 
         <myfaces.version>2.2.0-beta</myfaces.version>
+        <org.richfaces.bom.version>4.1.0.Final</org.richfaces.bom.version>
+        <richfaces.version>4.3.4.Final</richfaces.version>
+        <!--<ajax4jsf.version>1.0.5</ajax4jsf.version>-->
         <prettyFaces.version>3.3.3</prettyFaces.version>
 
         <junit.version>4.10</junit.version>
@@ -74,6 +77,21 @@
             <artifactId>myfaces-impl</artifactId>
             <version>${myfaces.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+            <version>${richfaces.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <version>${richfaces.version}</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.ajax4jsf</groupId>-->
+            <!--<artifactId>ajax4jsf</artifactId>-->
+            <!--<version>${ajax4jsf.version}</version>-->
+        <!--</dependency>-->
 
         <!--PrettyFaces-->
         <dependency>
