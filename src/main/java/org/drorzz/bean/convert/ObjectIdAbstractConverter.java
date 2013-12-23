@@ -26,8 +26,10 @@ public abstract class ObjectIdAbstractConverter<T extends PersistentObject,K ext
         this.daoBeanName = daoBeanName;
     }
 
+    @SuppressWarnings("unchecked")
     protected T getAsObject(FacesContext facesContext,String id){
         if(dao == null){
+
             dao = (K)facesContext.getApplication().getELResolver().getValue(
                     facesContext.getELContext(), null, daoBeanName);
         }
@@ -38,6 +40,7 @@ public abstract class ObjectIdAbstractConverter<T extends PersistentObject,K ext
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected String getAsString(Object value){
         if ((value == null) || !(entityClass.isAssignableFrom(value.getClass())) || ((T) value).getId() == null) {
             return null;

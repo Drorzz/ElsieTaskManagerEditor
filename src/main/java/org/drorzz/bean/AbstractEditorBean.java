@@ -40,9 +40,7 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
             if (id.trim().toLowerCase().equals("new")){
                 try {
                     entity = dao.create();
-                } catch (IllegalAccessException e) {
-                    sendErrorMessage(e);
-                } catch (InstantiationException e) {
+                } catch (IllegalAccessException|InstantiationException e) {
                     sendErrorMessage(e);
                 }
             } else {
