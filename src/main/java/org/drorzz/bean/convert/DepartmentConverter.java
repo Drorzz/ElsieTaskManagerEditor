@@ -14,10 +14,9 @@ import javax.faces.convert.FacesConverter;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Drorzz
+ * User: Denis Ivansky
  * Date: 19.12.13
  * Time: 22:33
- * To change this template use File | Settings | File Templates.
  */
 @FacesConverter(value = "departmentConverterTest", forClass = Department.class)
 public class DepartmentConverter extends ObjectIdAbstractConverter<Department,DepartmentDAO>{

@@ -138,8 +138,6 @@ public class User extends PersistentObject{
 	@Column(name="crew_is_active")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public boolean getActive() {
-		int s= 1;
-		int t = 3;
 		return isActive;
 	}
 

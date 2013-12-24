@@ -34,7 +34,7 @@ public abstract class ObjectIdAbstractConverter<T extends PersistentObject,K ext
                     facesContext.getELContext(), null, daoBeanName);
         }
         try {
-            return (T) dao.getById(Integer.valueOf(id.trim()));
+            return dao.getById(Integer.valueOf(id.trim()));
         } catch (Exception e){
             throw new ConverterException(new FacesMessage(String.format("Cannot convert %s to Classification - %s", id, e)), e);
         }

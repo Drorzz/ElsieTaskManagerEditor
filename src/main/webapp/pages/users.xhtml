@@ -9,14 +9,25 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
                 template="templates/mainTemplate.xhtml">
     <ui:define name="content">
-
-        <h:dataTable value="#{usersBean.allUsers}" var="us"
-                     styleClass="order-table"
-                     headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row"
-                     columnClasses="none,none,none,none,none,center-align">
+        <h:dataTable id="userTable" value="#{usersBean.filteredUsers}" var="us"
+                 styleClass="order-table"
+                 headerClass="order-table-header"
+                 rowClasses="order-table-odd-row,order-table-even-row"
+                 columnClasses="none,none,none,none,none,center-align">
+            <f:facet name="caption">
+                <div style="float:right;">
+                    <h:form>
+                        <h:outputLabel value="#{i18n['user.filterUser']}" for="filterUser"/>
+                        <h:inputText id="filterUser" value="#{usersBean.filterString}">
+                            <a4j:ajax event="keyup" requestDelay="300" render="userTable" execute="@this"/>
+                        </h:inputText>
+                    </h:form>
+                </div>
+            </f:facet>
             <h:column>
                 <h:link outcome="user">
                     <h:graphicImage library="img" name="edit.png" height="12" width="12" />

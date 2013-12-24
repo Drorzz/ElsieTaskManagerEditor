@@ -30,7 +30,7 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
 
     @Override
     public T create() throws IllegalAccessException, InstantiationException {
-        return (T)genericClass.newInstance();
+        return genericClass.newInstance();
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
 
     @Override
     public void deleteById(Integer id) {
-        delete((T)getById(id));
+        delete(getById(id));
     }
 
     @Override
@@ -53,18 +53,21 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
         getCurrentSession().refresh(obj);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
     public List<T> getAll() {
         return (List<T>) getCurrentSession().createCriteria(genericClass).list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
     public List<T> getByField(String fieldName, Object fieldValue) {
         return (List<T>) getCurrentSession().createCriteria(genericClass).add(Restrictions.eq(fieldName, fieldValue)).list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
     public T getById(Integer id) {
