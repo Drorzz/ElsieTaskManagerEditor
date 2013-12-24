@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface UserDAO extends AbstractDAO<User> {
     public User getByLogin(String login);
+    public List<User> getUserLike(String login);
 }

@@ -4,10 +4,9 @@ import org.drorzz.model.Department;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Admin
+ * User: Denis Ivansky
  * Date: 17.12.13
  * Time: 16:08
- * To change this template use File | Settings | File Templates.
  */
 public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements DepartmentDAO{
 

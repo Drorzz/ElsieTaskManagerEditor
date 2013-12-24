@@ -7,10 +7,9 @@ import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Drorzz
+ * User: Denis Ivansky
  * Date: 20.12.13
  * Time: 0:39
- * To change this template use File | Settings | File Templates.
  */
 public class DepartmentBean extends AbstractEditorBean<Department,DepartmentDAO>{
     public void init(){

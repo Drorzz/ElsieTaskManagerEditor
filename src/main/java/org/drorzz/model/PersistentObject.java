@@ -42,11 +42,8 @@ public abstract class PersistentObject {
             return false;
         }
 
-        if (!Hibernate.getClass(other).equals(Hibernate.getClass(this))) {
-            return false;
-        }
+        return Hibernate.getClass(other).equals(Hibernate.getClass(this)) && getId().equals(((PersistentObject) other).getId());
 
-        return getId().equals(((PersistentObject) other).getId());
     }
 
     @Transient

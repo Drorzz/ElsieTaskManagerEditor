@@ -22,7 +22,7 @@
         <view-id value="/pages/users.xhtml" />
     </url-mapping>
 
-    <url-mapping id="userEdite">
+    <url-mapping id="userEdit">
         <pattern value="/user" />
         <view-id value="/pages/user.xhtml" />
     </url-mapping>
@@ -32,7 +32,7 @@
         <view-id value="/pages/departments.xhtml" />
     </url-mapping>
 
-    <url-mapping id="departmentEdite">
+    <url-mapping id="departmentEdit">
         <pattern value="/department" />
         <view-id value="/pages/department.xhtml" />
     </url-mapping>

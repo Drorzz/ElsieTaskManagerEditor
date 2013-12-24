@@ -24,18 +24,21 @@ public abstract class ObjectIdAbstractConverter<T extends PersistentObject,K ext
         this.daoBeanName = daoBeanName;
     }
 
+    @SuppressWarnings("unchecked")
     protected T getAsObject(FacesContext facesContext,String id){
         if(dao == null){
+
             dao = (K)facesContext.getApplication().getELResolver().getValue(
                     facesContext.getELContext(), null, daoBeanName);
         }
         try {
-            return (T) dao.getById(Integer.valueOf(id.trim()));
+            return dao.getById(Integer.valueOf(id.trim()));
         } catch (Exception e){
             throw new ConverterException(new FacesMessage(String.format("Cannot convert %s to Classification - %s", id, e)), e);
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected String getAsString(Object value){
         if ((value == null) || !(entityClass.isAssignableFrom(value.getClass())) || ((T) value).getId() == null) {
             return null;

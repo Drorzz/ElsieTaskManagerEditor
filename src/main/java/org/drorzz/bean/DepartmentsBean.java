@@ -10,10 +10,9 @@ import org.drorzz.dao.DepartmentDAO;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Admin
+ * User: Denis Ivansky
  * Date: 17.12.13
  * Time: 15:52
- * To change this template use File | Settings | File Templates.
  */
 @ManagedBean(name="departmentsBean")
 @ViewScoped

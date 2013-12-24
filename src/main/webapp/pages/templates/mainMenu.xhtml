@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html>
-    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                    xmlns:ui="http://java.sun.com/jsf/facelets"
-                    xmlns:f="http://java.sun.com/jsf/core"
-                    xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
 
-        <h:outputStylesheet library="css" name="menu.css" />
+    <h:outputStylesheet library="css" name="menu.css" />
 
-        <ul id="menu">
-            <li><a href="#">#{i18n['mainMenu.home']}</a></li>
-            <li><h:link value="#{i18n['mainMenu.dayReports']}" outcome="dayReports"/></li>
-            <li>
-                <a>#{i18n['mainMenu.References']}</a>
-                <ul>
-                    <li>
-                        <h:link value="#{i18n['mainMenu.departments']}" outcome="departments"/>
-                        <ul>
-                            <li>
-                                <h:link value="#{i18n['mainMenu.newDepartment']}" outcome="department">
-                                    <f:param name="id" value="new"/>
-                                </h:link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h:link value="#{i18n['mainMenu.users']}" outcome="users"/>
-                        <ul>
-                            <li>
-                                <h:link value="#{i18n['mainMenu.newUser']}" outcome="user">
-                                    <f:param name="id" value="new"/>
-                                </h:link>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="#">#{i18n['mainMenu.about']}</a></li>
-        </ul>
-    </ui:composition>
-</html>
+    <ul id="menu">
+        <li><a href="#">#{i18n['mainMenu.home']}</a></li>
+        <li><h:link value="#{i18n['mainMenu.dayReports']}" outcome="dayReports"/></li>
+        <li>
+            <a>#{i18n['mainMenu.References']}</a>
+            <ul>
+                <li>
+                    <h:link value="#{i18n['mainMenu.departments']}" outcome="departments"/>
+                    <ul>
+                        <li>
+                            <h:link value="#{i18n['mainMenu.newDepartment']}" outcome="department">
+                                <f:param name="id" value="new"/>
+                            </h:link>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h:link value="#{i18n['mainMenu.users']}" outcome="users"/>
+                    <ul>
+                        <li>
+                            <h:link value="#{i18n['mainMenu.newUser']}" outcome="user">
+                                <f:param name="id" value="new"/>
+                            </h:link>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#">#{i18n['mainMenu.about']}</a></li>
+    </ul>
+</ui:composition>
