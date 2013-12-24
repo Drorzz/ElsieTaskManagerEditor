@@ -10,9 +10,13 @@
     <!-- Spring Context Configuration' s Path definition -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>
-            WEB-INF/Spring_cfg/spring-config.xml
+        <param-value>WEB-INF/Spring_cfg/spring-config.xml
         </param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>log4jConfiguration</param-name>
+        <param-value>config/log4j.xml</param-value>
     </context-param>
 
     <!-- Add Support for Spring -->

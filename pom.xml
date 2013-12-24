@@ -22,6 +22,7 @@
         <!--<ajax4jsf.version>1.0.5</ajax4jsf.version>-->
         <prettyFaces.version>3.3.3</prettyFaces.version>
 
+        <log4j.version>2.0-beta9</log4j.version>
         <junit.version>4.10</junit.version>
     </properties>
 
@@ -46,6 +47,7 @@
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <version>${el.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>org.aspectj</groupId>-->
@@ -98,6 +100,18 @@
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
             <version>${prettyFaces.version}</version>
+        </dependency>
+
+        <!-- Log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
         <!-- Others -->

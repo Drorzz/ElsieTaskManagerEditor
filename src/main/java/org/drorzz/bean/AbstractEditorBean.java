@@ -4,10 +4,11 @@
 
 package org.drorzz.bean;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.drorzz.dao.AbstractDAO;
 import org.drorzz.model.PersistentObject;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -18,6 +19,8 @@ import java.io.IOException;
  * Time: 22:14
  */
 public abstract class AbstractEditorBean<T extends PersistentObject,K extends AbstractDAO<T>> {
+    private static Logger LOG = LogManager.getLogger(AbstractEditorBean.class.getName());
+
     private String id;
     private T entity = null;
     private K dao;
@@ -26,13 +29,8 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(page);
         } catch (IOException e) {
-            sendErrorMessage(e);
+            LOG.error(String.format("Cannot redirect to %s",page), e);
         }
-    }
-
-    protected void sendErrorMessage(Exception e){
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
     }
 
     protected void init(String errorRedirect) {
@@ -41,7 +39,7 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
                 try {
                     entity = dao.create();
                 } catch (IllegalAccessException|InstantiationException e) {
-                    sendErrorMessage(e);
+                    LOG.error(String.format("Cannot create new %s",this.entity.getClass()), e);
                 }
             } else {
                 entity = dao.getById(Integer.valueOf(id));

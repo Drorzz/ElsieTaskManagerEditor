@@ -5,7 +5,6 @@ package org.drorzz.bean;
 import org.drorzz.model.DayReport;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

@@ -23,7 +23,7 @@
                     <h:form>
                         <h:outputLabel value="#{i18n['user.filterUser']}" for="filterUser"/>
                         <h:inputText id="filterUser" value="#{usersBean.filterString}">
-                            <a4j:ajax event="keyup" requestDelay="300" render="userTable" execute="@this"/>
+                            <a4j:ajax event="keyup" render="userTable" execute="@this"/>
                         </h:inputText>
                     </h:form>
                 </div>
