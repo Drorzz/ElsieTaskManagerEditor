@@ -1,5 +1,6 @@
-package org.drorzz.dao;
+package org.drorzz.dao.impl;
 
+import org.drorzz.dao.UserDAO;
 import org.drorzz.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
@@ -16,7 +17,7 @@ import java.util.List;
 
  * Time: 17:36
  */
-public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO{
+public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 
     public UserDAOImpl() {
         super(User.class);

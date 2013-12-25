@@ -4,8 +4,8 @@
         http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="userDAO" class="org.drorzz.dao.UserDAOImpl"/>
-    <bean id="departmentDAO" class="org.drorzz.dao.DepartmentDAOImpl"/>
-    <bean id="dayReportDAO" class="org.drorzz.dao.DayReportDAOImpl"/>
+    <bean id="userDAO" class="org.drorzz.dao.impl.UserDAOImpl"/>
+    <bean id="departmentDAO" class="org.drorzz.dao.impl.DepartmentDAOImpl"/>
+    <bean id="dayReportDAO" class="org.drorzz.dao.impl.DayReportDAOImpl"/>
 
 </beans>

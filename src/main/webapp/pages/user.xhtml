@@ -42,20 +42,24 @@
                 <h:outputLabel value="#{i18n['user.position']}" for="position" />
                     <h:inputText id="position" value="#{userBean.entity.position}" size="30"/>
 
-                <h:outputLabel value="#{i18n['user.department']}" for="department" />
-                    <h:selectOneMenu id="department" value="#{userBean.entity.department}">
+                <h:outputLabel value="#{i18n['user.department.label']}" for="department" />
+                    <h:selectOneMenu id="department" value="#{userBean.entity.department}"  size="30">
+                        <f:selectItem itemLabel="#{i18n['user.department.defaultSelect']} "
+                                      noSelectionOption="true" itemDisabled="true"/>
                         <f:selectItems value="#{departmentsBean.allDepartments}" var="dep"
-                                       itemValue="#{dep}" itemLabel="#{dep.name}"/>
+                                       itemValue="#{dep}" itemLabel=" #{dep.name}"/>
                     </h:selectOneMenu>
 
-                <h:outputLabel value="#{i18n['user.chief']}" for="chief" />
-                    <h:selectOneMenu id="chief" value="#{userBean.entity.chief}">
+                <h:outputLabel value="#{i18n['user.chief.label']}" for="chief" />
+                    <h:selectOneMenu id="chief" value="#{userBean.entity.chief}"  size="30">
+                        <f:selectItem itemLabel="#{i18n['user.chief.defaultSelect']} "
+                                      noSelectionOption="true" itemDisabled="true"/>
                         <f:selectItems value="#{usersBean.filteredByActive}" var="us"
-                                       itemValue="#{us}" itemLabel="#{us.fullName}"/>
+                                       itemValue="#{us}" itemLabel=" #{us.fullName}"/>
                     </h:selectOneMenu>
 
                 <h:outputLabel value="#{i18n['user.accessLevel']}" for="accessLevel" />
-                    <h:selectOneMenu id="accessLevel" value="#{userBean.entity.accessLevel}">
+                    <h:selectOneMenu id="accessLevel" value="#{userBean.entity.accessLevel}" size="30">
                         <f:selectItems value="#{userBean.accessLevelList}" var="lvl"
                                        itemValue="#{lvl}" itemLabel="#{i18n['user.accessLevel.'.concat(lvl)]}"/>
                     </h:selectOneMenu>
@@ -63,7 +67,7 @@
                 <h:outputLabel value="#{i18n['user.vacation']}" for="vacation" />
                     <h:selectBooleanCheckbox id="vacation" value="#{userBean.entity.vacation}" />
 
-                <h:outputLabel value="#{i18n['user.active']}" for="active"   />
+                <h:outputLabel value="#{i18n['user.active.label']}" for="active"   />
                     <h:selectBooleanCheckbox id="active" value="#{userBean.entity.active}" />
             </h:panelGrid>
 

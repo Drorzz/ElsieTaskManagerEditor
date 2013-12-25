@@ -1,9 +1,10 @@
-package org.drorzz.dao;
+package org.drorzz.dao.impl;
 
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.drorzz.dao.AbstractDAO;
 import org.drorzz.model.PersistentObject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Time: 16:14
  */
 
-public abstract class AbstractDAOImpl<T extends PersistentObject> implements AbstractDAO<T>{
+public abstract class AbstractDAOImpl<T extends PersistentObject> implements AbstractDAO<T> {
     protected static final Logger LOG = LogManager.getLogger(AbstractDAOImpl.class.getName());
 
     @Autowired

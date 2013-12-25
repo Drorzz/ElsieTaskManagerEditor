@@ -16,7 +16,7 @@
         <h:form>
             <a4j:queue requestDelay="500"/>
             <h:outputLabel value="#{i18n['user.filterUser']}" for="filterUser"/>
-            <h:inputText id="filterUser" value="#{usersBean.filterString}">
+            <h:inputText id="filterUser" value="#{usersBean.filterString}" style="margin-left: 5px">
                 <a4j:ajax event="keyup"  render="userTable" execute="@this"/>
             </h:inputText>
         </h:form>
@@ -27,13 +27,13 @@
                  columnClasses="none,none,none,none,none,center-align">
             <h:column>
                 <h:link outcome="user">
-                    <h:graphicImage library="img" name="edit.png" height="12" width="12" />
+                    <h:graphicImage library="img" alt="#{i18n['user.img.edit']}" name="edit.png" height="12" width="12" />
                     <f:param name="id" value="#{us.id}"/>
                 </h:link>
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="#{i18n['user.department']}"/>
+                    <h:outputText value="#{i18n['user.department.label']}"/>
                 </f:facet>
                 <h:outputText value="#{us.department.name}"/>
             </h:column>
@@ -57,9 +57,9 @@
             </h:column>
             <h:column>
                 <f:facet name="header" >
-                    <h:outputText value="#{i18n['user.active']}"/>
+                    <h:outputText value="#{i18n['user.active.label']}"/>
                 </f:facet>
-                <h:graphicImage rendered="#{us.active}" library="img" name="check.png" height="12" width="12" />
+                <h:graphicImage rendered="#{us.active}" alt="#{i18n['user.active.alt']}" library="img" name="check.png" height="12" width="12" />
             </h:column>
         </h:dataTable>
     </ui:define>

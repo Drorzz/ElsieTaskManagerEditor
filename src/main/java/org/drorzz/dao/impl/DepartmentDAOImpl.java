@@ -1,5 +1,6 @@
-package org.drorzz.dao;
+package org.drorzz.dao.impl;
 
+import org.drorzz.dao.DepartmentDAO;
 import org.drorzz.model.Department;
 
 /**
@@ -8,7 +9,7 @@ import org.drorzz.model.Department;
  * Date: 17.12.13
  * Time: 16:08
  */
-public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements DepartmentDAO{
+public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements DepartmentDAO {
 
 public DepartmentDAOImpl() {
         super(Department.class);

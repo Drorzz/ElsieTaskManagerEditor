@@ -1,5 +1,6 @@
-package org.drorzz.dao;
+package org.drorzz.dao.impl;
 
+import org.drorzz.dao.DayReportDAO;
 import org.drorzz.model.DayReport;
 
 /**
@@ -9,7 +10,7 @@ import org.drorzz.model.DayReport;
  * Time: 10:27
  * To change this template use File | Settings | File Templates.
  */
-public class DayReportDAOImpl extends AbstractDAOImpl<DayReport> implements DayReportDAO{
+public class DayReportDAOImpl extends AbstractDAOImpl<DayReport> implements DayReportDAO {
 
 public DayReportDAOImpl() {
         super(DayReport.class);
