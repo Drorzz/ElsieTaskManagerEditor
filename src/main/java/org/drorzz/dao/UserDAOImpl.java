@@ -1,8 +1,7 @@
 package org.drorzz.dao;
 
 import org.drorzz.model.User;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,6 +10,7 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: Denis Ivansky
  * Date: 09.12.13
+
  * Time: 17:36
  */
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO{
@@ -25,15 +25,15 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO{
         return (User) getCurrentSession().bySimpleNaturalId(genericClass).load(login);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     @Transactional(readOnly = true)
-    public List<User> getUserLike(String login) {
-        return (List<User>)getCurrentSession().createCriteria(User.class).add(
-                Restrictions.or(
-                        Restrictions.like("login", login, MatchMode.ANYWHERE).ignoreCase(),
-                        Restrictions.like("firstName", login, MatchMode.ANYWHERE).ignoreCase(),
-                        Restrictions.like("lastName", login, MatchMode.ANYWHERE).ignoreCase()
-                )).list();
+    public List<User> getUserLike(String value) {
+        Query q = getCurrentSession().createQuery("from User " +
+                                                    "where lower(login) like :value "+
+                                                    "or lower(firstName) like :value "+
+                                                    "or lower(lastName) like :value ");
+        q.setString("value", "%"+value.toLowerCase()+"%");
+        return q.list();
     }
 }

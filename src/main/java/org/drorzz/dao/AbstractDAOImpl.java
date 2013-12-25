@@ -1,6 +1,10 @@
 package org.drorzz.dao;
 
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.drorzz.model.PersistentObject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -14,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
  * Time: 16:14
  */
 
-public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
+public abstract class AbstractDAOImpl<T extends PersistentObject> implements AbstractDAO<T>{
+    protected static final Logger LOG = LogManager.getLogger(AbstractDAOImpl.class.getName());
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -29,18 +35,28 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
     }
 
     @Override
-    public T create() throws IllegalAccessException, InstantiationException {
-        return genericClass.newInstance();
+    public T create() {
+        try {
+            T newEntity = genericClass.newInstance();
+            LOG.info(String.format("Create new %s",newEntity.getClass().getSimpleName()));
+            return newEntity;
+        } catch (IllegalAccessException|InstantiationException e) {
+            String errorMessage = String.format("Cannot create new %s",genericClass.getSimpleName());
+            LOG.error(errorMessage, e);
+            throw new RuntimeException(errorMessage,e);
+        }
     }
 
     @Override
     public void save(T obj) {
         getCurrentSession().saveOrUpdate(obj);
+        LOG.info(String.format("Save %s with id=%s",genericClass.getSimpleName(),obj.getId()));
     }
 
     @Override
     public void delete(T obj) {
         getCurrentSession().delete(obj);
+        LOG.warn(String.format("Delete %s with id=%s", genericClass.getSimpleName(), obj.getId()));
     }
 
     @Override
@@ -51,6 +67,9 @@ public abstract class  AbstractDAOImpl<T> implements AbstractDAO<T> {
     @Override
     public void refresh(T obj) {
         getCurrentSession().refresh(obj);
+        if (LOG.isInfoEnabled()) {
+            LOG.info(String.format("Save %s with id=%s",genericClass.getSimpleName(),obj.getId()));
+        }
     }
 
     @SuppressWarnings("unchecked")

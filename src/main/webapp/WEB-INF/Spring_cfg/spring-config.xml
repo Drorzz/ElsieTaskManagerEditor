@@ -11,7 +11,7 @@
 
     <context:property-placeholder location="WEB-INF/properties/jdbc.properties"/>
 
-    <context:component-scan base-package="org.drorzz.bean.convert" />
+    <!--<context:component-scan base-package="org.drorzz.bean.convert" />-->
     <context:annotation-config/>
 
     <!-- Session Factory Declaration -->

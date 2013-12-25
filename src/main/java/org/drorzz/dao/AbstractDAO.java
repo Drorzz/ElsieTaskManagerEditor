@@ -8,13 +8,14 @@ package org.drorzz.dao;
  */
 
 
+import org.drorzz.model.PersistentObject;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Transactional
-public interface AbstractDAO<T> {
+public interface AbstractDAO<T extends PersistentObject> {
 
-    public T create() throws IllegalAccessException, InstantiationException;
+    public T create();
     public void save(T obj);
     public void delete(T obj);
     public void deleteById(Integer id);

@@ -19,7 +19,7 @@ import java.io.IOException;
  * Time: 22:14
  */
 public abstract class AbstractEditorBean<T extends PersistentObject,K extends AbstractDAO<T>> {
-    private static Logger LOG = LogManager.getLogger(AbstractEditorBean.class.getName());
+    protected static final Logger LOG = LogManager.getLogger(AbstractEditorBean.class.getName());
 
     private String id;
     private T entity = null;
@@ -28,6 +28,7 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
     protected void redirect(String page){
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(page);
+            LOG.info(String.format("Redirect to %s",page));
         } catch (IOException e) {
             LOG.error(String.format("Cannot redirect to %s",page), e);
         }
@@ -36,11 +37,7 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
     protected void init(String errorRedirect) {
         if (id != null && id.matches("^(new|\\d+)$")) {
             if (id.trim().toLowerCase().equals("new")){
-                try {
-                    entity = dao.create();
-                } catch (IllegalAccessException|InstantiationException e) {
-                    LOG.error(String.format("Cannot create new %s",this.entity.getClass()), e);
-                }
+                entity = dao.create();
             } else {
                 entity = dao.getById(Integer.valueOf(id));
             }
@@ -53,7 +50,6 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
 
     protected void save(){
         dao.save(entity);
-        dao.refresh(entity);
     }
 
     public String getId() {
