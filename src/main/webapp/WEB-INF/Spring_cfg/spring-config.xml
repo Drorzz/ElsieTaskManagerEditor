@@ -31,6 +31,5 @@
     <import resource="spring-dataSource.xml"/>
     <import resource="spring-dao.xml"/>
     <import resource="spring-bean.xml"/>
-
-
+    <import resource="spring-security.xml"/>
 </beans>

@@ -9,21 +9,20 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring.version>3.2.3.RELEASE</spring.version>
-        <el.version>2.2</el.version>
-        <!--<aspectj.version>1.5.4</aspectj.version>-->
+        <spring>3.2.3.RELEASE</spring>
+        <springSecurity>3.2.0.RELEASE</springSecurity>
+        <el>2.2</el>
+        <!--<aspectj>1.5.4</aspectj>-->
 
-        <hibernate.version>4.2.7.SP1</hibernate.version>
-        <mysqlConnector.version>5.1.25</mysqlConnector.version>
+        <hibernate>4.2.7.SP1</hibernate>
+        <mysqlConnector>5.1.25</mysqlConnector>
 
-        <myfaces.version>2.2.0-beta</myfaces.version>
-        <org.richfaces.bom.version>4.1.0.Final</org.richfaces.bom.version>
-        <richfaces.version>4.3.4.Final</richfaces.version>
-        <!--<ajax4jsf.version>1.0.5</ajax4jsf.version>-->
-        <prettyFaces.version>3.3.3</prettyFaces.version>
+        <myfaces>2.2.0-beta</myfaces>
+        <richfaces>4.3.4.Final</richfaces>
+        <prettyFaces>3.3.3</prettyFaces>
 
-        <log4j.version>2.0-beta9</log4j.version>
-        <junit.version>4.10</junit.version>
+        <log4j>2.0-beta9</log4j>
+        <junit>4.10</junit>
     </properties>
 
     <dependencies>
@@ -31,28 +30,38 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${springSecurity}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${springSecurity}</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>${el.version}</version>
+            <version>${el}</version>
             <scope>provided</scope>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>org.aspectj</groupId>-->
             <!--<artifactId>aspectjweaver</artifactId>-->
-            <!--<version>${aspectj.version}</version>-->
+            <!--<version>${aspectj}</version>-->
         <!--</dependency>-->
 
 
@@ -60,65 +69,60 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version> ${hibernate.version}</version>
+            <version> ${hibernate}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysqlConnector.version}</version>
+            <version>${mysqlConnector}</version>
         </dependency>
 
         <!-- JSF 2 -->
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>${myfaces.version}</version>
+            <version>${myfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces.version}</version>
+            <version>${myfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
-            <version>${richfaces.version}</version>
+            <version>${richfaces}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
-            <version>${richfaces.version}</version>
+            <version>${richfaces}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.ajax4jsf</groupId>-->
-            <!--<artifactId>ajax4jsf</artifactId>-->
-            <!--<version>${ajax4jsf.version}</version>-->
-        <!--</dependency>-->
 
         <!--PrettyFaces-->
         <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
-            <version>${prettyFaces.version}</version>
+            <version>${prettyFaces}</version>
         </dependency>
 
         <!-- Log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
+            <version>${log4j}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>${log4j.version}</version>
+            <version>${log4j}</version>
         </dependency>
 
         <!-- Others -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>${junit}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -12,34 +12,39 @@
 
     -->
 
-   <url-mapping id="home">
-       <pattern value="/" />
-       <view-id value="/pages/index.xhtml" />
-   </url-mapping>
+    <url-mapping id="home">
+        <pattern value="/" />
+        <view-id value="/pages/index.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="login">
+        <pattern value="/login" />
+        <view-id value="/pages/login.xhtml" />
+    </url-mapping>
 
     <url-mapping id="user">
         <pattern value="/users" />
-        <view-id value="/pages/users.xhtml" />
+        <view-id value="/pages/security/users.xhtml" />
     </url-mapping>
 
     <url-mapping id="userEdit">
         <pattern value="/user" />
-        <view-id value="/pages/user.xhtml" />
+        <view-id value="/pages/security/user.xhtml" />
     </url-mapping>
 
     <url-mapping id="departments">
         <pattern value="/departments" />
-        <view-id value="/pages/departments.xhtml" />
+        <view-id value="/pages/security/departments.xhtml" />
     </url-mapping>
 
     <url-mapping id="departmentEdit">
         <pattern value="/department" />
-        <view-id value="/pages/department.xhtml" />
+        <view-id value="/pages/security/department.xhtml" />
     </url-mapping>
 
     <url-mapping id="dayReports">
         <pattern value="/dayReports" />
-        <view-id value="/pages/dayReports.xhtml" />
+        <view-id value="/pages/security/dayReports.xhtml" />
     </url-mapping>
 
 </pretty-config>
