@@ -21,7 +21,7 @@ public class DepartmentsBean {
     private DepartmentDAO departmentDAO;
 
     public List<Department> getAllDepartments(){
-        return departmentDAO.getAll();
+        return departmentDAO.getAllWithOrder("name");
     }
 
     public DepartmentDAO getDepartmentDAO() {

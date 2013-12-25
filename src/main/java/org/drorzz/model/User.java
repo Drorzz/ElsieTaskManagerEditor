@@ -1,9 +1,11 @@
 package org.drorzz.model;
 
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,9 +24,10 @@ public class User extends PersistentObject{
 	private String firstName;//crew_fname;
 	private String lastName;//crew_lname;
 	private String position;//crew_position;
+    private String fullName;
 
 	private Department department;//crew_department;
-	private int chief;//crew_depart_chief;
+	private User chief;//crew_depart_chief;
 	private AccessLevel accessLevel;//crew_access_lvl;
 	private boolean vacation;//crew_otpusk_maker;
 	private boolean isActive;//crew_is_active;
@@ -86,7 +89,16 @@ public class User extends PersistentObject{
 		this.lastName = lastName;
 	}
 
-	@Column(name="crew_position")
+    @Formula("CONCAT(crew_lname,' ',crew_fname)")
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    @Column(name="crew_position")
 	public String getPosition() {
 		return position;
 	}
@@ -95,8 +107,8 @@ public class User extends PersistentObject{
 		this.position = position;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "crew_department")
+	@ManyToOne()
+    @JoinColumn(name="crew_department",referencedColumnName = "depart_id")
 	public Department getDepartment() {
 		return department;
 	}
@@ -105,12 +117,14 @@ public class User extends PersistentObject{
 		this.department = department;
 	}
 
-	@Column(name="crew_depart_chief")
-	public int getChief() {
+    @ManyToOne
+    @JoinColumn(name="crew_depart_chief",referencedColumnName = "crew_id")
+    @NotFound(action= NotFoundAction.IGNORE)
+	public User getChief() {
 		return chief;
 	}
 
-	public void setChief(int chief) {
+	public void setChief(User chief) {
 		this.chief = chief;
 	}
 

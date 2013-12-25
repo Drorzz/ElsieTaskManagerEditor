@@ -17,7 +17,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "userConverter", forClass = User.class)
 public class UserConverter  extends ObjectIdAbstractConverter<User,UserDAO> {
 
-    protected UserConverter() {
+    public UserConverter() {
         super(User.class,"userDAO");
     }
 

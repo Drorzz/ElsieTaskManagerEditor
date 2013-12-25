@@ -22,7 +22,9 @@ public interface AbstractDAO<T extends PersistentObject> {
     public void refresh(T obj);
 
     public List<T> getAll();
+    public List<T> getAllWithOrder(String orderField);
 
     public T getById(Integer id);
     public List<T> getByField(String fieldName,Object fieldValue);
+    public List<T> getByFieldWithOrder(String fieldName,Object fieldValue,String orderField);
 }

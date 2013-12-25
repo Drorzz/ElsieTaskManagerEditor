@@ -1,7 +1,10 @@
 package org.drorzz.dao;
 
 import org.drorzz.model.User;
-import org.hibernate.Query;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,15 +28,26 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO{
         return (User) getCurrentSession().bySimpleNaturalId(genericClass).load(login);
     }
 
+    protected Criteria getUserLikeCriteria(String value){
+        return getCurrentSession().createCriteria(User.class).add(
+                Restrictions.or(
+                        Restrictions.like("login", value, MatchMode.ANYWHERE).ignoreCase(),
+                        Restrictions.like("firstName", value, MatchMode.ANYWHERE).ignoreCase(),
+                        Restrictions.like("lastName", value, MatchMode.ANYWHERE).ignoreCase()
+                ));
+    }
+
     @SuppressWarnings("unchecked")
-    @Override
     @Transactional(readOnly = true)
+    @Override
     public List<User> getUserLike(String value) {
-        Query q = getCurrentSession().createQuery("from User " +
-                                                    "where lower(login) like :value "+
-                                                    "or lower(firstName) like :value "+
-                                                    "or lower(lastName) like :value ");
-        q.setString("value", "%"+value.toLowerCase()+"%");
-        return q.list();
+        return getUserLikeCriteria(value).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    @Override
+    public List<User> getUserLikeWithOrder(String value, String orderField) {
+        return getUserLikeCriteria(value).addOrder(Order.asc(orderField)).list();
     }
 }

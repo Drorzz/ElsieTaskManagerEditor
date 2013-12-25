@@ -25,15 +25,19 @@ public class UsersBean{
     private String filterString = "";
 
     public List<User> getAllUsers(){
-        return userDAO.getAll();
+        return userDAO.getAllWithOrder("fullName");
     }
 
-    public List<User> getFilteredUsers(){
+    public List<User> getFilteredByName(){
         if(filterString.trim().isEmpty()){
             return getAllUsers();
         }else{
-            return userDAO.getUserLike(filterString);
+            return userDAO.getUserLikeWithOrder(filterString,"fullName");
         }
+    }
+
+    public List<User> getFilteredByActive(){
+        return userDAO.getByFieldWithOrder("active",true,"fullName");
     }
 
     public UserDAO getUserDAO() {

@@ -49,7 +49,10 @@
                     </h:selectOneMenu>
 
                 <h:outputLabel value="#{i18n['user.chief']}" for="chief" />
-                    <h:inputText id="chief" value="#{userBean.entity.chief}" size="30"/>
+                    <h:selectOneMenu id="chief" value="#{userBean.entity.chief}">
+                        <f:selectItems value="#{usersBean.filteredByActive}" var="us"
+                                       itemValue="#{us}" itemLabel="#{us.fullName}"/>
+                    </h:selectOneMenu>
 
                 <h:outputLabel value="#{i18n['user.accessLevel']}" for="accessLevel" />
                     <h:selectOneMenu id="accessLevel" value="#{userBean.entity.accessLevel}">

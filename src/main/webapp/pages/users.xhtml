@@ -20,7 +20,7 @@
                 <a4j:ajax event="keyup"  render="userTable" execute="@this"/>
             </h:inputText>
         </h:form>
-        <h:dataTable id="userTable" value="#{usersBean.filteredUsers}" var="us"
+        <h:dataTable id="userTable" value="#{usersBean.filteredByName}" var="us"
                  styleClass="order-table"
                  headerClass="order-table-header"
                  rowClasses="order-table-odd-row,order-table-even-row"
@@ -41,7 +41,7 @@
                 <f:facet name="header" >
                     <h:outputText value="#{i18n['user.name']}"/>
                 </f:facet>
-                <h:outputText value="#{us.lastName} #{us.firstName}"/>
+                <h:outputText value="#{us.fullName}"/>
             </h:column>
             <h:column>
                 <f:facet name="header" >

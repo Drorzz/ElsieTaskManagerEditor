@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.drorzz.model.PersistentObject;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +52,7 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     @Override
     public void save(T obj) {
         getCurrentSession().saveOrUpdate(obj);
-        LOG.info(String.format("Save %s with id=%s",genericClass.getSimpleName(),obj.getId()));
+        LOG.info(String.format("Save %s with id=%s", genericClass.getSimpleName(), obj.getId()));
     }
 
     @Override
@@ -72,23 +74,45 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
         }
     }
 
+    protected Criteria getAllCriteria(){
+        return getCurrentSession().createCriteria(genericClass);
+    }
+
     @SuppressWarnings("unchecked")
-    @Override
     @Transactional(readOnly = true)
+    @Override
     public List<T> getAll() {
-        return (List<T>) getCurrentSession().createCriteria(genericClass).list();
+        return (List<T>) getAllCriteria().list();
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     @Transactional(readOnly = true)
+    @Override
+    public List<T> getAllWithOrder(String orderField) {
+        return (List<T>) getAllCriteria().addOrder(Order.asc(orderField)).list();
+    }
+
+    protected Criteria getByFieldCriteria(String fieldName, Object fieldValue){
+        return getCurrentSession().createCriteria(genericClass).add(Restrictions.eq(fieldName, fieldValue));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    @Override
     public List<T> getByField(String fieldName, Object fieldValue) {
-        return (List<T>) getCurrentSession().createCriteria(genericClass).add(Restrictions.eq(fieldName, fieldValue)).list();
+        return (List<T>) getByFieldCriteria(fieldName,fieldValue).list();
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     @Transactional(readOnly = true)
+    @Override
+    public List<T> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField) {
+        return (List<T>) getByFieldCriteria(fieldName,fieldValue).addOrder(Order.asc(orderField)).list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    @Override
     public T getById(Integer id) {
         return (T) getCurrentSession().byId(genericClass).load(id);
     }
