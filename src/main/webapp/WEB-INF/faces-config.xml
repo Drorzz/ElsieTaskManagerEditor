@@ -18,6 +18,38 @@
         </el-resolver>
     </application>
 
+    <navigation-rule>
+        <description>Login form</description>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/pages/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>Menu outcome's</description>
+        <navigation-case>
+            <from-outcome>dayReports</from-outcome>
+            <to-view-id>/pages/security/dayReports.xhtml</to-view-id>
+
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>departments</from-outcome>
+            <to-view-id>/pages/security/departments.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>department</from-outcome>
+            <to-view-id>/pages/security/department.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>users</from-outcome>
+            <to-view-id>/pages/security/users.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>user</from-outcome>
+            <to-view-id>/pages/security/user.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
 
     <managed-bean>
         <managed-bean-name>userBean</managed-bean-name>

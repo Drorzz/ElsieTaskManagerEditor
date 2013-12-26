@@ -52,34 +52,38 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
+    <security-constraint>
+        <display-name>Restrict direct access to the /resources folder.</display-name>
+        <web-resource-collection>
+            <web-resource-name>The /resources folder.</web-resource-name>
+            <url-pattern>/resources/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
+    <security-constraint>
+        <display-name>Restrict direct access to the /pages folder.</display-name>
+        <web-resource-collection>
+            <web-resource-name>The /pages folder.</web-resource-name>
+            <url-pattern>/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
+
     <!-- Welcome files -->
     <welcome-file-list>
-        <welcome-file>pages/index.xhtml</welcome-file>
+        <welcome-file>/pages/index.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!-- Pretty Faces -->
+    <!-- Rewrite -->
     <context-param>
-        <param-name>com.ocpsoft.pretty.CONFIG_FILES</param-name>
-        <param-value>WEB-INF/pretty-config.xml</param-value>
+        <param-name>org.ocpsoft.rewrite.annotation.BASE_PACKAGES</param-name>
+        <!--<param-value>org.drorzz.web.RewriteConfigurationProvider</param-value>-->
+        <param-value>none</param-value>
     </context-param>
-
     <context-param>
-        <param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
+        <param-name>org.ocpsoft.rewrite.config.CONFIG_RELOADING</param-name>
         <param-value>true</param-value>
     </context-param>
-
-    <filter>
-        <filter-name>Pretty Filter</filter-name>
-        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>Pretty Filter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
     <!-- -->
 
     <!--Spring security-->

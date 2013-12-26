@@ -17,16 +17,17 @@
         <hibernate>4.2.7.SP1</hibernate>
         <mysqlConnector>5.1.25</mysqlConnector>
 
+        <servlet>3.0-alpha-1</servlet>
         <myfaces>2.2.0-beta</myfaces>
         <richfaces>4.3.4.Final</richfaces>
-        <prettyFaces>3.3.3</prettyFaces>
+        <rewrite>2.0.8.Final</rewrite>
 
         <log4j>2.0-beta9</log4j>
         <junit>4.10</junit>
     </properties>
 
     <dependencies>
-    <!-- Spring -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -64,18 +65,26 @@
             <!--<version>${aspectj}</version>-->
         <!--</dependency>-->
 
-
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version> ${hibernate}</version>
+            <version>${hibernate}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysqlConnector}</version>
         </dependency>
+
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- -->
 
         <!-- JSF 2 -->
         <dependency>
@@ -99,12 +108,13 @@
             <version>${richfaces}</version>
         </dependency>
 
-        <!--PrettyFaces-->
+        <!-- Rewrite -->
         <dependency>
-            <groupId>com.ocpsoft</groupId>
-            <artifactId>prettyfaces-jsf2</artifactId>
-            <version>${prettyFaces}</version>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+            <version>${rewrite}</version>
         </dependency>
+
 
         <!-- Log4j -->
         <dependency>
