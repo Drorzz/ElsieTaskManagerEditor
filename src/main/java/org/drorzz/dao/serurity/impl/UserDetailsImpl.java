@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class UserDetailsImpl implements UserDetails {
     private final static GrantedAuthority ROLE_USER = new SimpleGrantedAuthority("ROLE_USER");
+    private final static GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority("ROLE_ADMIN");
 
     private User user;
 

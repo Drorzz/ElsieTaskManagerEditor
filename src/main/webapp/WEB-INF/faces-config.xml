@@ -37,7 +37,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>department</from-outcome>
-            <to-view-id>/pages/security/department.xhtml</to-view-id>
+            <to-view-id>/pages/security/edit/department.xhtml/security/department.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>users</from-outcome>
@@ -45,7 +45,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>user</from-outcome>
-            <to-view-id>/pages/security/user.xhtml</to-view-id>
+            <to-view-id>/pages/security/edit/user.xhtml/security/user.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

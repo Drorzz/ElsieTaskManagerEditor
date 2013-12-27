@@ -55,14 +55,15 @@
 
     <rule>
         <name>security in</name>
-        <from>^/(\w+)($|\?.*)</from>
+        <from>^/([\w/]+)($|\?.*)</from>
         <to last="true">/pages/security/$1.xhtml$2</to>
     </rule>
     <outbound-rule encodefirst="true">
         <name>security out</name>
-        <from>^/pages/security/(\w+)\.xhtml($|\?.*)</from>
+        <from>^/pages/security/([\w/]+)\.xhtml($|\?.*)</from>
         <to last="true">/$1$2</to>
     </outbound-rule>
+
     <!--
 
     INSTALLATION
