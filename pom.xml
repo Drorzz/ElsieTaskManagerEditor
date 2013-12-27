@@ -21,6 +21,7 @@
         <myfaces>2.2.0-beta</myfaces>
         <richfaces>4.3.4.Final</richfaces>
 
+        <urlrewritefilter>4.0.4</urlrewritefilter>
         <log4j>2.0-beta9</log4j>
         <junit>4.10</junit>
     </properties>
@@ -119,7 +120,15 @@
             <version>${log4j}</version>
         </dependency>
 
-        <!-- Others -->
+        <!--Url Rewrite Filter-->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>${urlrewritefilter}</version>
+        </dependency>
+        <!-- -->
+
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

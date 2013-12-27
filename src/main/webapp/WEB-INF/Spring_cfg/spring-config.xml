@@ -9,8 +9,6 @@
         http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <bean id="rewriteConfigurationProvider" class="org.drorzz.web.RewriteConfigurationProvider"/>
-
     <context:property-placeholder location="WEB-INF/properties/jdbc.properties"/>
 
     <context:annotation-config/>

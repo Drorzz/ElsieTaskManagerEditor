@@ -13,7 +13,7 @@
     <security:http pattern="/javax.faces.resource/**" security="none" />
 
     <security:http>
-        <security:form-login login-page='/pages/login.xhtml' default-target-url='/'
+        <security:form-login login-page='/login' default-target-url='/'
                              always-use-default-target='true'/>
         <security:intercept-url pattern="/pages/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:intercept-url pattern="/pages/security/departments.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />

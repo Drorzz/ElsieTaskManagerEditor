@@ -7,6 +7,23 @@
 
     <description>JSF</description>
 
+    <!--Url Rewrite Filter-->
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>sysout:DEBUG</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <!-- -->
+
     <!-- Spring Context Configuration' s Path definition -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -52,6 +69,21 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.SERIALIZE_SERVER_STATE</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+
     <security-constraint>
         <display-name>Restrict direct access to the /resources folder.</display-name>
         <web-resource-collection>
@@ -60,14 +92,14 @@
         </web-resource-collection>
         <auth-constraint />
     </security-constraint>
-    <!--<security-constraint>-->
-        <!--<display-name>Restrict direct access to the /pages folder.</display-name>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>The /pages folder.</web-resource-name>-->
-            <!--<url-pattern>/pages/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<auth-constraint />-->
-    <!--</security-constraint>-->
+    <security-constraint>
+        <display-name>Restrict direct access to the /pages folder.</display-name>
+        <web-resource-collection>
+            <web-resource-name>The /pages folder.</web-resource-name>
+            <url-pattern>/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
 
     <!-- Welcome files -->
     <welcome-file-list>
@@ -88,20 +120,4 @@
         <dispatcher>ASYNC</dispatcher>
     </filter-mapping>
     <!-- -->
-
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>javax.faces.SERIALIZE_SERVER_STATE</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
-
 </web-app>
