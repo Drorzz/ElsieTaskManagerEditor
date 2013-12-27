@@ -1,8 +1,10 @@
-package org.drorzz.dao.serurity;
+package org.drorzz.dao.serurity.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.drorzz.dao.UserDAO;
+import org.drorzz.dao.serurity.UserDetailsFabric;
+import org.drorzz.dao.serurity.UserDetailsServiceFromDB;
 import org.drorzz.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,6 +42,6 @@ public class UserDetailsServiceImpl implements UserDetailsServiceFromDB {
             throw new UsernameNotFoundException(message, e);
         }
         LOG.debug(String.format("Getting User by login %s is null", s));
-        return new UserDetailsImpl(user);
+        return UserDetailsFabric.getUserDetails(user);
     }
 }

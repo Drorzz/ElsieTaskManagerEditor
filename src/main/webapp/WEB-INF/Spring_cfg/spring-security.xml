@@ -8,21 +8,23 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!--<security:http pattern="/**" security="none" />-->
+
+    <!--Ignore resource-->
     <security:http pattern="/javax.faces.resource/**" security="none" />
+
     <security:http>
-        <security:intercept-url pattern="/pages/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <!--<security:intercept-url pattern="/resources/css/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
-        <!--<security:intercept-url pattern="/javax.faces.resource/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
-        <security:intercept-url pattern="/pages/security/department.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <security:intercept-url pattern="/pages/security/**" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/users" access="ROLE_ADMIN" />
-        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
         <security:form-login login-page='/pages/login.xhtml' default-target-url='/'
                              always-use-default-target='true'/>
+        <security:intercept-url pattern="/pages/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/pages/security/departments.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/pages/security/**" access="ROLE_ADMIN" />
+        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
     </security:http>
 
     <security:authentication-manager>
+
         <security:authentication-provider>
+
             <security:user-service>
                 <security:user name="admin" password="admin" authorities="ROLE_USER, ROLE_ADMIN" />
                 <!--<security:user name="bob" password="bobspassword" authorities="ROLE_USER" />-->
@@ -32,7 +34,7 @@
     </security:authentication-manager>
 
     <bean id="userDetailsService"
-          class="org.drorzz.dao.serurity.UserDetailsServiceImpl">
+          class="org.drorzz.dao.serurity.impl.UserDetailsServiceImpl">
     </bean>
 
     <bean id="daoAuthenticationProvider"

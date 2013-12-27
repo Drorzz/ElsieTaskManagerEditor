@@ -25,11 +25,11 @@
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
-    </listener>
+    <!--<listener>-->
+        <!--<listener-class>-->
+            <!--org.springframework.web.context.request.RequestContextListener-->
+        <!--</listener-class>-->
+    <!--</listener>-->
 
     <!-- Faces Servlet -->
     <servlet>
@@ -60,31 +60,19 @@
         </web-resource-collection>
         <auth-constraint />
     </security-constraint>
-    <security-constraint>
-        <display-name>Restrict direct access to the /pages folder.</display-name>
-        <web-resource-collection>
-            <web-resource-name>The /pages folder.</web-resource-name>
-            <url-pattern>/pages/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint />
-    </security-constraint>
+    <!--<security-constraint>-->
+        <!--<display-name>Restrict direct access to the /pages folder.</display-name>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>The /pages folder.</web-resource-name>-->
+            <!--<url-pattern>/pages/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint />-->
+    <!--</security-constraint>-->
 
     <!-- Welcome files -->
     <welcome-file-list>
         <welcome-file>/pages/index.xhtml</welcome-file>
     </welcome-file-list>
-
-    <!-- Rewrite -->
-    <context-param>
-        <param-name>org.ocpsoft.rewrite.annotation.BASE_PACKAGES</param-name>
-        <!--<param-value>org.drorzz.web.RewriteConfigurationProvider</param-value>-->
-        <param-value>none</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.ocpsoft.rewrite.config.CONFIG_RELOADING</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <!-- -->
 
     <!--Spring security-->
     <filter>
@@ -97,6 +85,7 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
     </filter-mapping>
     <!-- -->
 

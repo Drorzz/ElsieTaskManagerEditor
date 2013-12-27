@@ -20,7 +20,6 @@
         <servlet>3.0-alpha-1</servlet>
         <myfaces>2.2.0-beta</myfaces>
         <richfaces>4.3.4.Final</richfaces>
-        <rewrite>2.0.8.Final</rewrite>
 
         <log4j>2.0-beta9</log4j>
         <junit>4.10</junit>
@@ -107,14 +106,6 @@
             <artifactId>richfaces-core-impl</artifactId>
             <version>${richfaces}</version>
         </dependency>
-
-        <!-- Rewrite -->
-        <dependency>
-            <groupId>org.ocpsoft.rewrite</groupId>
-            <artifactId>rewrite-servlet</artifactId>
-            <version>${rewrite}</version>
-        </dependency>
-
 
         <!-- Log4j -->
         <dependency>

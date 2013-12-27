@@ -1,4 +1,4 @@
-package org.drorzz.dao.serurity;
+package org.drorzz.dao.serurity.impl;
 
 import org.drorzz.model.User;
 import org.springframework.security.core.GrantedAuthority;
