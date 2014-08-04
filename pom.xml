@@ -5,24 +5,17 @@
     <artifactId>ElsieTaskManagerEditor</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ElsieTaskManagerEditor Maven Webapp</name>
+    <name>Elsie task manager editor(Webapp)</name>
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring>3.2.3.RELEASE</spring>
+        <spring>4.0.5.RELEASE</spring>
         <springSecurity>3.2.0.RELEASE</springSecurity>
-        <el>2.2</el>
-        <!--<aspectj>1.5.4</aspectj>-->
 
-        <hibernate>4.2.7.SP1</hibernate>
-        <mysqlConnector>5.1.25</mysqlConnector>
+        <hibernate>4.3.5.Final</hibernate>
+        <mysqlConnector>5.1.30</mysqlConnector>
 
-        <servlet>3.0-alpha-1</servlet>
-        <myfaces>2.2.0-beta</myfaces>
-        <richfaces>4.3.4.Final</richfaces>
-
-        <urlrewritefilter>4.0.4</urlrewritefilter>
-        <log4j>2.0-beta9</log4j>
+        <log4j>2.0</log4j>
         <junit>4.10</junit>
     </properties>
 
@@ -40,30 +33,9 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <artifactId>spring-webmvc</artifactId>
             <version>${spring}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${springSecurity}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${springSecurity}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>${el}</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.aspectj</groupId>-->
-            <!--<artifactId>aspectjweaver</artifactId>-->
-            <!--<version>${aspectj}</version>-->
-        <!--</dependency>-->
 
         <!-- Hibernate -->
         <dependency>
@@ -81,32 +53,20 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>${servlet}</version>
+            <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <!-- -->
-
-        <!-- JSF 2 -->
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces}</version>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
-            <version>${richfaces}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
-            <version>${richfaces}</version>
-        </dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+         </dependency>
 
         <!-- Log4j -->
         <dependency>
@@ -119,14 +79,6 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j}</version>
         </dependency>
-
-        <!--Url Rewrite Filter-->
-        <dependency>
-            <groupId>org.tuckey</groupId>
-            <artifactId>urlrewritefilter</artifactId>
-            <version>${urlrewritefilter}</version>
-        </dependency>
-        <!-- -->
 
         <!-- JUnit -->
         <dependency>
