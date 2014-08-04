@@ -1,8 +1,7 @@
 package org.drorzz.model;
 
+import javax.persistence.MappedSuperclass;
 import org.hibernate.Hibernate;
-
-import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +11,7 @@ import javax.persistence.*;
  */
 @MappedSuperclass
 public abstract class PersistentObject {
+
     private Integer id;
 
     @Override
@@ -34,19 +34,12 @@ public abstract class PersistentObject {
 
     @Override
     public final boolean equals(final Object other) {
-        if (this == other) {
-            return true;
-        }
-
-        if (other == null) {
-            return false;
-        }
-
-        return Hibernate.getClass(other).equals(Hibernate.getClass(this)) && getId().equals(((PersistentObject) other).getId());
-
+        return (this == other) || (other != null) && getClass() == other.getClass() &&
+                Hibernate.getClass(other).equals(Hibernate.getClass(this)) &&
+                id.equals(((PersistentObject) other).id);
     }
 
-    @Transient
+
     public Integer getId() {
         return id;
     }

@@ -49,7 +49,7 @@ public abstract class AbstractEditorBean<T extends PersistentObject,K extends Ab
     }
 
     protected void save(){
-        dao.save(entity);
+       dao.save(entity);
     }
 
     public String getId() {

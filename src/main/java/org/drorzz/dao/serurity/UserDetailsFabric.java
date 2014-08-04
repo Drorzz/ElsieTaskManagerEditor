@@ -12,6 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class UserDetailsFabric {
     public static UserDetails getUserDetails(User user) {
-        return new UserDetailsImpl(user);  //To change body of implemented methods use File | Settings | File Templates.
+        return new UserDetailsImpl(user);
     }
 }

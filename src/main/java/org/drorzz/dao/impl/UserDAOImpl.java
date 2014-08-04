@@ -38,6 +38,7 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
                 ));
     }
 
+
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     @Override
