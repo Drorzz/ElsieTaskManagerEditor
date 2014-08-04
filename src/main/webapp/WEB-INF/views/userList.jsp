@@ -22,13 +22,13 @@
         <th><spring:message code="userList.label.isActive" /></th>
         <th></th>
     </tr>
-    <c:forEach items="${userList}" var="user">
+    <c:forEach items="${userList}" var="department">
         <tr>
-            <td>${user.fullName}</td>
-            <td>${user.login}</td>
-            <td>${user.department.name}</td>
-            <td>${user.getActive()}</td>
-            <td><a href="/users/${user.id}">Edit</a></td>
+            <td>${department.fullName}</td>
+            <td>${department.login}</td>
+            <td>${department.department.name}</td>
+            <td>${department.getActive()}</td>
+            <td><a href="/users/${department.id}">Edit</a></td>
         </tr>
     </c:forEach>
 </table>

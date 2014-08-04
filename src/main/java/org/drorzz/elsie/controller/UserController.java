@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value = "/users")
 public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class.getName());
 
@@ -33,7 +34,7 @@ public class UserController {
         this.departmentDAO = departmentDAO;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String user(Locale locale, Model model) {
         logger.info("UserList. The client local is {}.", locale);
 
@@ -46,7 +47,7 @@ public class UserController {
         return "userList";
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String userById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
         logger.info("UserById. The client local is {}.", locale);
 
@@ -61,7 +62,6 @@ public class UserController {
                     user = createUser();
                 }
             }catch(NumberFormatException e){
-//                user = createUser();
                 return "redirect:/users";
             }
         }
