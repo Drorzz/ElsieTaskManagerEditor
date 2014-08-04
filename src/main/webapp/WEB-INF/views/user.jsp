@@ -11,7 +11,7 @@
 </head>
 <body>
     <a href="/users"><spring:message code="user.label.toUserList" /></a>
-	<h2><spring:message code="user.label.title" />    ${user.fullName}</h2>
+	<h2><spring:message code="user.label.title" />${user.fullName}</h2>
 	<table class="data">
 		<tr>
 			<td><spring:message code="user.label.login"/></td>

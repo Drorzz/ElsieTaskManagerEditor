@@ -18,7 +18,7 @@
 </head>
 <body>
 <a href="/departments"><spring:message code="department.label.toDepartmentList" /></a>
-<h2><spring:message code="department.label.title" />    ${department.name}</h2>
+<h2><spring:message code="department.label.title" />${department.name}</h2>
 <table class="data">
     <tr>
         <td><spring:message code="department.label.name"/></td>
