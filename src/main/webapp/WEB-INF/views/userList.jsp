@@ -28,7 +28,7 @@
             <td>${user.login}</td>
             <td>${user.department.name}</td>
             <td>${user.getActive()}</td>
-            <td><a href="users/${user.id}">Edit</a></td>
+            <td><a href="/users/${user.id}">Edit</a></td>
         </tr>
     </c:forEach>
 </table>

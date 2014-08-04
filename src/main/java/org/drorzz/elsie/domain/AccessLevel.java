@@ -12,13 +12,14 @@ public enum AccessLevel {
     DIRECTOR(2),
     CEO(3);
 
+    @SuppressWarnings("unused")
     private final int accessLVL;
 
     AccessLevel(int id) {
-        accessLVL = id;
+        this.accessLVL = id;
     }
 
-    public int valueByInt(){
-        return accessLVL;
+    public String getValue(){
+        return name();
     }
 }

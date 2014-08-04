@@ -3,6 +3,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%--<form:setBundle basename="com.foo.bar.resources.Type" var="typeBundle"/>--%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +12,8 @@
 <title><spring:message code="user.label.title"/> ${user.fullName}</title>
 </head>
 <body>
-	<h2><spring:message code="user.label.title" /> ${user.fullName}</h2>
+    <a href="/users"><spring:message code="user.label.toUserList" /></a>
+	<h2><spring:message code="user.label.title" />    ${user.fullName}</h2>
 	<table class="data">
 		<tr>
 			<td><spring:message code="user.label.login"/></td>
@@ -36,8 +39,8 @@
 			<td><spring:message code="user.label.department"/></td>
 			<td> 
 				<form:select path="user.department">
-					<form:options items="${departmentList}" itemValue="id" itemLabel="name"/>
-				</form:select> 
+                     <form:options items="${departmentList}" itemValue="id" itemLabel="name"/>
+ 				</form:select>
 			</td>
 		</tr>
 		<tr>
@@ -52,13 +55,17 @@
 			<td><spring:message code="user.label.accessLevel"/></td>
 			<td>
 				<form:select path="user.accessLevel">
-					<form:options items="${accessLevelList}" itemValue="name()" itemLabel="name()"/>
-				</form:select> 
+                    <c:forEach items="${accessLevelList}" var="accessLevel">
+                        <form:option value="${accessLevel.value}">
+                            <spring:message code="accessLevel.name.${value}"/>
+                        </form:option>
+                    </c:forEach>
+				</form:select>
 			</td>
 		</tr>
 		<tr>
 			<td><spring:message code="user.label.position"/></td>
-			<td><form:input path="user.position" /></td>
+			<td><form:input path="user.position" size="30"/></td>
 		</tr>
 		<tr>
 			<td><spring:message code="user.label.vacation"/></td>

@@ -61,7 +61,8 @@ public class UserController {
                     user = createUser();
                 }
             }catch(NumberFormatException e){
-                user = createUser();
+//                user = createUser();
+                return "redirect:/users";
             }
         }
         logger.info("UserById. ID: {}.", user.getId());
