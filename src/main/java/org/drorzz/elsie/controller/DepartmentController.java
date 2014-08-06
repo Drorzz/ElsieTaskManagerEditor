@@ -7,6 +7,7 @@ import org.drorzz.elsie.domain.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,12 +47,12 @@ public class DepartmentController {
             try{
                 Integer intId = Integer.valueOf(id);
                 department = departmentDAO.getById(intId);
-                if(department == null){
-                    department = createDepartment();
-                }
             }catch(NumberFormatException e){
-                return "redirect:/departments";
+                return redirectToList();
             }
+        }
+        if(department == null){
+            return redirectToList();
         }
         logger.info("DepartmentById. ID: {}.", department.getId());
 
@@ -59,6 +60,23 @@ public class DepartmentController {
         model.addAttribute("departmentList", departmentDAO.getAll());
 
         return "department";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public String departmentSave(Locale locale, Model model,
+                                 @PathVariable(value = "id") String id,
+                                 @ModelAttribute("department") Department department) {
+        logger.info("DepartmentSave. ID: {}.",  department.getId());
+        logger.info("DepartmentSave. Name: {}.",  department.getName());
+
+        if(department != null) {
+            departmentDAO.save(department);
+        }
+        return redirectToList();
+    }
+
+    private String redirectToList(){
+        return "redirect:/departments";
     }
 
     private Department createDepartment(){

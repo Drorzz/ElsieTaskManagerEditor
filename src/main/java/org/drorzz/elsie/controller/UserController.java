@@ -58,12 +58,12 @@ public class UserController {
             try{
                 Integer intId = Integer.valueOf(id);
                 user = userDAO.getById(intId);
-                if(user == null){
-                    user = createUser();
-                }
             }catch(NumberFormatException e){
-                return "redirect:/users";
+                return redirectToList();
             }
+        }
+        if(user == null){
+            return redirectToList();
         }
         logger.info("UserById. ID: {}.", user.getId());
 
@@ -73,6 +73,10 @@ public class UserController {
         model.addAttribute("accessLevelList", AccessLevel.values());
 
         return "user";
+    }
+
+    private String redirectToList(){
+        return "redirect:/users";
     }
 
     private User createUser(){
