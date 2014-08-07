@@ -7,10 +7,7 @@ import org.drorzz.elsie.domain.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +16,7 @@ import java.util.Locale;
 @RequestMapping(value = "/departments")
 public class DepartmentController {
     private static final Logger logger = LogManager.getLogger(DepartmentController.class.getName());
+    private static final String departmentIdEditMask = "[1-9]+|new";
 
     DepartmentDAO departmentDAO;
 
@@ -28,7 +26,7 @@ public class DepartmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String department(Locale locale, Model model) {
+    public String departmentList(Locale locale, Model model) {
         logger.info("DepartmentList. The client local is {}.", locale);
         List<Department> departmentList = departmentDAO.getAll();
         logger.info("Count {}.", departmentList.size());
@@ -36,7 +34,12 @@ public class DepartmentController {
         return "departmentList";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/*", method = RequestMethod.GET)
+    public String wrongDepartment() {
+        return redirectToList();
+    }
+
+    @RequestMapping(value = "/{id:"+ departmentIdEditMask +"}", method = RequestMethod.GET)
     public String departmentById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
         logger.info("DepartmentById. The client local is {}.", locale);
 
@@ -62,13 +65,8 @@ public class DepartmentController {
         return "department";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public String departmentSave(Locale locale, Model model,
-                                 @PathVariable(value = "id") String id,
-                                 @ModelAttribute("department") Department department) {
-        logger.info("DepartmentSave. ID: {}.",  department.getId());
-        logger.info("DepartmentSave. Name: {}.",  department.getName());
-
+    @RequestMapping(value = "/{id:"+ departmentIdEditMask +"}", method = RequestMethod.POST)
+    public String departmentSave(@ModelAttribute("department") Department department) {
         if(department != null) {
             departmentDAO.save(department);
         }

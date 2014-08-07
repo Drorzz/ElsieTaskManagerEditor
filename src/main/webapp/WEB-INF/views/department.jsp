@@ -17,28 +17,29 @@
     <title><spring:message code="department.label.title"/> ${department.name}</title>
 </head>
 <body>
-<a href="/departments"><spring:message code="department.label.toDepartmentList" /></a>
-<h2><spring:message code="department.label.title" />${department.name}</h2>
-<form:form method="post" modelAttribute="department">
-    <table class="data">
-        <tr>
-            <td><spring:message code="department.label.name"/></td>
-            <td><form:input path="name" /></td>
-        </tr>
-        <tr>
-            <td><spring:message code="department.label.level"/></td>
-            <td><form:input path="level" /></td>
-        </tr>
-        <tr>
-            <td><spring:message code="department.label.listOrder"/></td>
-            <td><form:input path="listOrder" /></td>
-        </tr>
-        <tr>
-            <td><spring:message code="department.label.projectActive"/></td>
-            <td><form:input path="projectActive" /></td>
-        </tr>
-    </table>
-    <input type="submit" value="Submit" />
-</form:form>
+    <a href="/departments"><spring:message code="department.label.toDepartmentList" /></a>
+    <h2><spring:message code="department.label.title" />${department.name}</h2>
+    <form:form method="post" modelAttribute="department">
+        <form:hidden path="id" />
+        <table class="data">
+            <tr>
+                <td><spring:message code="department.label.name"/></td>
+                <td><form:input path="name" /></td>
+            </tr>
+            <tr>
+                <td><spring:message code="department.label.level"/></td>
+                <td><form:input path="level" /></td>
+            </tr>
+            <tr>
+                <td><spring:message code="department.label.listOrder"/></td>
+                <td><form:input path="listOrder" /></td>
+            </tr>
+            <%--<tr>--%>
+                <%--<td><spring:message code="department.label.projectActive"/></td>--%>
+                <%--<td><form:input path="projectActive" /></td>--%>
+            <%--</tr>--%>
+        </table>
+        <input type="submit" value="Submit" />
+    </form:form>
 </body>
 </html>

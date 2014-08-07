@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/users")
 public class UserController {
     private static final Logger logger = LogManager.getLogger(UserController.class.getName());
+    private static final String userIdEditMask = "[1-9]+|new";
 
     UserDAO userDAO;
     DepartmentDAO departmentDAO;
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String user(Locale locale, Model model) {
+    public String userList(Locale locale, Model model) {
         logger.info("UserList. The client local is {}.", locale);
 
         List<User> userList = userDAO.getAll();
@@ -47,7 +49,12 @@ public class UserController {
         return "userList";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/*", method = RequestMethod.GET)
+    public String wrongUser() {
+        return redirectToList();
+    }
+
+    @RequestMapping(value = "/{id:"+ userIdEditMask +"}", method = RequestMethod.GET)
     public String userById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
         logger.info("UserById. The client local is {}.", locale);
 
@@ -73,6 +80,14 @@ public class UserController {
         model.addAttribute("accessLevelList", AccessLevel.values());
 
         return "user";
+    }
+
+    @RequestMapping(value = "/{id:"+ userIdEditMask +"}", method = RequestMethod.POST)
+    public String userSave(@ModelAttribute("user") User user) {
+        if(user != null) {
+            userDAO.save(user);
+        }
+        return redirectToList();
     }
 
     private String redirectToList(){

@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,8 +18,8 @@ import java.util.List;
 
  * Time: 17:36
  */
+@Repository
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
-
     public UserDAOImpl() {
         super(User.class);
     }
