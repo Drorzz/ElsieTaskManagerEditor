@@ -1,8 +1,8 @@
 package org.drorzz.elsie.controller;
 
 import org.apache.log4j.Logger;
-import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
+import org.drorzz.elsie.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,16 +16,16 @@ public class DepartmentController {
     private static final Logger logger = Logger.getLogger(DepartmentController.class);
     private static final String departmentIdEditMask = "[1-9]+|new";
 
-    DepartmentDAO departmentDAO;
+    DepartmentService departmentService;
 
     @Autowired
-    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
-        this.departmentDAO = departmentDAO;
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String departmentList(Model model) {
-        List<Department> departmentList = departmentDAO.getAll();
+        List<Department> departmentList = departmentService.getAll();
         logger.info("Count: "+departmentList.size());
         model.addAttribute("departmentList", departmentList);
         return "departmentList";
@@ -45,7 +45,7 @@ public class DepartmentController {
         }else{
             try{
                 Integer intId = Integer.valueOf(pathId);
-                department = departmentDAO.getById(intId);
+                department = departmentService.getById(intId);
             }catch(NumberFormatException e){
                 return redirectToList();
             }
@@ -63,7 +63,7 @@ public class DepartmentController {
     @RequestMapping(value = "/{pathId:"+ departmentIdEditMask +"}", method = RequestMethod.POST)
     public String departmentSave(@ModelAttribute("department") Department department) {
         if(department != null) {
-            departmentDAO.save(department);
+            departmentService.save(department);
         }
         return redirectToList();
     }
@@ -73,6 +73,6 @@ public class DepartmentController {
     }
 
     private Department createDepartment(){
-        return departmentDAO.create();
+        return departmentService.create();
     }
 }

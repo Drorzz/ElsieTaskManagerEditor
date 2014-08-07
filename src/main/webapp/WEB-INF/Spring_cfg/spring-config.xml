@@ -29,5 +29,9 @@
         </property>
     </bean>
 
-    <import resource="spring-dao.xml"/>
+    <!--DAO-->
+    <context:component-scan base-package="org.drorzz.elsie.dao" />
+
+    <!--Service-->
+    <context:component-scan base-package="org.drorzz.elsie.service" />
 </beans>

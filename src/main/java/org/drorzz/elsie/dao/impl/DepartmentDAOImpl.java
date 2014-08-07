@@ -4,6 +4,8 @@ import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Denis Ivansky
@@ -17,7 +19,7 @@ public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements De
     }
 
     @Override
-    public Department getByName(String name) {
-            return (Department) getCurrentSession().bySimpleNaturalId(genericClass).load(name);
+    public List<Department> getByName(String name) {
+        return this.getByField("name",name);
     }
 }

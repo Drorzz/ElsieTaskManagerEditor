@@ -1,8 +1,8 @@
-package org.drorzz.elsie.converter;
+package org.drorzz.elsie.controller.converter;
 
 import org.apache.log4j.Logger;
-import org.drorzz.elsie.dao.DayReportDAO;
 import org.drorzz.elsie.domain.DayReport;
+import org.drorzz.elsie.service.DayReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
@@ -13,13 +13,13 @@ public class StringToDayReport implements Converter<String, DayReport> {
     private static final Logger logger = Logger.getLogger(StringToDayReport.class);
 
     @Autowired
-    DayReportDAO dayReportDAO;
+    DayReportService dayReportService;
 
     @Override
     public DayReport convert(String source) {
         logger.info("Converting: ".concat(source));
         try {
-            return dayReportDAO.getById(Integer.parseInt(source));
+            return dayReportService.getById(Integer.parseInt(source));
         } catch(NumberFormatException nfe){
             throw new RuntimeException(nfe.getMessage());
         }

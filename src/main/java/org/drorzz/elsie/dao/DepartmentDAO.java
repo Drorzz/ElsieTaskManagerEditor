@@ -2,6 +2,8 @@ package org.drorzz.elsie.dao;
 
 import org.drorzz.elsie.domain.Department;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Denis Ivansky
@@ -9,5 +11,5 @@ import org.drorzz.elsie.domain.Department;
  * Time: 16:01
  */
 public interface DepartmentDAO extends AbstractDAO<Department> {
-    public Department getByName(String name);
+    public List<Department> getByName(String name);
 }

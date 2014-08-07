@@ -16,9 +16,4 @@ public class DayReportDAOImpl extends AbstractDAOImpl<DayReport> implements DayR
     public DayReportDAOImpl() {
             super(DayReport.class);
     }
-
-    @Override
-    public DayReport getByName(String name) {
-            return (DayReport) getCurrentSession().bySimpleNaturalId(genericClass).load(name);
-    }
 }

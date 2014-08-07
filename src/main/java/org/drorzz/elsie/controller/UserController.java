@@ -2,10 +2,10 @@ package org.drorzz.elsie.controller;
 
 import java.util.List;
 
-import org.drorzz.elsie.dao.DepartmentDAO;
-import org.drorzz.elsie.dao.UserDAO;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.domain.AccessLevel;
+import org.drorzz.elsie.service.DepartmentService;
+import org.drorzz.elsie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,22 +21,22 @@ public class UserController {
     private static final Logger logger = Logger.getLogger(UserController.class);
     private static final String userIdEditMask = "[1-9]+|new";
 
-    UserDAO userDAO;
-    DepartmentDAO departmentDAO;
+    UserService userService;
+    DepartmentService departmentService;
 
     @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired
-    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
-        this.departmentDAO = departmentDAO;
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String userList(Model model) {
-        List<User> userList = userDAO.getAll();
+        List<User> userList = userService.getAll();
         logger.info("Count:" + userList.size());
         model.addAttribute("userList", userList);
         return "userList";
@@ -55,7 +55,7 @@ public class UserController {
         }else{
             try{
                 Integer intId = Integer.valueOf(pathId);
-                user = userDAO.getById(intId);
+                user = userService.getById(intId);
             }catch(NumberFormatException e){
                 return redirectToList();
             }
@@ -66,8 +66,8 @@ public class UserController {
         logger.info("UserById. ID: " + user.getId());
 
         model.addAttribute("user", user);
-        model.addAttribute("departmentList", departmentDAO.getAll());
-        model.addAttribute("userList", userDAO.getAll());
+        model.addAttribute("departmentList", departmentService.getAll());
+        model.addAttribute("userList", userService.getAll());
         model.addAttribute("accessLevelList", AccessLevel.values());
 
         return "user";
@@ -76,7 +76,7 @@ public class UserController {
     @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.POST)
     public String userSave(@ModelAttribute("user") User user) {
         if(user != null) {
-            userDAO.save(user);
+            userService.save(user);
         }
         return redirectToList();
     }
@@ -86,6 +86,6 @@ public class UserController {
     }
 
     private User createUser(){
-        return userDAO.create();
+        return userService.create();
     }
 }

@@ -42,9 +42,9 @@
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >
         <property name="converters">
             <set>
-                <bean class="org.drorzz.elsie.converter.StringToUser"/>
-                <bean class="org.drorzz.elsie.converter.StringToDepartment"/>
-                <bean class="org.drorzz.elsie.converter.StringToDayReport"/>
+                <bean class="org.drorzz.elsie.controller.converter.StringToUser"/>
+                <bean class="org.drorzz.elsie.controller.converter.StringToDepartment"/>
+                <bean class="org.drorzz.elsie.controller.converter.StringToDayReport"/>
             </set>
         </property>
     </bean>
