@@ -10,5 +10,4 @@ import org.drorzz.elsie.domain.DayReport;
  * To change this template use File | Settings | File Templates.
  */
 public interface DayReportDAO extends AbstractDAO<DayReport> {
-    public DayReport getByName(String name);
 }

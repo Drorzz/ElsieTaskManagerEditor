@@ -1,81 +1,91 @@
 package org.drorzz.elsie.controller;
 
 import java.util.List;
-import java.util.Locale;
 
-import org.drorzz.elsie.dao.DepartmentDAO;
-import org.drorzz.elsie.dao.UserDAO;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.domain.AccessLevel;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.drorzz.elsie.service.DepartmentService;
+import org.drorzz.elsie.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.apache.log4j.Logger;
 
 @Controller
+@RequestMapping(value = "/users")
 public class UserController {
-    private static final Logger logger = LogManager.getLogger(UserController.class.getName());
+    private static final Logger logger = Logger.getLogger(UserController.class);
+    private static final String userIdEditMask = "[1-9]+|new";
 
-    UserDAO userDAO;
-    DepartmentDAO departmentDAO;
+    UserService userService;
+    DepartmentService departmentService;
 
     @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired
-    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
-        this.departmentDAO = departmentDAO;
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String user(Locale locale, Model model) {
-        logger.info("UserList. The client local is {}.", locale);
-
-        List<User> userList = userDAO.getAll();
-
-        logger.info("Count {}.", userList.size());
-
+    @RequestMapping(method = RequestMethod.GET)
+    public String userList(Model model) {
+        List<User> userList = userService.getAll();
+        logger.info("Count:" + userList.size());
         model.addAttribute("userList", userList);
-
         return "userList";
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public String userById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
-        logger.info("UserById. The client local is {}.", locale);
+    @RequestMapping(value = "/*", method = RequestMethod.GET)
+    public String wrongUser() {
+        return redirectToList();
+    }
 
+    @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.GET)
+    public String userById(Model model, @PathVariable(value = "pathId") String pathId) {
         User user;
-        if (id.toLowerCase().equals("new")){
+        if (pathId.toLowerCase().equals("new")){
             user = createUser();
         }else{
             try{
-                Integer intId = Integer.valueOf(id);
-                user = userDAO.getById(intId);
-                if(user == null){
-                    user = createUser();
-                }
+                Integer intId = Integer.valueOf(pathId);
+                user = userService.getById(intId);
             }catch(NumberFormatException e){
-//                user = createUser();
-                return "redirect:/users";
+                return redirectToList();
             }
         }
-        logger.info("UserById. ID: {}.", user.getId());
+        if(user == null){
+            return redirectToList();
+        }
+        logger.info("UserById. ID: " + user.getId());
 
         model.addAttribute("user", user);
-        model.addAttribute("departmentList", departmentDAO.getAll());
-        model.addAttribute("userList", userDAO.getAll());
+        model.addAttribute("departmentList", departmentService.getAll());
+        model.addAttribute("userList", userService.getAll());
         model.addAttribute("accessLevelList", AccessLevel.values());
 
         return "user";
     }
 
+    @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.POST)
+    public String userSave(@ModelAttribute("user") User user) {
+        if(user != null) {
+            userService.save(user);
+        }
+        return redirectToList();
+    }
+
+    private String redirectToList(){
+        return "redirect:/users";
+    }
+
     private User createUser(){
-        return userDAO.create();
+        return userService.create();
     }
 }

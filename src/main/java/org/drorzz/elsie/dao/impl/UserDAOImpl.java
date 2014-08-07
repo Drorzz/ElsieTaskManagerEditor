@@ -6,7 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -17,14 +17,13 @@ import java.util.List;
 
  * Time: 17:36
  */
+@Repository
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
-
     public UserDAOImpl() {
         super(User.class);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User getByLogin(String login) {
         return (User) getCurrentSession().bySimpleNaturalId(genericClass).load(login);
     }
@@ -40,14 +39,12 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<User> getUserLike(String value) {
         return getUserLikeCriteria(value).list();
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<User> getUserLikeWithOrder(String value, String orderField) {
         return getUserLikeCriteria(value).addOrder(Order.asc(orderField)).list();

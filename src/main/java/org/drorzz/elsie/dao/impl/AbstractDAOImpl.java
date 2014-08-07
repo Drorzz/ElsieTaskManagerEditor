@@ -2,8 +2,7 @@ package org.drorzz.elsie.dao.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.drorzz.elsie.dao.AbstractDAO;
 import org.drorzz.elsie.domain.PersistentObject;
 import org.hibernate.Criteria;
@@ -12,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 public abstract class AbstractDAOImpl<T extends PersistentObject> implements AbstractDAO<T> {
-    protected static final Logger logger = LogManager.getLogger(AbstractDAOImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(AbstractDAOImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -80,14 +78,12 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<T> getAll() {
         return (List<T>) getAllCriteria().list();
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<T> getAllWithOrder(String orderField) {
         return (List<T>) getAllCriteria().addOrder(Order.asc(orderField)).list();
@@ -98,21 +94,18 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<T> getByField(String fieldName, Object fieldValue) {
         return (List<T>) getByFieldCriteria(fieldName,fieldValue).list();
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public List<T> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField) {
         return (List<T>) getByFieldCriteria(fieldName,fieldValue).addOrder(Order.asc(orderField)).list();
     }
 
     @SuppressWarnings("unchecked")
-    @Transactional(readOnly = true)
     @Override
     public T getById(Integer id) {
         return (T) getCurrentSession().byId(genericClass).load(id);

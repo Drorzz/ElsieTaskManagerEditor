@@ -2,6 +2,9 @@ package org.drorzz.elsie.dao.impl;
 
 import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,15 +12,14 @@ import org.drorzz.elsie.domain.Department;
  * Date: 17.12.13
  * Time: 16:08
  */
+@Repository
 public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements DepartmentDAO {
+    public DepartmentDAOImpl() {
+            super(Department.class);
+    }
 
-public DepartmentDAOImpl() {
-        super(Department.class);
-}
-
-@Override
-public Department getByName(String name) {
-        return (Department) getCurrentSession().bySimpleNaturalId(genericClass).load(name);
-}
-
+    @Override
+    public List<Department> getByName(String name) {
+        return this.getByField("name",name);
+    }
 }

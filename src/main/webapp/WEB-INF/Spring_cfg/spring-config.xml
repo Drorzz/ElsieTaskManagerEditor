@@ -13,6 +13,8 @@
 
     <context:annotation-config/>
 
+    <import resource="spring-dataSource.xml"/>
+
     <!-- Session Factory Declaration -->
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
@@ -27,8 +29,9 @@
         </property>
     </bean>
 
-    <import resource="spring-dataSource.xml"/>
-    <import resource="spring-dao.xml"/>
-    <import resource="spring-bean.xml"/>
-    <!--<import resource="spring-security.xml"/>-->
+    <!--DAO-->
+    <context:component-scan base-package="org.drorzz.elsie.dao" />
+
+    <!--Service-->
+    <context:component-scan base-package="org.drorzz.elsie.service" />
 </beans>
