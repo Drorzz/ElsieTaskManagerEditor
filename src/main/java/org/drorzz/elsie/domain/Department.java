@@ -1,6 +1,7 @@
 package org.drorzz.elsie.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "departments")
 @AttributeOverride(name="id",column=@Column(name="depart_id"))
-public class Department extends PersistentObject{
+public class Department extends PersistentObject implements Serializable {
     private String name;//depart_name
     private int level;//depart_lvl
     private int listOrder;//depart_list_order

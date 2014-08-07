@@ -1,7 +1,6 @@
 package org.drorzz.elsie.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = "/departments")
 public class DepartmentController {
-    private static final Logger logger = LogManager.getLogger(DepartmentController.class.getName());
+    private static final Logger logger = Logger.getLogger(DepartmentController.class);
     private static final String departmentIdEditMask = "[1-9]+|new";
 
     DepartmentDAO departmentDAO;
@@ -26,10 +24,9 @@ public class DepartmentController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String departmentList(Locale locale, Model model) {
-        logger.info("DepartmentList. The client local is {}.", locale);
+    public String departmentList(Model model) {
         List<Department> departmentList = departmentDAO.getAll();
-        logger.info("Count {}.", departmentList.size());
+        logger.info("Count: "+departmentList.size());
         model.addAttribute("departmentList", departmentList);
         return "departmentList";
     }
@@ -39,16 +36,15 @@ public class DepartmentController {
         return redirectToList();
     }
 
-    @RequestMapping(value = "/{id:"+ departmentIdEditMask +"}", method = RequestMethod.GET)
-    public String departmentById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
-        logger.info("DepartmentById. The client local is {}.", locale);
+    @RequestMapping(value = "/{pathId:"+ departmentIdEditMask +"}", method = RequestMethod.GET)
+    public String departmentById(Model model, @PathVariable(value = "pathId") String pathId) {
 
         Department department;
-        if (id.toLowerCase().equals("new")){
+        if (pathId.toLowerCase().equals("new")){
             department = createDepartment();
         }else{
             try{
-                Integer intId = Integer.valueOf(id);
+                Integer intId = Integer.valueOf(pathId);
                 department = departmentDAO.getById(intId);
             }catch(NumberFormatException e){
                 return redirectToList();
@@ -57,15 +53,14 @@ public class DepartmentController {
         if(department == null){
             return redirectToList();
         }
-        logger.info("DepartmentById. ID: {}.", department.getId());
+        logger.info("DepartmentById. ID: " + department.getId());
 
         model.addAttribute("department", department);
-        model.addAttribute("departmentList", departmentDAO.getAll());
 
         return "department";
     }
 
-    @RequestMapping(value = "/{id:"+ departmentIdEditMask +"}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{pathId:"+ departmentIdEditMask +"}", method = RequestMethod.POST)
     public String departmentSave(@ModelAttribute("department") Department department) {
         if(department != null) {
             departmentDAO.save(department);

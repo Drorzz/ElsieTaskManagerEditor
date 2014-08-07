@@ -71,6 +71,10 @@
                 <td><spring:message code="user.label.vacation"/></td>
                 <td><form:checkbox path="vacation" /></td>
             </tr>
+            <tr>
+                <td><spring:message code="user.label.active"/></td>
+                <td><form:checkbox path="active" /></td>
+            </tr>
         </table>
         <input type="submit" value="Submit" />
     </form:form>

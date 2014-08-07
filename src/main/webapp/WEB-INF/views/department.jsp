@@ -34,10 +34,10 @@
                 <td><spring:message code="department.label.listOrder"/></td>
                 <td><form:input path="listOrder" /></td>
             </tr>
-            <%--<tr>--%>
-                <%--<td><spring:message code="department.label.projectActive"/></td>--%>
-                <%--<td><form:input path="projectActive" /></td>--%>
-            <%--</tr>--%>
+            <tr>
+                <td><spring:message code="department.label.projectActive"/></td>
+                <td><form:input path="projectActive" /></td>
+            </tr>
         </table>
         <input type="submit" value="Submit" />
     </form:form>

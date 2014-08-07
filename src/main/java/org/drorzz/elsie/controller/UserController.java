@@ -1,14 +1,11 @@
 package org.drorzz.elsie.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.dao.UserDAO;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.domain.AccessLevel;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.apache.log4j.Logger;
 
 @Controller
 @RequestMapping(value = "/users")
 public class UserController {
-    private static final Logger logger = LogManager.getLogger(UserController.class.getName());
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private static final String userIdEditMask = "[1-9]+|new";
 
     UserDAO userDAO;
@@ -37,15 +35,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String userList(Locale locale, Model model) {
-        logger.info("UserList. The client local is {}.", locale);
-
+    public String userList(Model model) {
         List<User> userList = userDAO.getAll();
-
-        logger.info("Count {}.", userList.size());
-
+        logger.info("Count:" + userList.size());
         model.addAttribute("userList", userList);
-
         return "userList";
     }
 
@@ -54,16 +47,14 @@ public class UserController {
         return redirectToList();
     }
 
-    @RequestMapping(value = "/{id:"+ userIdEditMask +"}", method = RequestMethod.GET)
-    public String userById(Locale locale, Model model, @PathVariable(value = "id") String id ) {
-        logger.info("UserById. The client local is {}.", locale);
-
+    @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.GET)
+    public String userById(Model model, @PathVariable(value = "pathId") String pathId) {
         User user;
-        if (id.toLowerCase().equals("new")){
+        if (pathId.toLowerCase().equals("new")){
             user = createUser();
         }else{
             try{
-                Integer intId = Integer.valueOf(id);
+                Integer intId = Integer.valueOf(pathId);
                 user = userDAO.getById(intId);
             }catch(NumberFormatException e){
                 return redirectToList();
@@ -72,7 +63,7 @@ public class UserController {
         if(user == null){
             return redirectToList();
         }
-        logger.info("UserById. ID: {}.", user.getId());
+        logger.info("UserById. ID: " + user.getId());
 
         model.addAttribute("user", user);
         model.addAttribute("departmentList", departmentDAO.getAll());
@@ -82,7 +73,7 @@ public class UserController {
         return "user";
     }
 
-    @RequestMapping(value = "/{id:"+ userIdEditMask +"}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.POST)
     public String userSave(@ModelAttribute("user") User user) {
         if(user != null) {
             userDAO.save(user);
