@@ -1,5 +1,6 @@
 package org.drorzz.elsie.dao.impl;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,8 +28,9 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
 
     protected Class<T> genericClass;
 
-    protected AbstractDAOImpl(Class<T> genericClass) {
-        this.genericClass = genericClass;
+    @SuppressWarnings("unchecked")
+    protected AbstractDAOImpl() {
+        this.genericClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     protected final Session getCurrentSession(){

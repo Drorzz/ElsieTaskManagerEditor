@@ -21,8 +21,8 @@ public class UserController {
     private static final Logger logger = Logger.getLogger(UserController.class);
     private static final String userIdEditMask = "[1-9]+|new";
 
-    UserService userService;
-    DepartmentService departmentService;
+    private UserService userService;
+    private DepartmentService departmentService;
 
     @Autowired
     public void setUserService(UserService userService) {

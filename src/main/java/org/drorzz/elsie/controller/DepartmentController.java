@@ -16,7 +16,7 @@ public class DepartmentController {
     private static final Logger logger = Logger.getLogger(DepartmentController.class);
     private static final String departmentIdEditMask = "[1-9]+|new";
 
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @Autowired
     public void setDepartmentService(DepartmentService departmentService) {

@@ -19,10 +19,6 @@ import java.util.List;
  */
 @Repository
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
-    public UserDAOImpl() {
-        super(User.class);
-    }
-
     @Override
     public User getByLogin(String login) {
         return (User) getCurrentSession().bySimpleNaturalId(genericClass).load(login);

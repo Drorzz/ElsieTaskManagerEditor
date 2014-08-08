@@ -14,10 +14,6 @@ import java.util.List;
  */
 @Repository
 public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements DepartmentDAO {
-    public DepartmentDAOImpl() {
-            super(Department.class);
-    }
-
     @Override
     public List<Department> getByName(String name) {
         return this.getByField("name",name);
