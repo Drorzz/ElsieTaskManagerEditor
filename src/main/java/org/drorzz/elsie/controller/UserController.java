@@ -39,8 +39,11 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public String userList(Model model) {
         List<User> userList = userService.getAll();
+
         logger.info("User list size: {}.",userList.size());
+
         model.addAttribute("userList", userList);
+
         return "userList";
     }
 

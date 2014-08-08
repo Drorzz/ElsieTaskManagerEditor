@@ -28,8 +28,11 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.GET)
     public String departmentList(Model model) {
         List<Department> departmentList = departmentService.getAll();
+
         logger.info("Department list size: {}.",departmentList.size());
+
         model.addAttribute("departmentList", departmentList);
+
         return "departmentList";
     }
 
