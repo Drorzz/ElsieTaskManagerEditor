@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +33,7 @@ public class User extends PersistentObject{
 	private boolean isActive;//crew_is_active;
 
     private List<User> usersList;
+    private List<DayReport> dayReportsList;
 
 	@NaturalId
 	@Column(name="crew_log", unique = true, nullable = false)
@@ -115,7 +115,6 @@ public class User extends PersistentObject{
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="crew_access_lvl")
 	public AccessLevel getAccessLevel() {
-
 		return accessLevel;
 	}
 	public void setAccessLevel(AccessLevel accessLevel) {
@@ -146,5 +145,13 @@ public class User extends PersistentObject{
     }
     public void setUsersList(List<User> usersList) {
         this.usersList = usersList;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<DayReport> getDayReportsList() {
+        return dayReportsList;
+    }
+    public void setDayReportsList(List<DayReport> dayReportsList) {
+        this.dayReportsList = dayReportsList;
     }
 }

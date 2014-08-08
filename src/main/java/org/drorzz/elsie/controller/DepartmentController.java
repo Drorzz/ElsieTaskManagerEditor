@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -56,7 +55,6 @@ public class DepartmentController {
             return redirectToList();
         }
         logger.info("Department id: {}.", department.getId());
-        logger.info("Department crew: {}.", Arrays.toString(departmentService.getUsersList(department).toArray()));
 
         model.addAttribute("department", department);
 

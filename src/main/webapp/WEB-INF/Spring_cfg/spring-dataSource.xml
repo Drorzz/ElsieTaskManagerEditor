@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-<!-- Data Source Declaration -->
+    <!-- Data Source Declaration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
         p:driverClassName="${jdbc.driverClass}"
         p:url="${jdbc.url}"
@@ -16,7 +16,7 @@
         p:username="${jdbc.username}"/>
 
     <!-- Enable the configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <tx:annotation-driven transaction-manager="txManager" />
 
     <!-- Transaction Manager is defined -->
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"

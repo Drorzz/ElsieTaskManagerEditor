@@ -1,6 +1,5 @@
 package org.drorzz.elsie.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.drorzz.elsie.domain.User;
@@ -67,7 +66,6 @@ public class UserController {
             return redirectToList();
         }
         logger.info("User id: {}.", user.getId());
-        logger.info("Department crew: {}.", Arrays.toString(user.getUsersList().toArray()));
 
         model.addAttribute("user", user);
         model.addAttribute("departmentList", departmentService.getAll());

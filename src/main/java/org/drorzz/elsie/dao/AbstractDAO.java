@@ -1,17 +1,16 @@
 package org.drorzz.elsie.dao;
 
+import org.drorzz.elsie.domain.PersistentObject;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Denis Ivansky
  * Date: 09.12.13
  * Time: 16:09
  */
-
-
-import org.drorzz.elsie.domain.PersistentObject;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 @Transactional
 public interface AbstractDAO<T extends PersistentObject> {
     public T create();

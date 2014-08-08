@@ -2,8 +2,6 @@ package org.drorzz.elsie.dao.impl;
 
 import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
-import org.drorzz.elsie.domain.User;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -24,12 +22,5 @@ public class DepartmentDAOImpl extends AbstractDAOImpl<Department> implements De
         List<Department> list = this.getByField("name",name);
         logger.info("Get {} by name, value: {}. Count: {}", getClassName(), name, list.size());
         return list;
-    }
-
-    @Override
-    public List<User> getUsersList(Department department) {
-        getCurrentSession();
-        Hibernate.initialize(department.getUsersList());
-        return department.getUsersList();
     }
 }

@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring>4.0.5.RELEASE</spring>
+        <spring>4.0.6.RELEASE</spring>
         <springSecurity>3.2.0.RELEASE</springSecurity>
 
         <hibernate>4.3.5.Final</hibernate>
@@ -35,6 +35,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+            <version>${spring}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring}</version>
         </dependency>
 
