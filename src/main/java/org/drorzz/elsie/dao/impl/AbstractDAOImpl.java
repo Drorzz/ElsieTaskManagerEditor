@@ -3,7 +3,6 @@ package org.drorzz.elsie.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.drorzz.elsie.dao.AbstractDAO;
 import org.drorzz.elsie.domain.PersistentObject;
 import org.hibernate.Criteria;
@@ -11,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -21,12 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 
 public abstract class AbstractDAOImpl<T extends PersistentObject> implements AbstractDAO<T> {
-    private static final Logger logger = Logger.getLogger(AbstractDAOImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(AbstractDAOImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    protected Class<T> genericClass;
+    protected final Class<T> genericClass;
+    
+    protected String getClassName(){
+        return genericClass.getSimpleName();
+    }
 
     @SuppressWarnings("unchecked")
     protected AbstractDAOImpl() {
@@ -41,10 +46,10 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     public T create() {
         try {
             T newEntity = genericClass.newInstance();
-            logger.info(String.format("Create new %s", newEntity.getClass().getSimpleName()));
+            logger.info("Create new {}", getClassName());
             return newEntity;
         } catch (IllegalAccessException|InstantiationException e) {
-            String errorMessage = String.format("Cannot create new %s",genericClass.getSimpleName());
+            String errorMessage = String.format("Cannot create new %s", getClassName());
             logger.error(errorMessage, e);
             throw new RuntimeException(errorMessage,e);
         }
@@ -52,14 +57,14 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
 
     @Override
     public void save(T obj) {
+        logger.info("Save {} with id: {}", getClassName(), obj.getId());
         getCurrentSession().saveOrUpdate(obj);
-        logger.info(String.format("Save %s with id=%s", genericClass.getSimpleName(), obj.getId()));
     }
 
     @Override
     public void delete(T obj) {
+        logger.warn("Delete {} with id: {}", getClassName(), obj.getId());
         getCurrentSession().delete(obj);
-        logger.warn(String.format("Delete %s with id=%s", genericClass.getSimpleName(), obj.getId()));
     }
 
     @Override
@@ -69,10 +74,8 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
 
     @Override
     public void refresh(T obj) {
+        logger.info("Refresh {} with id: {}", getClassName(),obj.getId());
         getCurrentSession().refresh(obj);
-        if (logger.isInfoEnabled()) {
-            logger.info(String.format("Save %s with id=%s",genericClass.getSimpleName(),obj.getId()));
-        }
     }
 
     protected Criteria getAllCriteria(){
@@ -82,13 +85,17 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
-        return (List<T>) getAllCriteria().list();
+        List<T> list = (List<T>) getAllCriteria().list();
+        logger.info("Get all {}. Count: {}", getClassName(),list.size());
+        return list;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAllWithOrder(String orderField) {
-        return (List<T>) getAllCriteria().addOrder(Order.asc(orderField)).list();
+        List<T> list = (List<T>) getAllCriteria().addOrder(Order.asc(orderField)).list();
+        logger.info("Get all {}. Order: {}. Count: {}", getClassName(), orderField, list.size());
+        return list;
     }
 
     protected Criteria getByFieldCriteria(String fieldName, Object fieldValue){
@@ -98,18 +105,23 @@ public abstract class AbstractDAOImpl<T extends PersistentObject> implements Abs
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getByField(String fieldName, Object fieldValue) {
-        return (List<T>) getByFieldCriteria(fieldName,fieldValue).list();
+        List<T> list = (List<T>) getByFieldCriteria(fieldName, fieldValue).list();
+        logger.info("Get {} by field {} value: {}. Count: {}", getClassName(), fieldName, fieldValue, list.size());
+        return list;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField) {
-        return (List<T>) getByFieldCriteria(fieldName,fieldValue).addOrder(Order.asc(orderField)).list();
+        List<T> list = (List<T>) getByFieldCriteria(fieldName,fieldValue).addOrder(Order.asc(orderField)).list();
+        logger.info("Get {} by field {} value: {}. Order: {}. Count: {}", getClassName(), fieldName, fieldValue, orderField, list.size());
+        return list;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public T getById(Integer id) {
+        logger.info("Get {} by id: {}", getClassName(),id);
         return (T) getCurrentSession().byId(genericClass).load(id);
     }
 }

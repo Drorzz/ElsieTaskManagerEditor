@@ -15,8 +15,9 @@
         <hibernate>4.3.5.Final</hibernate>
         <mysqlConnector>5.1.30</mysqlConnector>
 
-        <log4j>1.2.17</log4j>
         <junit>4.10</junit>
+        <log4j>1.2.17</log4j>
+        <slf4j>1.7.7</slf4j>
     </properties>
 
     <dependencies>
@@ -68,11 +69,21 @@
             <version>1.2</version>
          </dependency>
 
-        <!-- Log4j -->
+        <!-- Logging -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j}</version>
         </dependency>
 
         <!-- JUnit -->

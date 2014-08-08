@@ -3,6 +3,8 @@ package org.drorzz.elsie.service.impl;
 import org.drorzz.elsie.dao.UserDAO;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,21 +15,29 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends AbstractEntityServiceImpl<User,UserDAO> implements UserService {
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Override
     @Transactional(readOnly = true)
     public User getByLogin(String login) {
-        return entityDAO.getByLogin(login);
+        User user = entityDAO.getByLogin(login);
+        logger.info("Get {} by login, value: {}.", getClassName(), login);
+        return user;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<User> getUserLike(String value) {
-        return entityDAO.getUserLike(value);
+        List<User> list = entityDAO.getUserLike(value);
+        logger.info("Get {} like: {}. Count: {}", getClassName(), value, list.size());
+        return list;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<User> getUserLikeWithOrder(String value, String orderField) {
-        return entityDAO.getUserLikeWithOrder(value,orderField);
+        List<User> list = entityDAO.getUserLikeWithOrder(value,orderField);
+        logger.info("Get {} like: {}. Order: {}. Count: {}", getClassName(), value, orderField, list.size());
+        return list;
     }
 }

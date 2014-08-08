@@ -6,6 +6,8 @@ import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.domain.AccessLevel;
 import org.drorzz.elsie.service.DepartmentService;
 import org.drorzz.elsie.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.apache.log4j.Logger;
 
 @Controller
 @RequestMapping(value = "/users")
 public class UserController {
-    private static final Logger logger = Logger.getLogger(UserController.class);
-    private static final String userIdEditMask = "[1-9]+|new";
+    private final static Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private final static String userIdEditMask = "[1-9]+|new";
 
     private UserService userService;
     private DepartmentService departmentService;
@@ -37,7 +39,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public String userList(Model model) {
         List<User> userList = userService.getAll();
-        logger.info("Count:" + userList.size());
+        logger.info("User list size: {}.",userList.size());
         model.addAttribute("userList", userList);
         return "userList";
     }
@@ -63,7 +65,7 @@ public class UserController {
         if(user == null){
             return redirectToList();
         }
-        logger.info("UserById. ID: " + user.getId());
+        logger.info("User id: {}.", user.getId());
 
         model.addAttribute("user", user);
         model.addAttribute("departmentList", departmentService.getAll());
@@ -75,13 +77,13 @@ public class UserController {
 
     @RequestMapping(value = "/{pathId:"+ userIdEditMask +"}", method = RequestMethod.POST)
     public String userSave(@ModelAttribute("user") User user) {
-        if(user != null) {
-            userService.save(user);
-        }
+        logger.info("Save department. Id: {}", user.getId());
+        userService.save(user);
         return redirectToList();
     }
 
     private String redirectToList(){
+        logger.info("Redirect to users list");
         return "redirect:/users";
     }
 

@@ -1,8 +1,9 @@
 package org.drorzz.elsie.controller;
 
-import org.apache.log4j.Logger;
 import org.drorzz.elsie.domain.Department;
 import org.drorzz.elsie.service.DepartmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,9 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/departments")
 public class DepartmentController {
-    private static final Logger logger = Logger.getLogger(DepartmentController.class);
-    private static final String departmentIdEditMask = "[1-9]+|new";
+    private final static Logger logger = LoggerFactory.getLogger(DepartmentController.class);
+
+    private final static String departmentIdEditMask = "[1-9]+|new";
 
     private DepartmentService departmentService;
 
@@ -26,7 +28,7 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.GET)
     public String departmentList(Model model) {
         List<Department> departmentList = departmentService.getAll();
-        logger.info("Count: "+departmentList.size());
+        logger.info("Department list size: {}.",departmentList.size());
         model.addAttribute("departmentList", departmentList);
         return "departmentList";
     }
@@ -38,7 +40,6 @@ public class DepartmentController {
 
     @RequestMapping(value = "/{pathId:"+ departmentIdEditMask +"}", method = RequestMethod.GET)
     public String departmentById(Model model, @PathVariable(value = "pathId") String pathId) {
-
         Department department;
         if (pathId.toLowerCase().equals("new")){
             department = createDepartment();
@@ -53,7 +54,7 @@ public class DepartmentController {
         if(department == null){
             return redirectToList();
         }
-        logger.info("DepartmentById. ID: " + department.getId());
+        logger.info("Department id: {}.", department.getId());
 
         model.addAttribute("department", department);
 
@@ -62,13 +63,13 @@ public class DepartmentController {
 
     @RequestMapping(value = "/{pathId:"+ departmentIdEditMask +"}", method = RequestMethod.POST)
     public String departmentSave(@ModelAttribute("department") Department department) {
-        if(department != null) {
-            departmentService.save(department);
-        }
+        logger.info("Save department. Id: {}",department.getId());
+        departmentService.save(department);
         return redirectToList();
     }
 
     private String redirectToList(){
+        logger.info("Redirect to departments list");
         return "redirect:/departments";
     }
 
