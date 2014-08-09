@@ -26,6 +26,7 @@ public class StringToPersistentObject<T extends PersistentObject, M extends Abst
     }
 
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public void setEntityService(M entityService){
         this.entityService = entityService;

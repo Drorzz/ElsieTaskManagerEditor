@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class AbstractEntityController<E extends PersistentObject, S extends AbstractEntityService<E,?>> {
     private final static Logger logger = LoggerFactory.getLogger(AbstractEntityController.class);
 
-    private final static String mappingEditMask = "[1-9]+|new";
+    private final static String mappingEditMask = "[0-9]+|new";
 
     private final Class<E> entityClass;
 
@@ -35,6 +35,7 @@ public abstract class AbstractEntityController<E extends PersistentObject, S ext
         this.entityEditView = entityEditView;
     }
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public void setEntityService(S entityService) {
         this.entityService = entityService;
@@ -61,11 +62,12 @@ public abstract class AbstractEntityController<E extends PersistentObject, S ext
 
     @RequestMapping(value = "/*", method = RequestMethod.GET)
     public final String wrongEntityMapping() {
+//        logger.warn("Wrong {} url: {}", getClassName(), pathId);
         return redirectToList();
     }
 
     @RequestMapping(value = "/{pathId:"+ mappingEditMask +"}", method = RequestMethod.GET)
-    public final String entityByIdMapping(Model model, @PathVariable(value = "pathId") String pathId) {
+    public final String entityByIdMapping(Model model, @PathVariable String pathId) {
         E entity;
         if (pathId.toLowerCase().equals("new")){
             entity = createEntity();

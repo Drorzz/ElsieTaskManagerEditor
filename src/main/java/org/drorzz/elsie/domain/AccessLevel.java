@@ -12,7 +12,7 @@ public enum AccessLevel {
     DIRECTOR(2),
     CEO(3);
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private final int accessLVL;
 
     AccessLevel(int id) {

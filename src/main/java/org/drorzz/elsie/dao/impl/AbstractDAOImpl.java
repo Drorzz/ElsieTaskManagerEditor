@@ -45,6 +45,7 @@ public abstract class AbstractDAOImpl<E extends PersistentObject> implements Abs
         return sessionFactory.getCurrentSession();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void save(E obj) {
         logger.info("Save {} with id: {}", getClassName(), obj.getId());
@@ -53,7 +54,7 @@ public abstract class AbstractDAOImpl<E extends PersistentObject> implements Abs
             currentSession().saveOrUpdate(obj);
         }catch (NonUniqueObjectException ex){
             logger.warn("NonUniqueObjectException: {} with id = {}.", getClassName(), obj.getId());
-//            obj = this.get(obj.getId());
+//            obj = (E) currentSession().merge(obj);
             currentSession().merge(obj);
         }
     }

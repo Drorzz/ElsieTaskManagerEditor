@@ -1,7 +1,6 @@
 package org.drorzz.elsie.dao;
 
 import org.drorzz.elsie.domain.PersistentObject;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * Date: 09.12.13
  * Time: 16:09
  */
-@Transactional
 public interface AbstractDAO<E extends PersistentObject> {
     public void save(E obj);
     public void delete(E obj);
