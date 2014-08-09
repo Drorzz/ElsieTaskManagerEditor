@@ -22,7 +22,7 @@
         <th><spring:message code="userList.label.isActive" /></th>
         <th></th>
     </tr>
-    <c:forEach items="${userList}" var="department">
+    <c:forEach items="${entityList}" var="department">
         <tr>
             <td>${department.fullName}</td>
             <td>${department.login}</td>

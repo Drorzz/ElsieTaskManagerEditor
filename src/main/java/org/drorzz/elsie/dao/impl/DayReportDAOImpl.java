@@ -13,7 +13,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class DayReportDAOImpl extends AbstractDAOImpl<DayReport> implements DayReportDAO {
-    public DayReportDAOImpl() {
-            super(DayReport.class);
-    }
 }

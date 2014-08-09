@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: konstantin_k
-  Date: 04.08.2014
-  Time: 17:35
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -15,21 +8,25 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-    <title><spring:message code="departmentList.label.title"/></title>
+    <title><spring:message code="dayReportList.label.title"/></title>
 </head>
 <body>
 
-<h2><spring:message code="departmentList.label.title" /></h2>
+<h2><spring:message code="dayReportList.label.title" /></h2>
 
 <table class="data">
     <tr>
-        <th><spring:message code="departmentList.label.name" /></th>
+        <th><spring:message code="dayReportList.label.user" /></th>
+        <th><spring:message code="dayReportList.label.date" /></th>
+        <th><spring:message code="dayReportList.label.text" /></th>
         <th></th>
     </tr>
-    <c:forEach items="${entityList}" var="department">
+    <c:forEach items="${entityList}" var="dayReport">
         <tr>
-            <td>${department.name}</td>
-            <td><a href="/departments/${department.id}">Edit</a></td>
+            <td>${dayReport.user.fullName}</td>
+            <td>${dayReport.date}</td>
+            <td>${dayReport.text}</td>
+            <td><a href="/dayReports/${dayReport.id}">Edit</a></td>
         </tr>
     </c:forEach>
 </table>

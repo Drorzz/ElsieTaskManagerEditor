@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import org.hibernate.Hibernate;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Denis Ivansky
@@ -13,7 +15,7 @@ import org.hibernate.Hibernate;
  * Time: 10:25
  */
 @MappedSuperclass
-public abstract class PersistentObject {
+public abstract class PersistentObject implements Serializable {
 
     private Integer id;
 

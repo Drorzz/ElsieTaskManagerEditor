@@ -2,9 +2,11 @@ package org.drorzz.elsie.service.impl;
 
 import org.drorzz.elsie.dao.DepartmentDAO;
 import org.drorzz.elsie.domain.Department;
+import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.service.DepartmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,9 +15,17 @@ import java.util.List;
  */
 @Service
 public class DepartmentServiceImpl extends AbstractEntityServiceImpl<Department,DepartmentDAO> implements DepartmentService {
+    private final static Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
+
     @Override
-    @Transactional(readOnly = true)
     public List<Department> getByName(String name) {
-        return entityDAO.getByName(name);
+        List<Department> list = entityDAO.getByName(name);
+        logger.info("Get {} by name, value: {}. Count: {}", getClassName(), name, list.size());
+        return list;
+    }
+
+    @Override
+    public List<User> getUsersList(Department department) {
+        return department.getUsersList();
     }
 }

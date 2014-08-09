@@ -2,6 +2,7 @@ package org.drorzz.elsie.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,11 +19,12 @@ public class Department extends PersistentObject implements Serializable {
     private int listOrder;//depart_list_order
     private int projectActive;//depart_proj_active
 
+    private List<User> usersList;
+
     @Column(name = "depart_name")
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -31,7 +33,6 @@ public class Department extends PersistentObject implements Serializable {
     public int getLevel() {
         return level;
     }
-
     public void setLevel(int level) {
         this.level = level;
     }
@@ -40,7 +41,6 @@ public class Department extends PersistentObject implements Serializable {
     public int getListOrder() {
         return listOrder;
     }
-
     public void setListOrder(int listOrder) {
         this.listOrder = listOrder;
     }
@@ -49,8 +49,15 @@ public class Department extends PersistentObject implements Serializable {
     public int getProjectActive() {
         return projectActive;
     }
-
     public void setProjectActive(int projectActive) {
         this.projectActive = projectActive;
+    }
+
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    public List<User> getUsersList() {
+        return usersList;
+    }
+    public void setUsersList(List<User> usersList) {
+        this.usersList = usersList;
     }
 }

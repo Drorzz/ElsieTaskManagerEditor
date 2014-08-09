@@ -5,6 +5,7 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,12 +31,14 @@ public class User extends PersistentObject{
 	private boolean vacation;//crew_otpusk_maker;
 	private boolean isActive;//crew_is_active;
 
+    private List<User> usersList;
+    private List<DayReport> dayReportsList;
+
 	@NaturalId
 	@Column(name="crew_log", unique = true, nullable = false)
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
@@ -44,7 +47,6 @@ public class User extends PersistentObject{
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -53,7 +55,6 @@ public class User extends PersistentObject{
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -62,7 +63,6 @@ public class User extends PersistentObject{
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -71,7 +71,6 @@ public class User extends PersistentObject{
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -80,7 +79,6 @@ public class User extends PersistentObject{
     public String getFullName() {
         return fullName;
     }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
@@ -89,28 +87,26 @@ public class User extends PersistentObject{
 	public String getPosition() {
 		return position;
 	}
-
 	public void setPosition(String position) {
 		this.position = position;
 	}
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="crew_department",referencedColumnName = "depart_id")
+    @NotFound(action= NotFoundAction.IGNORE)
 	public Department getDepartment() {
 		return department;
 	}
-
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
-    @ManyToOne
-    @JoinColumn(name="crew_depart_chief",referencedColumnName = "crew_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="crew_depart_chief", referencedColumnName = "crew_id")
     @NotFound(action= NotFoundAction.IGNORE)
 	public User getChief() {
 		return chief;
 	}
-
 	public void setChief(User chief) {
 		this.chief = chief;
 	}
@@ -118,10 +114,8 @@ public class User extends PersistentObject{
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="crew_access_lvl")
 	public AccessLevel getAccessLevel() {
-
 		return accessLevel;
 	}
-
 	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
 	}
@@ -131,7 +125,6 @@ public class User extends PersistentObject{
 	public boolean getVacation() {
 		return vacation;
 	}
-
 	public void setVacation(boolean vacation) {
 		this.vacation = vacation;
 	}
@@ -141,8 +134,23 @@ public class User extends PersistentObject{
 	public boolean getActive() {
 		return isActive;
 	}
-
 	public void setActive(boolean active) {
 		isActive = active;
 	}
+
+    @OneToMany(mappedBy = "chief", fetch = FetchType.LAZY)
+    public List<User> getUsersList() {
+        return usersList;
+    }
+    public void setUsersList(List<User> usersList) {
+        this.usersList = usersList;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    public List<DayReport> getDayReportsList() {
+        return dayReportsList;
+    }
+    public void setDayReportsList(List<DayReport> dayReportsList) {
+        this.dayReportsList = dayReportsList;
+    }
 }
