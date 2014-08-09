@@ -7,12 +7,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-<title><spring:message code="user.label.title"/> ${user.fullName}</title>
+<title><spring:message code="user.label.title"/> ${entity.fullName}</title>
 </head>
 <body>
     <a href="/users"><spring:message code="user.label.toUserList" /></a>
-	<h2><spring:message code="user.label.title" />${user.fullName}</h2>
-    <form:form method="post" modelAttribute="user">
+	<h2><spring:message code="user.label.title" /> ${entity.fullName}</h2>
+    <form:form method="post" modelAttribute="entity">
         <form:hidden path="id" />
         <table class="data">
             <tr>

@@ -23,7 +23,7 @@ public class DayReport extends PersistentObject{
     private String text;//dayr_text
     private int fullDate;//dayr_fdate
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dayr_crew_id")
     @NotFound(action = NotFoundAction.IGNORE)
     public User getUser() {

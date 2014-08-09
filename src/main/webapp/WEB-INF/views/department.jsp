@@ -14,12 +14,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-    <title><spring:message code="department.label.title"/> ${department.name}</title>
+    <title><spring:message code="department.label.title"/> ${entity.name}</title>
 </head>
 <body>
     <a href="/departments"><spring:message code="department.label.toDepartmentList" /></a>
-    <h2><spring:message code="department.label.title" />${department.name}</h2>
-    <form:form method="post" modelAttribute="department">
+    <h2><spring:message code="department.label.title" /> ${entity.name}</h2>
+    <form:form method="post" modelAttribute="entity">
         <form:hidden path="id" />
         <table class="data">
             <tr>

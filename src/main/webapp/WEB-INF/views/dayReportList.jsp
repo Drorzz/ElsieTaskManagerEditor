@@ -21,7 +21,7 @@
         <th><spring:message code="dayReportList.label.text" /></th>
         <th></th>
     </tr>
-    <c:forEach items="${dayReportList}" var="dayReport">
+    <c:forEach items="${entityList}" var="dayReport">
         <tr>
             <td>${dayReport.user.fullName}</td>
             <td>${dayReport.date}</td>

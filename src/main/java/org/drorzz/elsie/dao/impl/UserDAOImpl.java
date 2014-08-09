@@ -25,13 +25,13 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 
     @Override
     public User getByLogin(String login) {
-        User user = (User) getCurrentSession().bySimpleNaturalId(genericClass).load(login);
+        User user = (User) currentSession().bySimpleNaturalId(entityClass).load(login);
         logger.info("Get {} by login, value: {}.", getClassName(), login);
         return user;
     }
 
     protected Criteria getUserLikeCriteria(String value){
-        return getCurrentSession().createCriteria(User.class).add(
+        return currentSession().createCriteria(User.class).add(
                 Restrictions.or(
                         Restrictions.like("login", value, MatchMode.ANYWHERE).ignoreCase(),
                         Restrictions.like("firstName", value, MatchMode.ANYWHERE).ignoreCase(),

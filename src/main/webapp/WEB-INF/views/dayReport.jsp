@@ -7,11 +7,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
-<title><spring:message code="dayReport.label.title"/>${dayReport.user.fullName}: ${dayReport.date}</title>
+<title><spring:message code="dayReport.label.title"/> ${title}</title>
 </head>
 <body>
     <a href="/dayReports"><spring:message code="dayReport.label.toDayReportsList" /></a>
-    <form:form method="post" modelAttribute="dayReport">
+    <h2><spring:message code="dayReport.label.title" /> ${title}</h2>
+    <form:form method="post" modelAttribute="entity">
         <form:hidden path="id" />
         <table class="data">
             <tr>

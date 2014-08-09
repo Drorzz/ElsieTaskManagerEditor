@@ -3,6 +3,7 @@ package org.drorzz.elsie.dao;
 import org.drorzz.elsie.domain.PersistentObject;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,17 +13,17 @@ import java.util.List;
  * Time: 16:09
  */
 @Transactional
-public interface AbstractDAO<T extends PersistentObject> {
-    public T create();
-    public void save(T obj);
-    public void delete(T obj);
+public interface AbstractDAO<E extends PersistentObject> {
+    public void save(E obj);
+    public void delete(E obj);
     public void deleteById(Integer id);
-    public void refresh(T obj);
+    public void refresh(E obj);
 
-    public List<T> getAll();
-    public List<T> getAllWithOrder(String orderField);
+    public List<E> getAll();
+    public List<E> getAllWithOrder(String orderField);
+    public List<E> getAllWithOrder(String orderField,OrderEnum order);
 
-    public T getById(Integer id);
-    public List<T> getByField(String fieldName,Object fieldValue);
-    public List<T> getByFieldWithOrder(String fieldName,Object fieldValue,String orderField);
+    public E get(Serializable id);
+    public List<E> getByField(String fieldName,Object fieldValue);
+    public List<E> getByFieldWithOrder(String fieldName,Object fieldValue,String orderField);
 }

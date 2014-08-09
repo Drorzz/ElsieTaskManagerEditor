@@ -3,7 +3,6 @@ package org.drorzz.elsie.domain;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.List;
@@ -92,7 +91,7 @@ public class User extends PersistentObject{
 		this.position = position;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="crew_department",referencedColumnName = "depart_id")
     @NotFound(action= NotFoundAction.IGNORE)
 	public Department getDepartment() {
@@ -102,7 +101,7 @@ public class User extends PersistentObject{
 		this.department = department;
 	}
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="crew_depart_chief", referencedColumnName = "crew_id")
     @NotFound(action= NotFoundAction.IGNORE)
 	public User getChief() {
@@ -139,7 +138,7 @@ public class User extends PersistentObject{
 		isActive = active;
 	}
 
-    @OneToMany(mappedBy = "chief", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chief", fetch = FetchType.LAZY)
     public List<User> getUsersList() {
         return usersList;
     }
@@ -147,7 +146,7 @@ public class User extends PersistentObject{
         this.usersList = usersList;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public List<DayReport> getDayReportsList() {
         return dayReportsList;
     }

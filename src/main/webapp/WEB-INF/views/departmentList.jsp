@@ -26,7 +26,7 @@
         <th><spring:message code="departmentList.label.name" /></th>
         <th></th>
     </tr>
-    <c:forEach items="${departmentList}" var="department">
+    <c:forEach items="${entityList}" var="department">
         <tr>
             <td>${department.name}</td>
             <td><a href="/departments/${department.id}">Edit</a></td>

@@ -34,9 +34,11 @@
                 p:defaultLocale="ru"/>
 
     <mvc:interceptors>
-        <bean
-                class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
                 p:paramName="locale"/>
+        <bean class="org.springframework.orm.hibernate4.support.OpenSessionInViewInterceptor"
+                p:sessionFactory-ref="sessionFactory">
+        </bean>
     </mvc:interceptors>
 
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >

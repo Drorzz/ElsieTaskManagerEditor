@@ -53,7 +53,7 @@ public class Department extends PersistentObject implements Serializable {
         this.projectActive = projectActive;
     }
 
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     public List<User> getUsersList() {
         return usersList;
     }
