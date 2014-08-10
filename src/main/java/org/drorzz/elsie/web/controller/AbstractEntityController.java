@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.PersistentObject;
 import org.drorzz.elsie.service.AbstractEntityService;

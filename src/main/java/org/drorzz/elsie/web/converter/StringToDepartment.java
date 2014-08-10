@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller.converter;
+package org.drorzz.elsie.web.converter;
 
 import org.drorzz.elsie.domain.Department;
 import org.drorzz.elsie.service.DepartmentService;

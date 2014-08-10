@@ -5,7 +5,7 @@ import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +18,7 @@ import java.util.Calendar;
 @AttributeOverride(name="id",column=@Column(name="dayr_id"))
 public class DayReport extends PersistentObject{
     private User user;//dayr_crew_id
-    private Calendar date;//dayr_date
+    private Date date;//dayr_date
     private String projectText;//dayr_proj_text
     private String text;//dayr_text
     private int fullDate;//dayr_fdate
@@ -36,11 +36,11 @@ public class DayReport extends PersistentObject{
 
     @Column(name = "dayr_date")
     @Temporal(value=TemporalType.DATE)
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

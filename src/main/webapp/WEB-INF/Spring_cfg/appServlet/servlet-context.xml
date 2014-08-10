@@ -12,22 +12,43 @@
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven conversion-service="conversionService"/>
-    <context:component-scan base-package="org.drorzz.elsie.controller" />
+    <context:component-scan base-package="org.drorzz.elsie.web.controller" />
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <!-- <resources mapping="/resources/**" location="/resources/" /> -->
     <mvc:resources mapping="/CSS/**" location="/resources/css/" />
 
-    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
+    <!--Thymeleaf-->
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"
+            p:templateMode="HTML5"
+            p:prefix="/WEB-INF/views/"
+            p:suffix=".html"
+            p:characterEncoding="UTF-8"/>
 
-    <bean id="messageSource"
-                class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
-                p:basename="resources/i18n/messages"
-                p:defaultEncoding="UTF-8"/>
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring4.SpringTemplateEngine"
+            p:templateResolver-ref="templateResolver"/>
+
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver"
+            p:templateEngine-ref="templateEngine"
+            p:characterEncoding="UTF-8"/>
+
+    <!--<bean id="thymeleafMessageSource"-->
+          <!--class="org.thymeleaf.spring4.messageresolver.SpringMessageResolver"-->
+            <!--p:messageSource=""/>-->
+
+
+    <!--&lt;!&ndash; Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/views/" />-->
+        <!--<property name="suffix" value=".jsp" />-->
+    <!--</bean>-->
+
+     <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+            p:basename="resources/i18n/messages"
+            p:defaultEncoding="UTF-8"/>
 
     <bean id="localeResolver"
                 class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
@@ -41,12 +62,18 @@
         </bean>
     </mvc:interceptors>
 
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >
-        <property name="converters">
+    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
+    <property name="converters">
             <set>
-                <bean class="org.drorzz.elsie.controller.converter.StringToUser"/>
-                <bean class="org.drorzz.elsie.controller.converter.StringToDepartment"/>
-                <bean class="org.drorzz.elsie.controller.converter.StringToDayReport"/>
+                <bean class="org.drorzz.elsie.web.converter.StringToUser"/>
+                <bean class="org.drorzz.elsie.web.converter.StringToDepartment"/>
+                <bean class="org.drorzz.elsie.web.converter.StringToDayReport"/>
+            </set>
+        </property>
+        <property name="formatters">
+            <set>
+                <bean class="org.drorzz.elsie.web.converter.DateFormatter"/>
             </set>
         </property>
     </bean>

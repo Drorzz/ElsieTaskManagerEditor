@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.Department;
 import org.drorzz.elsie.service.DepartmentService;
@@ -25,5 +25,6 @@ public class DepartmentController extends AbstractEntityController<Department, D
     protected void addEntityByIdMappingModelAttributes(Model model, Department entity) {
 //        System.out.println(Arrays.asList(entity.getUsersList()));
 //        System.out.println(Arrays.asList(entityService.getUsersList(entity)));
+
     }
 }

@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.DayReport;
 import org.drorzz.elsie.domain.User;
