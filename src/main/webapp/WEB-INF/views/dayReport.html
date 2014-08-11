@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
 <html xmlns:th="http://www.thymeleaf.org"
       th:with="title=#{dayReport.label.title}+' '+((${entity.user} == null) ? '' : ${entity.user.fullName})+' - '+${{entity.date}}">
     <head lang="en">
@@ -13,16 +14,17 @@
             <fieldset>
                 <input type="hidden" th:field="*{id}"/>
                 <table class="data">
-                    <td th:text="#{dayReport.label.user}" />
-                    <td>
-                        <select th:field="*{user}">
-                            <!--TODO Добавить локализацию select значение по умолчанию -->
-                            <option th:if="*{user}==null" value="" style="display: none">Select user</option>
-                            <option th:each="user : ${userList}"
-                                    th:value="${user.id}"
-                                    th:text="${user.fullName}"/>
-                        </select>
-                    </td>
+                    <tr>
+                        <td th:text="#{dayReport.label.user}" />
+                        <td>
+                            <select th:field="*{user}">
+                                <option th:if="*{user}==null" value="" th:text="#{dayReport.label.userPlaceholder}" style="display: none" />
+                                <option th:each="user : ${userList}"
+                                        th:value="${user.id}"
+                                        th:text="${user.fullName}"/>
+                            </select>
+                        </td>
+                    </tr>
                     <tr>
                         <td th:text="#{dayReport.label.date}" />
                         <td><input type="date" id="date" name="date" th:value="*{date}" /></td>
