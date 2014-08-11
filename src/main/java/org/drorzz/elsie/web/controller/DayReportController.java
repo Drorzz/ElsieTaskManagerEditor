@@ -48,6 +48,5 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
     @Override
     protected void addEntityByIdMappingModelAttributes(Model model, DayReport dayReport) {
         model.addAttribute("userList", usersList());
-        model.addAttribute("title", dayReport.getUser().getFullName() + " - " + dayReport.getDate());
     }
 }

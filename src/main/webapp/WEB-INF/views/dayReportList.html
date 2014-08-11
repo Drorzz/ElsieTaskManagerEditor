@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title th:text="#{dayReportList.label.title}"/>
+    </head>
+    <body>
+        <h2 th:text="#{dayReportList.label.title}"/>
+        <table>
+            <thead>
+                <tr>
+                    <th th:text="#{dayReportList.label.user}" />
+                    <th th:text="#{dayReportList.label.date}" />
+                    <th th:text="#{dayReportList.label.text}" />
+                    <th/>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dayReport : ${entityList}">
+                        <td th:text="(${dayReport.user} == null) ? '' : ${dayReport.user.fullName}" style="white-space: nowrap" />
+                    <td th:text="${{dayReport.date}}" style="white-space: nowrap" />
+                    <td th:utext="${{dayReport.text}}" />
+                    <td><a th:href="@{/dayReports/{id}(id=${dayReport.id})}">Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

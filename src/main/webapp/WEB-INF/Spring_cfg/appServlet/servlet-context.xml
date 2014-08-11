@@ -34,10 +34,6 @@
             p:templateEngine-ref="templateEngine"
             p:characterEncoding="UTF-8"/>
 
-    <!--<bean id="thymeleafMessageSource"-->
-          <!--class="org.thymeleaf.spring4.messageresolver.SpringMessageResolver"-->
-            <!--p:messageSource=""/>-->
-
 
     <!--&lt;!&ndash; Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory &ndash;&gt;-->
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->

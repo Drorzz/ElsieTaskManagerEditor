@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title th:text="#{userList.label.title}"/>
+    </head>
+    <body>
+        <h2 th:text="#{userList.label.title}"/>
+        <table>
+            <thead>
+                <tr>
+                    <th th:text="#{userList.label.name}"/>
+                    <th th:text="#{userList.label.login}"/>
+                    <th th:text="#{userList.label.department}"/>
+                    <th th:text="#{userList.label.isActive}"/>
+                    <th/>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${entityList}">
+                    <td th:text="${user.fullName}"/>
+                    <td th:text="${user.login}"/>
+                    <td th:text="${user.department.name}"/>
+                    <td th:text="${user.active}"/>
+                    <td><a th:href="@{/users/{id}(id=${user.id})}">Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
