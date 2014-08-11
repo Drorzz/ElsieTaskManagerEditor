@@ -1,0 +1,57 @@
+#entityEdit{
+    padding: 5px;
+}
+
+#entityEdit form {
+    margin-top: 20px;
+}
+
+#entityEdit fieldset{
+    width: 100%;
+    padding: 5px;
+}
+
+#entityEdit form legend{
+    font-size: 120%;
+    padding: 5px;
+}
+
+#entityEdit form fieldset label{
+    width: 30%;
+    white-space: nowrap;
+    float: left;
+    margin: 3px;
+    text-align: left;
+}
+
+#entityEdit fieldset input,
+#entityEdit fieldset select,
+#entityEdit fieldset textarea{
+    width: 65%;
+    float: left;
+    margin: 3px;
+}
+
+#entityEdit form fieldset input[type=submit]{
+    width: auto;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+#entityEdit form fieldset input[type=checkbox]{
+    width:auto;
+}
+
+#entityEdit form fieldset div{
+    clear: both;
+    display: flex;
+}
+
+.rightText{
+    text-align: right;
+}
+
+.placeholder {
+    display: none;
+}
+

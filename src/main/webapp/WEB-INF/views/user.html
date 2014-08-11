@@ -5,80 +5,81 @@
     <head lang="en">
         <meta charset="UTF-8"/>
         <title th:text="${title}"/>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/entityEdit.css"
+              th:href="@{/CSS/entityEdit.css}"/>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/userEdit.css"
+              th:href="@{/CSS/userEdit.css}"/>
     </head>
-    <body>
+    <body id="entityEdit" style="width: 450px">
         <a th:href="@{/users}" th:text="#{user.label.toUserList}"/>
-        <h2 th:text="${title}"/>
         <form  th:object="${entity}" method="post">
+            <input type="hidden" th:field="*{id}"/>
             <fieldset>
-                <input type="hidden" th:field="*{id}"/>
-                <table>
-                    <tr>
-                        <td th:text="#{user.label.login}" />
-                        <td><input type="text" th:field="*{login}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.password}" />
-                        <td><input type="password" th:field="*{password}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.lastName}" />
-                        <td><input type="text" th:field="*{lastName}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.firstName}" />
-                        <td><input type="text" th:field="*{firstName}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.email}" />
-                        <td><input type="email" th:field="*{email}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.department}" />
-                        <td>
-                            <select th:field="*{department}">
-                                <option th:if="*{department}==null" value="" th:text="#{user.label.departmentPlaceholder}" style="display: none" />
-                                <option th:each="department : ${departmentList}"
-                                        th:value="${department.id}"
-                                        th:text="${department.name}"/>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.chief}" />
-                        <td>
-                            <select th:field="*{chief}">
-                                <option th:if="*{chief}==null" value="" th:text="#{user.label.chiefPlaceholder}" style="display: none" />
-                                <option th:each="chief : ${userList}"
-                                        th:value="${chief.id}"
-                                        th:text="${chief.fullName}"/>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.accessLevel}" />
-                        <td>
-                            <select th:field="*{accessLevel}">
-                                <option th:if="*{accessLevel}==null" value="" th:text="#{user.label.accessLevelPlaceholder}" style="display: none" />
-                                <option th:each="accessLevel : ${accessLevelList}"
-                                        th:value="${accessLevel}"
-                                        th:text="#{${'accessLevel.name.' + accessLevel}}"/>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.position}" />
-                        <td><input type="text" th:field="*{position}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.vacation}" />
-                        <td><input type="checkbox" th:field="*{vacation}" /></td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.label.active}" />
-                        <td><input type="checkbox" th:field="*{active}" /></td>
-                    </tr>
-                </table>
+                <legend th:text="${title}"/>
+                <div>
+                    <label for="login"  th:text="#{user.label.login}" />
+                    <input type="text" id="login" th:field="*{login}" />
+                </div>
+                <div>
+                    <label for="password"  th:text="#{user.label.password}" />
+                    <input type="password" id="password" th:field="*{password}" />
+                </div>
+                <div>
+                    <label for="lastName"  th:text="#{user.label.lastName}" />
+                    <input type="text" id="lastName" th:field="*{lastName}" />
+                </div>
+                <div>
+                    <label for="firstName"  th:text="#{user.label.firstName}" />
+                    <input type="text" id="firstName" th:field="*{firstName}" />
+                </div>
+                <div>
+                    <label for="email"  th:text="#{user.label.email}" />
+                    <input type="email" id="email" th:field="*{email}" />
+                </div>
+                <div>
+                    <label for="department"  th:text="#{user.label.department}" />
+                    <select id="department" th:field="*{department}">
+                        <option th:if="*{department}==null" value="" th:text="#{user.label.departmentPlaceholder}" class="placeholder" />
+                        <option th:each="department : ${departmentList}"
+                                th:value="${department.id}"
+                                th:text="${department.name}"/>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="chief"  th:text="#{user.label.chief}" />
+                    <select id="chief" th:field="*{chief}">
+                        <option th:if="*{chief}==null" value="" th:text="#{user.label.chiefPlaceholder}" class="placeholder" />
+                        <option th:each="chief : ${userList}"
+                                th:value="${chief.id}"
+                                th:text="${chief.fullName}"/>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="accessLevel"  th:text="#{user.label.accessLevel}" />
+                    <select id="accessLevel" th:field="*{accessLevel}">
+                        <option th:if="*{accessLevel}==null" value="" th:text="#{user.label.accessLevelPlaceholder}" class="placeholder" />
+                        <option th:each="accessLevel : ${accessLevelList}"
+                                th:value="${accessLevel}"
+                                th:text="#{${'accessLevel.name.' + accessLevel}}"/>
+                    </select>
+
+                </div>
+                <div>
+                    <label for="position"  th:text="#{user.label.position}" />
+                    <input type="text" id="position" th:field="*{position}" />
+                </div>
+                <div>
+                    <label for="vacation"  th:text="#{user.label.vacation}" />
+                    <input type="checkbox" id="vacation" th:field="*{vacation}" />
+                </div>
+                <div>
+                    <label for="active"  th:text="#{user.label.active}" />
+                    <input type="checkbox" id="active" th:field="*{active}" />
+                </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
             </fieldset>
         </form>

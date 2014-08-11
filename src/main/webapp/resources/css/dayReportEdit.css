@@ -1,0 +1,9 @@
+#entityEdit form fieldset label {
+    width: 20%;
+}
+
+#entityEdit fieldset input,
+#entityEdit fieldset select,
+#entityEdit fieldset textarea{
+    width: 75%;
+}
