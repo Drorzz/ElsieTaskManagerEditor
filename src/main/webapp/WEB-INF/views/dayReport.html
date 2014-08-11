@@ -9,7 +9,7 @@
     <body>
         <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}"/>
         <h2 th:text="${title}"/>
-        <!--TODO Не работает post реквест -->
+        <!--fixme Не работает post реквест -->
         <form th:object="${entity}" method="post">
             <fieldset>
                 <input type="hidden" th:field="*{id}"/>
@@ -32,7 +32,7 @@
                     <tr>
                         <td th:text="#{dayReport.label.text}" />
                         <td><textarea th:field="*{text}" /></td>
-                        <!--TODO В textarea выводятся екранированые теги-->
+                        <!--fixme В textarea выводятся екранированые теги-->
                     </tr>
                 </table>
                 <input type="submit" th:value="#{button.label.saveButton}" />

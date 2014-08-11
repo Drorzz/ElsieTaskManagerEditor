@@ -12,6 +12,8 @@ import java.util.List;
  * Time: 16:09
  */
 public interface AbstractDAO<E extends PersistentObject> {
+//TODO Переработать интерфейс дао
+//TODO Добавить постраничную выборку данных
     public void save(E obj);
     public void delete(E obj);
     public void deleteById(Integer id);
