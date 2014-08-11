@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
 <html xmlns:th="http://www.thymeleaf.org"
-      th:with="title=#{department.label.title} + ' ' + ${entity.name}">
+      th:with="title=#{department.label.title} + ' ' + (${entity.name}?:#{department.label.new})">
     <head lang="en">
         <meta charset="UTF-8"/>
         <title th:text="${title}" />

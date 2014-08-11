@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
 <html xmlns:th="http://www.thymeleaf.org"
-      th:with="title=#{dayReport.label.title}+' '+((${entity.user} == null) ? '' : ${entity.user.fullName})+' - '+${{entity.date}}">
+      th:with="titleSimple=(${entity.user} == null ? '' : ${entity.user.fullName}+' - ')+${{entity.date}},
+               title=#{dayReport.label.title}+' '+(${titleSimple} == '' ? #{dayReport.label.new} : ${titleSimple})">
     <head lang="en">
         <meta charset="UTF-8"/>
         <title th:text="${title}"/>
@@ -12,7 +13,7 @@
               href="../../resources/css/dayReportEdit.css"
               th:href="@{/CSS/dayReportEdit.css}"/>
     </head>
-    <body id="entityEdit" style="width: 400px">
+    <body id="entityEdit" style="width: 600px">
         <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}"/>
         <!--fixme Не работает post реквест -->
         <form th:object="${entity}" method="post">
@@ -35,7 +36,7 @@
                 </div>
                 <div>
                     <label for="text" th:text="#{dayReport.label.text}" />
-                    <textarea id="text" th:field="*{text}" rows="5" />
+                    <textarea id="text" th:field="*{text}" rows="10" />
                     <!--fixme В textarea выводятся екранированые теги-->
                 </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
