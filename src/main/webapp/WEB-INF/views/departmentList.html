@@ -4,19 +4,22 @@
     <head lang="en">
         <meta charset="UTF-8"/>
         <title th:text="#{departmentList.label.title}"/>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/table.css"
+              th:href="@{/CSS/table.css}"/>
     </head>
     <body>
         <h2 th:text="#{departmentList.label.title}"/>
-        <table>
+        <table class="order-table">
             <thead>
-                <tr>
-                    <th th:text="#{departmentList.label.name}"/>
-                    <th/>
+                <tr class="order-table-header">
+                    <th th:text="#{departmentList.label.name}" />
+                    <th />
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="department : ${entityList}">
-                    <td th:text="${department.name}"/>
+                <tr th:each="department : ${entityList}" class="order-table-row">
+                    <td th:text="${department.name}" />
                     <td><a th:href="@{/departments/{id}(id=${department.id})}">Edit</a></td>
                 </tr>
             </tbody>

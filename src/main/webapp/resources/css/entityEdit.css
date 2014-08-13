@@ -1,50 +1,38 @@
-#entityEdit{
-    padding: 5px;
+.editTable {
+    display:table;
+    width:0;
 }
 
-#entityEdit form {
-    margin-top: 20px;
+.editTable legend{
+    white-space:nowrap;
 }
 
-#entityEdit fieldset{
-    width: 100%;
-    padding: 5px;
+.editTable input[type=submit]{
+    margin:10px 15px 0;
 }
 
-#entityEdit form legend{
-    font-size: 120%;
-    padding: 5px;
+.editRow {
+    display:table-row;
 }
 
-#entityEdit form fieldset label{
-    width: 30%;
-    white-space: nowrap;
-    float: left;
-    margin: 3px;
-    text-align: left;
+.editCell {
+    display:table-cell;
+    padding:2px 5px;
+    vertical-align: top;
 }
 
-#entityEdit fieldset input,
-#entityEdit fieldset select,
-#entityEdit fieldset textarea{
-    width: 65%;
-    float: left;
-    margin: 3px;
+.editCell label{
+    white-space:nowrap;
 }
 
-#entityEdit form fieldset input[type=submit]{
-    width: auto;
-    margin-left: 15px;
-    margin-top: 10px;
+.editCell input:not([type=checkbox]),
+.editCell select{
+    min-width:210px;
+    width:100%;
 }
 
-#entityEdit form fieldset input[type=checkbox]{
-    width:auto;
-}
-
-#entityEdit form fieldset div{
-    clear: both;
-    display: flex;
+.widthAll{
+    width:100%;
 }
 
 .rightText{
@@ -53,5 +41,8 @@
 
 .placeholder {
     display: none;
+}
+.marginTop20{
+    margin-top: 20px;
 }
 

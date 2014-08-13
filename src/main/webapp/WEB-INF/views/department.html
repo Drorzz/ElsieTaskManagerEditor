@@ -9,27 +9,43 @@
               href="../../resources/css/entityEdit.css"
               th:href="@{/CSS/entityEdit.css}"/>
     </head>
-    <body id="entityEdit" style="width: 280px">
-        <a th:href="@{/departments}" th:text="#{department.label.toDepartmentList}"/>
-        <form th:object="${entity}" method="post" >
+    <body id="entityEdit">
+        <a th:href="@{/departments}" th:text="#{department.label.toDepartmentList}" />
+        <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
-            <fieldset>
+            <fieldset class="editTable">
                 <legend th:text="${title}"/>
-                <div>
-                    <label for="name"  th:text="#{department.label.name}" />
-                    <input type="text" id="name" th:field="*{name}" />
+                <div class="editRow">
+                    <div class="editCell">
+                       <label for="name"  th:text="#{department.label.name}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="name" th:field="*{name}" />
+                    </div>
                 </div>
-                <div>
-                    <label for="level"  th:text="#{department.label.level}" />
-                    <input type="text" id="level" th:field="*{level}" class="rightText" />
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="level"  th:text="#{department.label.level}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="level" th:field="*{level}" class="rightText" />
+                    </div>
                 </div>
-                <div>
-                    <label for="listOrder"  th:text="#{department.label.listOrder}" />
-                    <input type="text" id="listOrder" th:field="*{listOrder}" class="rightText" />
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="listOrder"  th:text="#{department.label.listOrder}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="listOrder" th:field="*{listOrder}" class="rightText" />
+                    </div>
                 </div>
-                <div>
-                    <label for="projectActive"  th:text="#{department.label.projectActive}" />
-                    <input type="text" id="projectActive" th:field="*{projectActive}" class="rightText" />
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="projectActive"  th:text="#{department.label.projectActive}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="projectActive" th:field="*{projectActive}" class="rightText" />
+                    </div>
                 </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
             </fieldset>

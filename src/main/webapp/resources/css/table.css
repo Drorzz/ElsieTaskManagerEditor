@@ -14,28 +14,31 @@ Time: 17:15
     border: 1px solid #BBBBBB;
 }
 
-.order-table-header{
+.order-table-header th{
     text-align:center;
     background:none repeat scroll 0 0 #E5E5E5;
-    /*border-bottom:1px solid #BBBBBB;*/
     padding:8px;
 }
 
-.order-table-odd-row{
+.order-table-row{
     text-align:left;
-    background:none repeat scroll 0 0 #FFFFFF;
-    /*border-top:1px solid #BBBBBB;*/
     margin:5px;
 }
 
-.order-table-even-row{
-    text-align:left;
+.order-table-row td{
+    padding: 0px 5px;
+}
+.order-table-row td img {
+    display: block;
+    margin: auto;
+    border: 0;
+}
+/*tr.order-table-row:nth-child(odd) {*/
+    /*background:none repeat scroll 0 0 #FFFFFF;*/
+/*}*/
+
+tr.order-table-row:nth-child(even) {
     background:none repeat scroll 0 0 #F9F9F9;
-    /*border-top:1px solid #BBBBBB;*/
-    margin:5px;
 }
 
-.order-table-odd-row td,.order-table-even-row td{
-    padding:0px 5px;
-}
 

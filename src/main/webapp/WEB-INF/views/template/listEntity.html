@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title th:text="#{userList.label.title}"/>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/table.css"
+              th:href="@{/CSS/table.css}"/>
+        <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
+    </head>
+    <body>
+    <h2 th:text="#{userList.label.title}"/>
+    <table id="entityTable" class="order-table">
+        <thead>
+        <tr class="order-table-header">
+            <th th:text="#{userList.label.name}"/>
+            <th th:text="#{userList.label.login}"/>
+            <th th:text="#{userList.label.department}"/>
+            <th th:text="#{userList.label.isActive}"/>
+            <th colspan="2">
+                <a th:href="@{/users/new}">
+                    <img alt="New"
+                         src="../../resources/img/new.png"
+                         th:src="@{/img/new.png}"/>
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entity : ${entityList}" class="order-table-row"
+            th:ondblclick="|redirectToPath('@{/users/{id}(id=${entity.id})}')|">
+            <td th:text="${entity.fullName}"/>
+            <td th:text="${entity.login}"/>
+            <td th:text="${entity.department.name}"/>
+            <td>
+                <img th:if="${entity.active}"
+                     th:alt="${entity.active}"
+                     src="../../resources/img/check.png"
+                     th:src="@{/img/check.png}"/>
+            </td>
+            <td>
+                <a th:href="@{/users/{id}(id=${entity.id})}">
+                    <img alt="Edit"
+                         src="../../resources/img/edit.png"
+                         th:src="@{/img/edit.png}"/>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/users/{id}(id=${entity.id},delete)}">
+                    <img alt="Edit"
+                         src="../../resources/img/delete.png"
+                         th:src="@{/img/delete.png}"/>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
+</html>

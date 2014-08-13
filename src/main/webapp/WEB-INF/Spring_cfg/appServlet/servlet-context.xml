@@ -17,6 +17,8 @@
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <!-- <resources mapping="/resources/**" location="/resources/" /> -->
     <mvc:resources mapping="/CSS/**" location="/resources/css/" />
+    <mvc:resources mapping="/img/**" location="/resources/img/" />
+    <mvc:resources mapping="/js/**" location="/resources/js/" />
 
     <!--Thymeleaf-->
     <bean id="templateResolver"
@@ -51,7 +53,6 @@
         </bean>
     </mvc:interceptors>
 
-    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" >-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
     <property name="converters">
             <set>

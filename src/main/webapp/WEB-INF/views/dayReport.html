@@ -13,32 +13,43 @@
               href="../../resources/css/dayReportEdit.css"
               th:href="@{/CSS/dayReportEdit.css}"/>
     </head>
-    <body id="entityEdit" style="width: 600px">
-        <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}"/>
+    <body>
+        <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}" />
         <!--fixme Не работает post реквест -->
-        <form th:object="${entity}" method="post">
-            <fieldset>
+        <form th:object="${entity}" method="post" class="marginTop20">
+            <input type="hidden" th:field="*{id}"/>
+            <fieldset class="editTable">
                 <legend th:text="${title}"/>
-                <input type="hidden" th:field="*{id}"/>
-                <div>
-                    <label for="user" th:text="#{dayReport.label.user}" />
-                    <select id="user" th:field="*{user}">
-                        <option th:if="*{user}==null" value="" th:text="#{dayReport.label.userPlaceholder}" class="placeholder" />
-                        <option th:each="user : ${userList}"
-                                th:value="${user.id}"
-                                th:text="${user.fullName}"/>
-                    </select>
-                    
+                 <div class="editRow">
+                    <div class="editCell">
+                        <label for="user" th:text="#{dayReport.label.user}" />
+                    </div>
+                     <div class="editCell widthAll">
+                        <select id="user" th:field="*{user}">
+                            <option th:if="*{user}==null" value="" th:text="#{dayReport.label.userPlaceholder}" class="placeholder" />
+                            <option th:each="user : ${userList}"
+                                    th:value="${user.id}"
+                                    th:text="${user.fullName}"/>
+                        </select>
+                     </div>
                 </div>
-                <div>
-                    <label for="date" th:text="#{dayReport.label.date}" />
-                    <input type="date" id="date" name="date" th:value="*{date}" />
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="date" th:text="#{dayReport.label.date}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="date" id="date" name="date" th:value="*{date}" />
+                    </div>
                 </div>
-                <div>
-                    <label for="text" th:text="#{dayReport.label.text}" />
-                    <textarea id="text" th:field="*{text}" rows="10" />
-                    <!--fixme В textarea выводятся екранированые теги-->
-                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="text" th:text="#{dayReport.label.text}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <!--fixme В textarea выводятся екранированые теги-->
+                        <textarea id="text" th:field="*{text}" rows="15" />
+                    </div>
+                 </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
             </fieldset>
         </form>

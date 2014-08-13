@@ -1,9 +1,8 @@
-#entityEdit form fieldset label {
-    width: 18%;
+.editCell input,
+.editCell select{
+    max-width: 210px;
 }
-
-#entityEdit fieldset input,
-#entityEdit fieldset select,
-#entityEdit fieldset textarea{
-    width: 79%;
+.editCell textarea{
+    min-width: 600px;
+    width: 100%;
 }
