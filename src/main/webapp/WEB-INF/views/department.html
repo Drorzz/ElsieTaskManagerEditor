@@ -2,14 +2,14 @@
 <!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
 <html xmlns:th="http://www.thymeleaf.org"
       th:with="title=#{department.label.title} + ' ' + (${entity.name}?:#{department.label.new})">
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title th:text="${title}" />
+<th:block th:replace="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
         <link rel="stylesheet" type="text/css"
               href="../../resources/css/entityEdit.css"
               th:href="@{/CSS/entityEdit.css}"/>
-    </head>
-    <body id="entityEdit">
+    </th:block>
+    <th:block th:fragment="content">
         <a th:href="@{/departments}" th:text="#{department.label.toDepartmentList}" />
         <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
@@ -17,7 +17,7 @@
                 <legend th:text="${title}"/>
                 <div class="editRow">
                     <div class="editCell">
-                       <label for="name"  th:text="#{department.label.name}" />
+                        <label for="name"  th:text="#{department.label.name}" />
                     </div>
                     <div class="editCell widthAll">
                         <input type="text" id="name" th:field="*{name}" />
@@ -50,5 +50,6 @@
                 <input type="submit" th:value="#{button.label.saveButton}" />
             </fieldset>
         </form>
-    </body>
+    </th:block>
+</th:block>
 </html>

@@ -3,35 +3,35 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:with="titleSimple=(${entity.user} == null ? '' : ${entity.user.fullName}+' - ')+${{entity.date}},
                title=#{dayReport.label.title}+' '+(${titleSimple} == '' ? #{dayReport.label.new} : ${titleSimple})">
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title th:text="${title}"/>
+<th:block th:include="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
         <link rel="stylesheet" type="text/css"
               href="../../resources/css/entityEdit.css"
               th:href="@{/CSS/entityEdit.css}"/>
         <link rel="stylesheet" type="text/css"
               href="../../resources/css/dayReportEdit.css"
               th:href="@{/CSS/dayReportEdit.css}"/>
-    </head>
-    <body>
+    </th:block>
+    <th:block th:fragment="content">
         <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}" />
         <!--fixme Не работает post реквест -->
         <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
             <fieldset class="editTable">
                 <legend th:text="${title}"/>
-                 <div class="editRow">
+                <div class="editRow">
                     <div class="editCell">
                         <label for="user" th:text="#{dayReport.label.user}" />
                     </div>
-                     <div class="editCell widthAll">
+                    <div class="editCell widthAll">
                         <select id="user" th:field="*{user}">
                             <option th:if="*{user}==null" value="" th:text="#{dayReport.label.userPlaceholder}" class="placeholder" />
                             <option th:each="user : ${userList}"
                                     th:value="${user.id}"
                                     th:text="${user.fullName}"/>
                         </select>
-                     </div>
+                    </div>
                 </div>
                 <div class="editRow">
                     <div class="editCell">
@@ -47,11 +47,12 @@
                     </div>
                     <div class="editCell widthAll">
                         <!--fixme В textarea выводятся екранированые теги-->
-                        <textarea id="text" th:field="*{text}" rows="15" />
+                        <textarea id="text" th:field="*{{text}}" rows="15" />
                     </div>
-                 </div>
+                </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
             </fieldset>
         </form>
-    </body>
+    </th:block>
+</th:block>
 </html>

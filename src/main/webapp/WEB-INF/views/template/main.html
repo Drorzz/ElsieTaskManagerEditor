@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="template(pageTitle)">
+    <head lang="en">
+        <meta charset="UTF-8"/>
+        <title th:text="${pageTitle}" />
+        <link rel="stylesheet" type="text/css"
+              href="../../../resources/css/style.css"
+              th:href="@{/CSS/style.css}"/>
+        <th:block th:replace="::toHead"/>
+    </head>
+    <body>
+    <div id="container">
+        <div id="header">
+            <h1>Task<span class="off">Manager</span></h1>
+            <h2>All for you</h2>
+        </div>
+        <div id="menu">
+            <ul>
+                <li class="menuitem"><a th:href="@{/}">Home</a></li>
+                <li class="menuitem"><a th:href="@{/dayReports}">Reports</a></li>
+                <li class="menuitem"><a th:href="@{/users}">Entity's</a></li>
+                <li class="menuitem"><a href="#">About</a></li>
+            </ul>
+        </div>
+        <div id="leftmenu">
+            <div id="leftmenu_top"></div>
+
+            <div id="leftmenu_main">
+                <ul>
+                    <li><a href="#">SEO</a></li>
+                    <li><a href="#">PHP</a></li>
+                    <li><a href="#">Ajax</a></li>
+                    <li><a href="#">jQuery</a></li>
+                    <li><a href="#">Web design</a></li>
+                    <li><a href="#">Web Programming</a></li>
+                    <li><a href="#">Content Creation</a></li>
+                    <li><a href="#">Internet Marketing</a></li>
+                    <li><a href="#">XHTML Templates</a></li>
+                </ul>
+            </div>
+            <div id="leftmenu_bottom"></div>
+        </div>
+        <div id="content">
+            <div id="content_top"/>
+            <div id="content_main" th:include="::content">
+                <h2>You may use this template in any manner you like. All I ask is that you leave the link back to my site at the bottom of the page. </h2>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <h3>Template Notes</h3>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>&nbsp;</p>
+                <h3>More information</h3>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>&nbsp;</p>
+                <h3>Template Notes</h3>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p></p>
+                <p>&nbsp;</p>
+            </div>
+            <div id="content_bottom"></div>
+            <div id="footer"><h3>© 2014 Ivansky Denis</h3></div>
+        </div>
+    </div>
+    </body>
+</th:block>
+</html>
+

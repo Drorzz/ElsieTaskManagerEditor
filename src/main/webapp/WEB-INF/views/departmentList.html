@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
-<html xmlns:th="http://www.thymeleaf.org">
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title th:text="#{departmentList.label.title}"/>
-        <link rel="stylesheet" type="text/css"
-              href="../../resources/css/table.css"
-              th:href="@{/CSS/table.css}"/>
-    </head>
-    <body>
-        <h2 th:text="#{departmentList.label.title}"/>
-        <table class="order-table">
-            <thead>
+<html xmlns:th="http://www.thymeleaf.org"
+        th:with="title=#{departmentList.label.title}">
+    <th:block th:replace="template/main::template(${title})"/>
+    <th:block th:remove="all">
+        <th:block th:fragment="toHead">
+            <link rel="stylesheet" type="text/css"
+                  href="../../resources/css/table.css"
+                  th:href="@{/CSS/table.css}"/>
+            <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
+        </th:block>
+        <th:block th:fragment="content">
+            <h2 th:text="${title}"/>
+            <table class="order-table">
+                <thead>
                 <tr class="order-table-header">
                     <th th:text="#{departmentList.label.name}" />
-                    <th />
+                    <th colspan="2">
+                        <a th:href="@{/departments/new}">
+                            <img alt="New"
+                                 src="../../resources/img/new.png"
+                                 th:src="@{/img/new.png}"/>
+                        </a>
+                    </th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr th:each="department : ${entityList}" class="order-table-row">
-                    <td th:text="${department.name}" />
-                    <td><a th:href="@{/departments/{id}(id=${department.id})}">Edit</a></td>
+                </thead>
+                <tbody>
+                <tr th:each="entity : ${entityList}" class="order-table-row"
+                    th:ondblclick="|redirectToPath('@{/departments/{id}(id=${entity.id})}')|">
+                    <td th:text="${entity.name}" />
+                    <td>
+                        <a th:href="@{/departments/{id}(id=${entity.id})}">
+                            <img alt="Edit"
+                                 src="../../resources/img/edit.png"
+                                 th:src="@{/img/edit.png}"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/departments/{id}(id=${entity.id},delete)}">
+                            <img alt="Edit"
+                                 src="../../resources/img/delete.png"
+                                 th:src="@{/img/delete.png}"/>
+                        </a>
+                    </td>
                 </tr>
-            </tbody>
-        </table>
-    </body>
+                </tbody>
+            </table>
+        </th:block>
+    </th:block>
 </html>

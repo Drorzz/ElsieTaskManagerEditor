@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="title='My title'">
+    <th:block th:include="template/main::template(${title})"/>
+    <th:block th:remove="all">
+        <th:block th:fragment="toHead">
+             <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
+        </th:block>
+        <th:block th:fragment="content">
+            <p>Мой очень</p>
+            <p>класный</p>
+            <p>контерт</p>
+        </th:block>
+    </th:block>
+</html>
