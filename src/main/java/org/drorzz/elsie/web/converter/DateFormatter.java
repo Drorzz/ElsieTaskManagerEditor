@@ -27,7 +27,13 @@ public class DateFormatter implements Formatter<Date> {
 
     public Date parse(final String text, final Locale locale) throws ParseException {
         final SimpleDateFormat dateFormat = createDateFormat(locale);
-        return dateFormat.parse(text);
+        Date result;
+        try {
+            result = dateFormat.parse(text);
+        }catch (ParseException e){
+            result = createStandardDateFormat().parse(text);
+        }
+        return result;
     }
 
     public String print(final Date object, final Locale locale) {
@@ -38,6 +44,11 @@ public class DateFormatter implements Formatter<Date> {
     private SimpleDateFormat createDateFormat(final Locale locale) {
         final String format = this.messageSource.getMessage("date.format", null, locale);
         final SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setLenient(false);
+        return dateFormat;
+    }
+    private SimpleDateFormat createStandardDateFormat() {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         return dateFormat;
     }

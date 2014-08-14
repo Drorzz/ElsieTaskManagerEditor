@@ -15,7 +15,6 @@
     </th:block>
     <th:block th:fragment="content">
         <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}" />
-        <!--fixme Не работает post реквест -->
         <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
             <fieldset class="editTable">

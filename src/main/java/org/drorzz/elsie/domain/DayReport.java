@@ -44,7 +44,7 @@ public class DayReport extends PersistentObject{
         this.date = date;
     }
 
-    @Column(name = "dayr_proj_text")
+    @Column(name = "dayr_proj_text", nullable = true)
     @Type(type="text")
     public String getProjectText() {
         return projectText;

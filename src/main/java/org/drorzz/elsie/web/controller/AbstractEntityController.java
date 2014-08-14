@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.ParameterizedType;
@@ -115,8 +116,11 @@ public abstract class AbstractEntityController<E extends PersistentObject, S ext
     protected abstract void addEntityByIdMappingModelAttributes(Model model, E entity);
 
     @RequestMapping(value = "/{pathId:"+ mappingEditMask +"}", method = RequestMethod.POST)
-    public final String entitySaveMapping(E entity) {
+    public final String entitySaveMapping(E entity,BindingResult result) {
         logger.info("Save {}. Id: {}", getClassName(),entity.getId());
+        if(result.hasErrors()){
+            System.out.println(result.toString());
+        }
         entityService.save(entity);
         return redirectToList();
     }

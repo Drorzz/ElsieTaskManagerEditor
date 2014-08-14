@@ -24,10 +24,11 @@ Time: 17:15
 .order-table-row{
     text-align:left;
     margin:5px;
+    cursor: pointer;
 }
 
 .order-table-row td{
-    padding: 0px 5px;
+    padding: 0 5px;
     max-width: 360px;
 }
 .order-table-row td img {

@@ -27,8 +27,11 @@
 
 .editCell input:not([type=checkbox]),
 .editCell select{
-    min-width:210px;
+    min-width:205px;
     width:100%;
+}
+.editCell select {
+    width:102%;
 }
 
 .widthAll{
