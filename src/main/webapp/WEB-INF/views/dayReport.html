@@ -46,7 +46,7 @@
                     </div>
                     <div class="editCell widthAll">
                         <!--fixme В textarea выводятся екранированые теги-->
-                        <textarea id="text" th:field="*{{text}}" rows="15" />
+                        <textarea id="text" th:field="*{text}" rows="15" />
                     </div>
                 </div>
                 <input type="submit" th:value="#{button.label.saveButton}" />
