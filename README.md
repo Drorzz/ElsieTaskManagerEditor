@@ -1,2 +1,4 @@
-ElsieTaskManagerEditor
+Elsie task manager editor
 ======================
+
+Сайт-админка для внутреней базы дневных отчетов сотрудников
