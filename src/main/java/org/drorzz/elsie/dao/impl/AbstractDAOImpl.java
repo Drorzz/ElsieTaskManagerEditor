@@ -1,21 +1,23 @@
 package org.drorzz.elsie.dao.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.drorzz.elsie.dao.AbstractDAO;
-import org.drorzz.elsie.dao.OrderEnum;
-import org.drorzz.elsie.domain.PersistentObject;
-import org.hibernate.Criteria;
-import org.hibernate.NonUniqueObjectException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.*;
+import org.hibernate.criterion.*;
+import org.hibernate.metadata.ClassMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.hibernate.criterion.Restrictions.like;
+import static org.drorzz.elsie.utils.PropertyUtilsWrapper.getProperty;
+import static org.drorzz.elsie.utils.PropertyUtilsWrapper.setProperty;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Time: 16:14
  */
 
-public abstract class AbstractDAOImpl<E extends PersistentObject> implements AbstractDAO<E> {
+@SuppressWarnings("unchecked")
+public abstract class AbstractDAOImpl<E> implements AbstractDAO<E> {
     private final static Logger logger = LoggerFactory.getLogger(AbstractDAOImpl.class);
 
     @Autowired
@@ -36,7 +39,6 @@ public abstract class AbstractDAOImpl<E extends PersistentObject> implements Abs
         return entityClass.getSimpleName();
     }
 
-    @SuppressWarnings("unchecked")
     protected AbstractDAOImpl() {
         this.entityClass = (Class<E>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
@@ -45,87 +47,184 @@ public abstract class AbstractDAOImpl<E extends PersistentObject> implements Abs
         return sessionFactory.getCurrentSession();
     }
 
-    @SuppressWarnings("unchecked")
+    protected Criteria criteria(){
+        return currentSession().createCriteria(entityClass);
+    }
+
+    protected Criteria fieldCriteria(String fieldName, Object fieldValue){
+        return currentSession().createCriteria(entityClass).add(Restrictions.eq(fieldName, fieldValue));
+    }
+
+    protected Order getOrder(String orderField, String orderDirection){
+        return "asc".equals(orderDirection) ? Order.asc(orderField) : Order.desc(orderField);
+    }
+
+    protected List<E> list(Criteria criteria) {
+        return list(criteria, true);
+    }
+
+    protected List<E> list(Criteria criteria, boolean cache) {
+        criteria.setCacheable(cache);
+        return new ArrayList<>(new LinkedHashSet<E>(criteria.list())); // privent duplications
+    }
+
     @Override
-    public void save(E obj) {
-        logger.info("Save {} with id: {}", getClassName(), obj.getId());
-//        logger.info("Transaction: {}",currentSession().getTransaction().isActive());
-        try {
-            currentSession().saveOrUpdate(obj);
-        }catch (NonUniqueObjectException ex){
-            logger.warn("NonUniqueObjectException: {} with id = {}.", getClassName(), obj.getId());
-//            obj = (E) currentSession().merge(obj);
-            currentSession().merge(obj);
+    public E get(Serializable id) {
+        return (E) currentSession().get(entityClass, id);
+    }
+
+    @Override
+    public E save(E entity) {
+//        try {
+//            currentSession().saveOrUpdate(obj);
+//        }catch (NonUniqueObjectException ex){
+//            logger.warn("NonUniqueObjectException: {} with id = {}.", getClassName(), obj.getId());
+//            currentSession().merge(obj);
+//        }
+        ClassMetadata metadata = sessionFactory.getClassMetadata(entityClass);
+        logger.info("Save {} with id: {}", getClassName(), getProperty(entity, metadata.getIdentifierPropertyName()));
+        Object id = getProperty(entity, metadata.getIdentifierPropertyName());
+        if (id != null && id.equals(0)) {
+            setProperty(entity, metadata.getIdentifierPropertyName(), null);
         }
+
+        currentSession().saveOrUpdate(entity);
+        return entity;
     }
 
     @Override
-    public void delete(E obj) {
-        logger.warn("Delete {} with id: {}", getClassName(), obj.getId());
-        currentSession().delete(obj);
+    public E merge(E entity) {
+        logger.info("Save {} with id: {}", getClassName(), getProperty(entity,"id"));
+        return (E) currentSession().merge(entity);
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public E initialize(E detachedParent, String fieldName) {
+        // ...open a hibernate session...
+        // reattaches parent to session
+        E reattachedParent = (E) currentSession().merge(detachedParent);
+
+        // get the field from the entity and initialize it
+        try {
+            Field fieldToInitialize = detachedParent.getClass().getDeclaredField(fieldName);
+            fieldToInitialize.setAccessible(true);
+            Object objectToInitialize = fieldToInitialize.get(reattachedParent);
+            Hibernate.initialize(objectToInitialize);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return reattachedParent;
+    }
+
+    @Override
+    public void delete(E entity) {
+        logger.warn("Delete {} with id: {}", getClassName(), getProperty(entity, "id"));
+        currentSession().delete(entity);
+    }
+
+    @Override
+    public void deleteById(Serializable id) {
         delete(get(id));
     }
 
     @Override
-    public void refresh(E obj) {
-        logger.info("Refresh {} with id: {}", getClassName(),obj.getId());
-        currentSession().refresh(obj);
+    public void refresh(E entity) {
+        currentSession().refresh(entity);
     }
 
-    protected Criteria getAllCriteria(){
-        return currentSession().createCriteria(entityClass);
+    public Long getCount() {
+        return (Long) currentSession().createQuery("select count (*) from "+entityClass.getName())
+                .uniqueResult();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public Long getCount(List<String> aliases, List<Criterion> criterions) {
+        Criteria criteria = criteria();
+
+        for (String alias : aliases) {
+            criteria.createAlias(alias, alias);
+        }
+        for (Criterion item : criterions) {
+            criteria.add(item);
+        }
+        criteria.setProjection(Projections.rowCount());
+
+        return (Long) criteria.uniqueResult();
+    }
+
     @Override
     public List<E> getAll() {
-        List<E> list = (List<E>) getAllCriteria().list();
-        logger.info("Get all {}. Count: {}", getClassName(),list.size());
-        return list;
+        return (List<E>) criteria().list();
     }
 
     @Override
-    public List<E> getAllWithOrder(String orderField) {
-        return getAllWithOrder(orderField,OrderEnum.ASC);
+    public List<E> getAll(String orderField, String orderDirection) {
+         return (List<E>) criteria().addOrder(getOrder(orderField, orderDirection)).list();
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<E> getAllWithOrder(String orderField, OrderEnum order) {
-        List<E> list = (List<E>) getAllCriteria().addOrder(
-                order == OrderEnum.ASC ? Order.asc(orderField) : Order.desc(orderField)).list();
-        logger.info("Get all {}. Order({}): {}. Count: {}", getClassName(), order,orderField, list.size());
-        return list;
-    }
-
-    protected Criteria getByFieldCriteria(String fieldName, Object fieldValue){
-        return currentSession().createCriteria(entityClass).add(Restrictions.eq(fieldName, fieldValue));
-    }
-
-    @SuppressWarnings("unchecked")
     @Override
     public List<E> getByField(String fieldName, Object fieldValue) {
-        List<E> list = (List<E>) getByFieldCriteria(fieldName, fieldValue).list();
-        logger.info("Get {} by field {} value: {}. Count: {}", getClassName(), fieldName, fieldValue, list.size());
-        return list;
+        return (List<E>) fieldCriteria(fieldName, fieldValue).list();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<E> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField) {
-        List<E> list = (List<E>) getByFieldCriteria(fieldName,fieldValue).addOrder(Order.asc(orderField)).list();
-        logger.info("Get {} by field {} value: {}. Order: {}. Count: {}", getClassName(), fieldName, fieldValue, orderField, list.size());
-        return list;
+    public List<E> getByField(String fieldName, Object fieldValue, String orderDirection) {
+        return (List<E>) fieldCriteria(fieldName, fieldValue).addOrder(getOrder(fieldName, orderDirection)).list();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public E get(Serializable id) {
-        logger.info("Get {} by id: {}", getClassName(),id);
-        return (E) currentSession().get(entityClass, id);
+    public List<E> getByField(String fieldName, Object fieldValue, String orderField, String orderDirection) {
+        return (List<E>) fieldCriteria(fieldName, fieldValue).addOrder(getOrder(orderField, orderDirection)).list();
+    }
+
+    @Override
+    public List<E> getLike(String property, String value) {
+        return getLike(property, value, MatchMode.ANYWHERE);
+    }
+
+    @Override
+    public List<E> getLike(String property, String value, MatchMode matchMode) {
+        return criteria()
+                .add(like(property, value, matchMode))
+                .list();
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize) {
+        return list(criteria().setFirstResult(skip).setMaxResults(pageSize));
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize, String orderField, String orderDirection) {
+        Criteria criteria = currentSession().createCriteria(entityClass)
+                .setFirstResult(skip)
+                .setMaxResults(pageSize);
+
+        if (orderField != null && !orderField.isEmpty()) {
+            criteria.addOrder(getOrder(orderField, orderDirection));
+        }
+
+        return list(criteria);
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize, String orderField, String orderDirection,
+                           List<String> aliases, List<Criterion> criterions) {
+        Criteria criteria = currentSession().createCriteria(entityClass)
+                .setFirstResult(skip)
+                .setMaxResults(pageSize);
+
+        for (String alias : aliases) {
+            criteria.createAlias(alias, alias);
+        }
+        if (orderField != null && !orderField.isEmpty()) {
+            criteria.addOrder(getOrder(orderField, orderDirection));
+        }
+        for (Criterion item : criterions) {
+            criteria.add(item);
+        }
+
+        return list(criteria);
     }
 }

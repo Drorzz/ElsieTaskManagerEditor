@@ -37,7 +37,7 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
 
     @Override
     protected List<DayReport> entityList() {
-        return entityService.getAllWithOrderDesc("date");
+        return entityService.getAll("date","desc");
     }
 
     @Override

@@ -84,7 +84,7 @@ public abstract class AbstractEntityController<E extends PersistentObject, S ext
         }else{
             try{
                 Integer intId = Integer.valueOf(pathId);
-                entity = entityService.getById(intId);
+                entity = entityService.get(intId);
             }catch(NumberFormatException e){
                 return redirectToList();
             }

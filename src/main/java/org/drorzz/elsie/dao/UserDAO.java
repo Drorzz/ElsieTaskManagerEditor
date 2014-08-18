@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 17:31
  */
 public interface UserDAO extends AbstractDAO<User> {
-    public User getByLogin(String login);
-    public List<User> getUserLike(String value);
-    public List<User> getUserLikeWithOrder(String value,String orderField);
+    User getByLogin(String login);
+    List<User> getUserLike(String value);
+    List<User> getUserLike(String value, String orderField, String orderDirection);
 }

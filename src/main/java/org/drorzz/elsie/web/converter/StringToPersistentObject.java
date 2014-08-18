@@ -36,7 +36,7 @@ public class StringToPersistentObject<T extends PersistentObject, M extends Abst
     public T convert(String source) {
         logger.info("Converting {}, id: {}.", entityClass.getSimpleName(),source);
         try {
-            return entityService.getById(Integer.parseInt(source));
+            return entityService.get(Integer.parseInt(source));
         } catch(NumberFormatException nfe){
             throw new RuntimeException(nfe.getMessage());
         }
