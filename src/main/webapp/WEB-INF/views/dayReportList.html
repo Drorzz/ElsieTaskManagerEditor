@@ -51,12 +51,14 @@
                 </tbody>
             </table>
             <div class="pagingBlock">
-                <span class="pg-normal" onclick="pager.prev();" > « Prev </span>
-                 | <span th:each="i : ${#numbers.sequence(pageHolder.firstLinkedPage+1, pageHolder.lastLinkedPage+1)}"
+                <a class="pg-normal" th:href="@{/dayReports(page=${pageHolder.firstPage ? 1 : pageHolder.page})}" > « Prev </a>
+                 | <a th:each="i : ${#numbers.sequence(pageHolder.firstLinkedPage+1, pageHolder.lastLinkedPage+1)}"
                          th:id="|pg${i}|"
+                         th:href="@{/dayReports(page=${i})}"
                          th:class="${pageHolder.page + 1 == i}? 'pg-selected' : 'pg-normal'"
                          th:text="${i}"/>
-                 | <span  class="pg-normal" onclick="pager.next();"> Next »</span>
+                 | <a  class="pg-normal"
+                       th:href="@{/dayReports(page=${pageHolder.lastPage ? pageHolder.pageCount : pageHolder.page + 2})}"> Next »</a>
             </div>
         </th:block>
     </th:block>

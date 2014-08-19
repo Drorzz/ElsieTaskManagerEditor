@@ -14,7 +14,7 @@ public class PageHolder implements Serializable {
 
     public static final int DEFAULT_PAGE_SIZE = 30;
 
-    public static final int DEFAULT_MAX_LINKED_PAGES = 5;
+    public static final int DEFAULT_MAX_LINKED_PAGES = 7;
 
     private int count = 0;
 
@@ -86,7 +86,7 @@ public class PageHolder implements Serializable {
      * Page numbering starts with 0.
      */
     public void setPage(int page) {
-        this.page = page;
+        this.page = Math.min(Math.max(page,0),getPageCount());
     }
 
     /**
