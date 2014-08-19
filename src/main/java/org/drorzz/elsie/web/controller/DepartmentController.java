@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/departments")
 public class DepartmentController extends AbstractEntityController<Department, DepartmentService> {
@@ -18,7 +20,7 @@ public class DepartmentController extends AbstractEntityController<Department, D
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
+    protected void addEntityListMappingModelAttributes(Model model, List<Department> entityList, int page) {
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DayReportServiceImpl extends AbstractEntityServiceImpl<DayReport,DayReportDAO> implements DayReportService {
+
     @Override
     public void save(DayReport entity) {
         fillFieldsByDefaultValues(entity);
@@ -21,5 +22,4 @@ public class DayReportServiceImpl extends AbstractEntityServiceImpl<DayReport,Da
             obj.setProjectText("");
         }
     }
-
 }

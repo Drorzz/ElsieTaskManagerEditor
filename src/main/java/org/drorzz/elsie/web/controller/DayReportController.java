@@ -4,6 +4,7 @@ import org.drorzz.elsie.domain.DayReport;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.service.DayReportService;
 import org.drorzz.elsie.service.UserService;
+import org.drorzz.elsie.utils.PageHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
     private final static Logger logger = LoggerFactory.getLogger(DayReportController.class);
 
     private UserService userService;
+    private PageHolder pageHolder;
 
     public DayReportController() {
         super("dayReportList", "dayReport");
@@ -27,22 +29,24 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+        this.pageHolder = entityService.getPageHolder();
     }
 
     private List<User> usersList(){
         List<User> userList = userService.getAll();
-        logger.info("User list size: {}.",userList.size());
+        logger.info("User list size: {}.", userList.size());
         return userList;
     }
 
     @Override
-    protected List<DayReport> entityList() {
-        return entityService.getAll("date","desc");
+    protected List<DayReport> entityList(int page) {
+        pageHolder.setPage(page-1);
+        return entityService.getPage(pageHolder, "date", "desc");
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
-
+    protected void addEntityListMappingModelAttributes(Model model, List<DayReport> entityList, int page) {
+        model.addAttribute("pageHolder",pageHolder);
     }
 
     @Override

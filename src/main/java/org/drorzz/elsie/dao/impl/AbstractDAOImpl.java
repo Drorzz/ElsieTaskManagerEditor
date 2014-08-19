@@ -190,41 +190,40 @@ public abstract class AbstractDAOImpl<E> implements AbstractDAO<E> {
                 .list();
     }
 
-    @Override
-    public List<E> getPage(int skip, int pageSize) {
-        return list(criteria().setFirstResult(skip).setMaxResults(pageSize));
+    protected Criteria getPageCriteria(int skip, int pageSize) {
+        return criteria().setFirstResult(skip).setMaxResults(pageSize);
     }
 
-    @Override
-    public List<E> getPage(int skip, int pageSize, String orderField, String orderDirection) {
-        Criteria criteria = currentSession().createCriteria(entityClass)
-                .setFirstResult(skip)
-                .setMaxResults(pageSize);
+    protected Criteria getPageCriteria(int skip, int pageSize, String orderField, String orderDirection) {
+        Criteria criteria = getPageCriteria(skip,pageSize);
 
         if (orderField != null && !orderField.isEmpty()) {
             criteria.addOrder(getOrder(orderField, orderDirection));
         }
 
-        return list(criteria);
+        return criteria;
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize) {
+        return list(getPageCriteria(skip,pageSize));
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize, String orderField, String orderDirection) {
+         return list(getPageCriteria(skip,pageSize,orderField,orderDirection));
     }
 
     @Override
     public List<E> getPage(int skip, int pageSize, String orderField, String orderDirection,
                            List<String> aliases, List<Criterion> criterions) {
-        Criteria criteria = currentSession().createCriteria(entityClass)
-                .setFirstResult(skip)
-                .setMaxResults(pageSize);
-
+        Criteria criteria = getPageCriteria(skip,pageSize,orderField,orderDirection);
         for (String alias : aliases) {
             criteria.createAlias(alias, alias);
-        }
-        if (orderField != null && !orderField.isEmpty()) {
-            criteria.addOrder(getOrder(orderField, orderDirection));
         }
         for (Criterion item : criterions) {
             criteria.add(item);
         }
-
         return list(criteria);
     }
 }

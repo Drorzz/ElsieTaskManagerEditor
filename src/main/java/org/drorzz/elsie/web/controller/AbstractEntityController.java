@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,8 +19,8 @@ import java.util.List;
 public abstract class AbstractEntityController<E extends PersistentObject, S extends AbstractEntityService<E,?>> {
     private final static Logger logger = LoggerFactory.getLogger(AbstractEntityController.class);
 
-    private final static String mappingEditMask = "[0-9]+|new";
-    private final static String mappingDeleteMask = "[0-9]+";
+    protected final static String mappingEditMask = "[0-9]+|new";
+    protected final static String mappingDeleteMask = "[0-9]+";
 
     private final Class<E> entityClass;
 
@@ -56,19 +57,25 @@ public abstract class AbstractEntityController<E extends PersistentObject, S ext
     }
 
     protected List<E> entityList(){
+        return entityList(1);
+    }
+
+    protected List<E> entityList(int page){
         List<E> departmentList = entityService.getAll();
         logger.info("{} list size: {}.", getClassName(), departmentList.size());
         return departmentList;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public final String entityListMapping(Model model) {
-        model.addAttribute("entityList", entityList());
-        addEntityListMappingModelAttributes(model);
+    public final String entityListMapping(Model model,
+                  @RequestParam(value = "page",required = false, defaultValue = "1")int page) {
+        List<E> list = entityList(page);
+        model.addAttribute("entityList", list);
+        addEntityListMappingModelAttributes(model, Collections.unmodifiableList(list), page);
         return entityListView;
     }
 
-    protected abstract void addEntityListMappingModelAttributes(Model model);
+    protected abstract void addEntityListMappingModelAttributes(Model model, List<E> entityList, int page);
 
     @RequestMapping(value = "/*", method = RequestMethod.GET)
     public final String wrongEntityMapping() {

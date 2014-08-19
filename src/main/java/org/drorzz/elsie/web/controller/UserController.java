@@ -43,7 +43,7 @@ public class UserController extends AbstractEntityController<User, UserService> 
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
+    protected void addEntityListMappingModelAttributes(Model model, List<User> entityList, int page) {
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.drorzz.elsie.service;
 
 import org.drorzz.elsie.dao.AbstractDAO;
+import org.drorzz.elsie.utils.PageHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -12,6 +13,8 @@ import java.util.List;
 @SuppressWarnings("UnusedDeclaration")
 @Transactional(readOnly = true)
 public  interface AbstractEntityService<E, M extends AbstractDAO<E>>{
+    static final int PAGE_SIZE = 20;
+
     void setEntityDAO(M entityDAO);
 
     E get(Serializable id);
@@ -43,7 +46,9 @@ public  interface AbstractEntityService<E, M extends AbstractDAO<E>>{
 
     List<E> getLike(String property, String value);
 
-    List<E> getPage(int skip, int pageSize);
-    List<E> getPage(int skip, int pageSize, String sortField, String sortDirection);
+    PageHolder getPageHolder();
+    PageHolder getPageHolder(int pageSize);
 
+    List<E> getPage(PageHolder pageHolder);
+    List<E> getPage(PageHolder pageHolder, String sortField, String sortDirection);
 }
