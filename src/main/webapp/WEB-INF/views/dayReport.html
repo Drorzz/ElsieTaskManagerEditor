@@ -13,8 +13,10 @@
               href="../../resources/css/dayReportEdit.css"
               th:href="@{/css/dayReportEdit.css}"/>
     </th:block>
+    <th:block th:fragment="leftMenu">
+        <li><a th:href="@{/dayReports}"  th:text="#{dayReport.label.toDayReportsList}"/></li>
+    </th:block>
     <th:block th:fragment="content">
-        <a th:href="@{/dayReports}" th:text="#{dayReport.label.toDayReportsList}" />
         <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
             <fieldset class="editTable">

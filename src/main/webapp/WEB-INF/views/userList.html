@@ -10,9 +10,14 @@
               th:href="@{/css/table.css}"/>
         <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
     </th:block>
+    <th:block th:fragment="leftMenu">
+        <li>
+            <a th:href="@{/users/new}" th:text="#{userList.label.new}"/>
+        </li>
+    </th:block>
     <th:block th:fragment="content">
-        <h2 th:text="#{userList.label.title}"/>
         <table id="entityTable" class="order-table">
+            <caption th:text="#{userList.label.title}"/>
             <thead>
             <tr class="order-table-header">
                 <th th:text="#{userList.label.name}"/>
@@ -20,11 +25,6 @@
                 <th th:text="#{userList.label.department}"/>
                 <th th:text="#{userList.label.isActive}"/>
                 <th colspan="2">
-                    <a th:href="@{/users/new}">
-                        <img alt="New"
-                             src="../../resources/img/new.png"
-                             th:src="@{/img/new.png}"/>
-                    </a>
                 </th>
             </tr>
             </thead>

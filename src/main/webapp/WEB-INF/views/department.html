@@ -9,8 +9,10 @@
               href="../../resources/css/entityEdit.css"
               th:href="@{/css/entityEdit.css}"/>
     </th:block>
+    <th:block th:fragment="leftMenu">
+        <li><a th:href="@{/departments}"  th:text="#{department.label.toDepartmentList}"/></li>
+    </th:block>
     <th:block th:fragment="content">
-        <a th:href="@{/departments}" th:text="#{department.label.toDepartmentList}" />
         <form th:object="${entity}" method="post" class="marginTop20">
             <input type="hidden" th:field="*{id}"/>
             <fieldset class="editTable">

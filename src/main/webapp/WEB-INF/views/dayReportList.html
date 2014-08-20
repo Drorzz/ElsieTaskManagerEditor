@@ -10,6 +10,11 @@
                   th:href="@{/css/table.css}"/>
             <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
         </th:block>
+        <th:block th:fragment="leftMenu">
+            <li>
+                <a th:href="@{/dayReports/new}" th:text="#{dayReportList.label.new}"/>
+            </li>
+        </th:block>
         <th:block th:fragment="content">
             <table class="order-table">
                 <caption th:text="#{dayReportList.label.title}"/>
