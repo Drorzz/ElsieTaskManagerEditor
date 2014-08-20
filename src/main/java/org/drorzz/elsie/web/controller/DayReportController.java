@@ -19,6 +19,8 @@ import java.util.List;
 public class DayReportController extends AbstractEntityController<DayReport, DayReportService>  {
     private final static Logger logger = LoggerFactory.getLogger(DayReportController.class);
 
+    private final static int PAGE_SIZE = 20;
+
     private UserService userService;
     private PageHolder pageHolder;
 
@@ -29,7 +31,6 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-        this.pageHolder = entityService.getPageHolder();
     }
 
     private List<User> usersList(){
@@ -38,15 +39,24 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
         return userList;
     }
 
+    private PageHolder getPageHolder(){
+        return new PageHolder(entityService.getCount().intValue(),PAGE_SIZE);
+    }
+
     @Override
     protected List<DayReport> entityList(int page) {
+        logger.info("Getting page: {}.", page);
+        pageHolder = getPageHolder();
         pageHolder.setPage(page-1);
-        return entityService.getPage(pageHolder, "date", "desc");
+        return entityService.getPage(pageHolder.getFirstElementOnPage(),
+                                        pageHolder.getPageSize(), "date", "desc");
     }
 
     @Override
     protected void addEntityListMappingModelAttributes(Model model, List<DayReport> entityList, int page) {
-        model.addAttribute("pageHolder",pageHolder);
+        if(pageHolder != null) {
+            model.addAttribute("pageHolder", pageHolder);
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package org.drorzz.elsie.service.impl;
 
 import org.drorzz.elsie.dao.AbstractDAO;
 import org.drorzz.elsie.service.AbstractEntityService;
-import org.drorzz.elsie.utils.PageHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,22 +119,12 @@ public abstract class AbstractEntityServiceImpl<E, D extends AbstractDAO<E>> imp
     }
 
     @Override
-    public PageHolder getPageHolder() {
-        return getPageHolder(PAGE_SIZE);
+    public List<E> getPage(int skip, int pageSize) {
+        return entityDAO.getPage(skip, pageSize);
     }
 
     @Override
-    public PageHolder getPageHolder(int pageSize) {
-        return new PageHolder(getCount().intValue(),pageSize);
-    }
-
-    @Override
-    public List<E> getPage(PageHolder pageHolder) {
-        return entityDAO.getPage(pageHolder.getFirstElementOnPage(), pageHolder.getPageSize());
-    }
-
-    @Override
-    public List<E> getPage(PageHolder pageHolder, String sortField, String sortDirection) {
-        return entityDAO.getPage(pageHolder.getFirstElementOnPage(), pageHolder.getPageSize(), sortField, sortDirection);
+    public List<E> getPage(int skip, int pageSize, String sortField, String sortDirection) {
+        return entityDAO.getPage(skip, pageSize, sortField, sortDirection);
     }
 }
