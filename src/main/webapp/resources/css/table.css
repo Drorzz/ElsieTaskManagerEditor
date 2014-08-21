@@ -35,7 +35,7 @@ Time: 17:15
 }
 
 .order-table-row td{
-    padding: 0 5px;
+    padding: 3px 7px;
     max-width: 360px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -46,20 +46,19 @@ Time: 17:15
     margin: auto;
     border: 0;
 }
-.order-table-row td .main {
+.order-table-row td>div {
     /*display: -webkit-box;*/
     /*-webkit-line-clamp: 3;*/
     /*-webkit-box-orient: vertical;*/
     max-height: 3.6em;
 }
 
-.order-table-row td .tooltip {
-    /*margin: 5px 0 0 5px;*/
-    min-height: 4em;
-    margin: -5px 0 0 -10px;
+.order-table-row td>div.tooltip {
+    margin: 7px 0 0 5px;
+    max-height: none;
     position:absolute;
     width:43%;
-    display:none;
+    display:block;
     z-index:10;
     background:none repeat scroll 0 0 #F9F9F9;
     padding:5px;
