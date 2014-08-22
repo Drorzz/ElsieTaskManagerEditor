@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
+<html xmlns:th="http://www.thymeleaf.org"
+        th:with="title=#{departmentList.label.title}">
+<th:block th:replace="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/table.css"
+              th:href="@{/css/table.css}"/>
+        <script src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
+    </th:block>
+    <th:block th:fragment="leftMenu">
+        <li>
+            <a th:href="@{/departments/new}" th:text="#{departmentList.label.new}"/>
+        </li>
+    </th:block>
+    <th:block th:fragment="content">
+        <table class="order-table">
+            <caption th:text="${title}"/>
+            <thead>
+            <tr class="order-table-header">
+                <th th:text="#{departmentList.label.name}" />
+                <th colspan="2"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entity : ${entityList}" class="order-table-row"
+                th:ondblclick="|redirectToPath('@{/departments/{id}(id=${entity.id})}')|">
+                <td th:text="${entity.name}" />
+                <td class="icon">
+                    <a th:href="@{/departments/{id}(id=${entity.id})}">
+                        <img alt="Edit"
+                             src="../../resources/img/edit.png"
+                             th:src="@{/img/edit.png}"/>
+                    </a>
+                </td>
+                <td class="icon">
+                    <a th:href="@{/departments/{id}(id=${entity.id},delete)}">
+                        <img alt="Edit"
+                             src="../../resources/img/delete.png"
+                             th:src="@{/img/delete.png}"/>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+</th:block>
+</html>

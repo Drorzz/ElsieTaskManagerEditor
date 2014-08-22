@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.Department;
 import org.drorzz.elsie.service.DepartmentService;
@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/departments")
@@ -18,12 +20,13 @@ public class DepartmentController extends AbstractEntityController<Department, D
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
+    protected void addEntityListMappingModelAttributes(Model model, List<Department> entityList, int page) {
     }
 
     @Override
     protected void addEntityByIdMappingModelAttributes(Model model, Department entity) {
 //        System.out.println(Arrays.asList(entity.getUsersList()));
 //        System.out.println(Arrays.asList(entityService.getUsersList(entity)));
+
     }
 }

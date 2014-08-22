@@ -1,0 +1,13 @@
+.editCell input,
+.editCell select{
+    max-width: 210px;
+}
+
+.editCell input[type=date]{
+    max-width: 205px;
+}
+
+.editCell textarea{
+    min-width: 500px;
+    width: 100%;
+}

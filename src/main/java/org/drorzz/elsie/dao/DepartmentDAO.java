@@ -11,5 +11,5 @@ import java.util.List;
  * Time: 16:01
  */
 public interface DepartmentDAO extends AbstractDAO<Department> {
-    public List<Department> getByName(String name);
+    List<Department> getByName(String name);
 }

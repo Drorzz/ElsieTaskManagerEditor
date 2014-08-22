@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="titleSimple=(${entity.user} == null ? '' : ${entity.user.fullName}+' - ')+${{entity.date}},
+               title=#{dayReport.label.title}+' '+(${titleSimple} == '' ? #{dayReport.label.new} : ${titleSimple})">
+<th:block th:include="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/entityEdit.css"
+              th:href="@{/css/entityEdit.css}"/>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/dayReportEdit.css"
+              th:href="@{/css/dayReportEdit.css}"/>
+    </th:block>
+    <th:block th:fragment="leftMenu">
+        <li><a th:href="@{/dayReports}"  th:text="#{dayReport.label.toDayReportsList}"/></li>
+    </th:block>
+    <th:block th:fragment="content">
+        <form th:object="${entity}" method="post" class="marginTop20">
+            <input type="hidden" th:field="*{id}"/>
+            <fieldset class="editTable">
+                <legend th:text="${title}"/>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="user" th:text="#{dayReport.label.user}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <select id="user" th:field="*{user}">
+                            <option th:if="*{user}==null" value="" th:text="#{dayReport.label.userPlaceholder}" class="placeholder" />
+                            <option th:each="user : ${userList}"
+                                    th:value="${user.id}"
+                                    th:text="${user.fullName}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="date" th:text="#{dayReport.label.date}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="date" id="date" name="date" th:value="*{date}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="text" th:text="#{dayReport.label.text}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <!--fixme В textarea выводятся екранированые теги-->
+                        <textarea id="text" th:field="*{text}" rows="15" />
+                    </div>
+                </div>
+                <input type="submit" th:value="#{button.label.saveButton}" />
+            </fieldset>
+        </form>
+    </th:block>
+</th:block>
+</html>

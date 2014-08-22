@@ -4,10 +4,7 @@ import org.drorzz.elsie.dao.UserDAO;
 import org.drorzz.elsie.domain.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,13 +18,10 @@ import java.util.List;
  */
 @Repository
 public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
-    private final static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
     @Override
     public User getByLogin(String login) {
-        User user = (User) currentSession().bySimpleNaturalId(entityClass).load(login);
-        logger.info("Get {} by login, value: {}.", getClassName(), login);
-        return user;
+        return (User) currentSession().bySimpleNaturalId(entityClass).load(login);
     }
 
     protected Criteria getUserLikeCriteria(String value){
@@ -43,16 +37,12 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
     @SuppressWarnings("unchecked")
     @Override
     public List<User> getUserLike(String value) {
-        List<User> list = getUserLikeCriteria(value).list();
-        logger.info("Get {} like: {}. Count: {}", getClassName(), value, list.size());
-        return list;
+        return getUserLikeCriteria(value).list();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> getUserLikeWithOrder(String value, String orderField) {
-        List<User> list = getUserLikeCriteria(value).addOrder(Order.asc(orderField)).list();
-        logger.info("Get {} like: {}. Order: {}. Count: {}", getClassName(), value, orderField, list.size());
-        return list;
+    public List<User> getUserLike(String value,String orderField,String orderDirection) {
+        return getUserLikeCriteria(value).addOrder(getOrder(orderField,orderDirection)).list();
     }
 }

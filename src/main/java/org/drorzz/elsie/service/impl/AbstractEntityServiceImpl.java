@@ -1,25 +1,26 @@
 package org.drorzz.elsie.service.impl;
 
 import org.drorzz.elsie.dao.AbstractDAO;
-import org.drorzz.elsie.dao.OrderEnum;
-import org.drorzz.elsie.domain.PersistentObject;
 import org.drorzz.elsie.service.AbstractEntityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+
+import static org.drorzz.elsie.utils.PropertyUtilsWrapper.getProperty;
 
 /**
  * Created by Drorzz on 08.08.2014.
  */
-public abstract class AbstractEntityServiceImpl<T extends PersistentObject, M extends AbstractDAO<T>> implements AbstractEntityService<T, M>{
+public abstract class AbstractEntityServiceImpl<E, D extends AbstractDAO<E>> implements AbstractEntityService<E, D>{
     private final static Logger logger = LoggerFactory.getLogger(AbstractEntityServiceImpl.class);
 
-    protected M entityDAO;
+    protected D entityDAO;
 
-    protected Class<T> entityClass;
+    protected Class<E> entityClass;
 
     protected String getClassName(){
         return entityClass.getSimpleName();
@@ -27,17 +28,25 @@ public abstract class AbstractEntityServiceImpl<T extends PersistentObject, M ex
 
     @SuppressWarnings("unchecked")
     protected AbstractEntityServiceImpl() {
-        this.entityClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.entityClass = (Class<E>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
-    public void setEntityDAO(M entityDAO) {
+    @Override
+    public void setEntityDAO(D entityDAO) {
         this.entityDAO = entityDAO;
     }
 
-    public T create() {
+    @Override
+    public E get(Serializable id) {
+        return entityDAO.get(id);
+    }
+
+    @Override
+    public E create() {
         try {
-            T newEntity = entityClass.newInstance();
+            E newEntity = entityClass.newInstance();
             logger.info("Create new {}", getClassName());
             return newEntity;
         } catch (IllegalAccessException|InstantiationException e) {
@@ -47,58 +56,75 @@ public abstract class AbstractEntityServiceImpl<T extends PersistentObject, M ex
         }
     }
 
-    public void save(T obj) {
-        logger.info("Save {} with id: {}", getClassName(), obj.getId());
-        entityDAO.save(obj);
-    }
-
-    public void delete(T obj) {
-        logger.warn("Delete {} with id: {}", getClassName(), obj.getId());
-        entityDAO.delete(obj);
-    }
-
-    public void deleteById(Integer id) {
-        entityDAO.deleteById(id);
-    }
-
-    public void refresh(T obj) {
-        logger.info("Refresh {} with id: {}", getClassName(),obj.getId());
-        entityDAO.refresh(obj);
-    }
-
-    public List<T> getAll() {
-        List<T> list = entityDAO.getAll();
-        logger.info("Get all {}. Count: {}", getClassName(),list.size());
-        return list;
-    }
-
-    public List<T> getAllWithOrder(String orderField) {
-        List<T> list = entityDAO.getAllWithOrder(orderField);
-        logger.info("Get all {}. Order: {}. Count: {}", getClassName(), orderField, list.size());
-        return list;
+    @Override
+    public void save(E entity) {
+        entityDAO.save(entity);
     }
 
     @Override
-    public List<T> getAllWithOrderDesc(String orderField) {
-        List<T> list = entityDAO.getAllWithOrder(orderField,OrderEnum.DESC);
-        logger.info("Get all {}. Order({}): {}. Count: {}", getClassName(), OrderEnum.DESC, orderField, list.size());
-        return list;
+    public void delete(E entity) {
+        logger.warn("Delete {} with id: {}", getClassName(), getProperty(entity, "id"));
+        entityDAO.delete(entity);
     }
 
-    public T getById(Integer id) {
-        logger.info("Get {} by id: {}", getClassName(),id);
-        return entityDAO.get(id);
+    @Override
+    public void deleteById(Serializable id) {
+        logger.warn("Delete {} with id: {}", getClassName(), id);
+        entityDAO.deleteById(id);
     }
 
-    public List<T> getByField(String fieldName, Object fieldValue) {
-        List<T> list = entityDAO.getByField(fieldName, fieldValue);
-        logger.info("Get {} by field {} value: {}. Count: {}", getClassName(), fieldName, fieldValue, list.size());
-        return list;
+    @Override
+    public void refresh(E entity) {
+        entityDAO.refresh(entity);
     }
 
-    public List<T> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField) {
-        List<T> list = entityDAO.getByFieldWithOrder(fieldName,fieldValue,orderField);
-        logger.info("Get {} by field {} value: {}. Order: {}. Count: {}", getClassName(), fieldName, fieldValue, orderField, list.size());
-        return list;
+    @Override
+    public E initialize(E detachedParent, String fieldName){
+        return entityDAO.initialize(detachedParent, fieldName);
+    }
+
+    @Override
+    public Long getCount(){
+        return entityDAO.getCount();
+    }
+
+    @Override
+    public List<E> getAll() {
+        return entityDAO.getAll();
+    }
+
+    @Override
+    public List<E> getAll(String orderField, String sortDirection) {
+        return entityDAO.getAll(orderField, sortDirection);
+    }
+
+    @Override
+    public List<E> getByField(String fieldName, Object fieldValue) {
+        return entityDAO.getByField(fieldName, fieldValue);
+    }
+
+    @Override
+    public List<E> getByField(String fieldName, Object fieldValue, String orderDirection){
+        return entityDAO.getByField(fieldName, fieldValue, orderDirection);
+    }
+
+    @Override
+    public List<E> getByField(String fieldName, Object fieldValue, String orderField, String orderDirection){
+        return entityDAO.getByField(fieldName, fieldValue, orderField, orderDirection);
+    }
+
+    @Override
+    public List<E> getLike(String property, String value) {
+        return entityDAO.getLike(property, value);
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize) {
+        return entityDAO.getPage(skip, pageSize);
+    }
+
+    @Override
+    public List<E> getPage(int skip, int pageSize, String sortField, String sortDirection) {
+        return entityDAO.getPage(skip, pageSize, sortField, sortDirection);
     }
 }

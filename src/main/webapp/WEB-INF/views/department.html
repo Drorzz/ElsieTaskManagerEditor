@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="title=#{department.label.title} + ' ' + (${entity.name}?:#{department.label.new})">
+<th:block th:replace="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/entityEdit.css"
+              th:href="@{/css/entityEdit.css}"/>
+    </th:block>
+    <th:block th:fragment="leftMenu">
+        <li><a th:href="@{/departments}"  th:text="#{department.label.toDepartmentList}"/></li>
+    </th:block>
+    <th:block th:fragment="content">
+        <form th:object="${entity}" method="post" class="marginTop20">
+            <input type="hidden" th:field="*{id}"/>
+            <fieldset class="editTable">
+                <legend th:text="${title}"/>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="name"  th:text="#{department.label.name}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="name" th:field="*{name}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="level"  th:text="#{department.label.level}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="level" th:field="*{level}" class="rightText" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="listOrder"  th:text="#{department.label.listOrder}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="listOrder" th:field="*{listOrder}" class="rightText" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="projectActive"  th:text="#{department.label.projectActive}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="projectActive" th:field="*{projectActive}" class="rightText" />
+                    </div>
+                </div>
+                <input type="submit" th:value="#{button.label.saveButton}" />
+            </fieldset>
+        </form>
+    </th:block>
+</th:block>
+</html>

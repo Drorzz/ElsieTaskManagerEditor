@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller.converter;
+package org.drorzz.elsie.web.converter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +26,7 @@ public class StringToPersistentObject<T extends PersistentObject, M extends Abst
     }
 
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public void setEntityService(M entityService){
         this.entityService = entityService;
@@ -35,7 +36,7 @@ public class StringToPersistentObject<T extends PersistentObject, M extends Abst
     public T convert(String source) {
         logger.info("Converting {}, id: {}.", entityClass.getSimpleName(),source);
         try {
-            return entityService.getById(Integer.parseInt(source));
+            return entityService.get(Integer.parseInt(source));
         } catch(NumberFormatException nfe){
             throw new RuntimeException(nfe.getMessage());
         }

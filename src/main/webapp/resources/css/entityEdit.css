@@ -1,0 +1,51 @@
+.editTable {
+    display:table;
+    width:0;
+}
+
+.editTable legend{
+    white-space:nowrap;
+}
+
+.editTable input[type=submit]{
+    margin:10px 15px 0;
+}
+
+.editRow {
+    display:table-row;
+}
+
+.editCell {
+    display:table-cell;
+    padding:2px 5px;
+    vertical-align: top;
+}
+
+.editCell label{
+    white-space:nowrap;
+}
+
+.editCell input:not([type=checkbox]),
+.editCell select{
+    min-width:205px;
+    width:100%;
+}
+.editCell select {
+    width:102%;
+}
+
+.widthAll{
+    width:100%;
+}
+
+.rightText{
+    text-align: right;
+}
+
+.placeholder {
+    display: none;
+}
+.marginTop20{
+    margin-top: 20px;
+}
+

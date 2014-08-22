@@ -1,9 +1,10 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.DayReport;
 import org.drorzz.elsie.domain.User;
 import org.drorzz.elsie.service.DayReportService;
 import org.drorzz.elsie.service.UserService;
+import org.drorzz.elsie.utils.PageHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ import java.util.List;
 public class DayReportController extends AbstractEntityController<DayReport, DayReportService>  {
     private final static Logger logger = LoggerFactory.getLogger(DayReportController.class);
 
+    private final static int PAGE_SIZE = 20;
+
     private UserService userService;
+    private PageHolder pageHolder;
 
     public DayReportController() {
         super("dayReportList", "dayReport");
@@ -31,23 +35,32 @@ public class DayReportController extends AbstractEntityController<DayReport, Day
 
     private List<User> usersList(){
         List<User> userList = userService.getAll();
-        logger.info("User list size: {}.",userList.size());
+        logger.info("User list size: {}.", userList.size());
         return userList;
     }
 
-    @Override
-    protected List<DayReport> entityList() {
-        return entityService.getAllWithOrderDesc("date");
+    private PageHolder getPageHolder(){
+        return new PageHolder(entityService.getCount().intValue(),PAGE_SIZE);
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
+    protected List<DayReport> entityList(int page) {
+        logger.info("Getting page: {}.", page);
+        pageHolder = getPageHolder();
+        pageHolder.setPage(page-1);
+        return entityService.getPage(pageHolder.getFirstElementOnPage(),
+                                        pageHolder.getPageSize(), "date", "desc");
+    }
 
+    @Override
+    protected void addEntityListMappingModelAttributes(Model model, List<DayReport> entityList, int page) {
+        if(pageHolder != null) {
+            model.addAttribute("pageHolder", pageHolder);
+        }
     }
 
     @Override
     protected void addEntityByIdMappingModelAttributes(Model model, DayReport dayReport) {
         model.addAttribute("userList", usersList());
-        model.addAttribute("title", dayReport.getUser().getFullName() + " - " + dayReport.getDate());
     }
 }

@@ -1,4 +1,4 @@
-package org.drorzz.elsie.controller;
+package org.drorzz.elsie.web.controller;
 
 import org.drorzz.elsie.domain.AccessLevel;
 import org.drorzz.elsie.domain.Department;
@@ -43,7 +43,7 @@ public class UserController extends AbstractEntityController<User, UserService> 
     }
 
     @Override
-    protected void addEntityListMappingModelAttributes(Model model) {
+    protected void addEntityListMappingModelAttributes(Model model, List<User> entityList, int page) {
     }
 
     @Override

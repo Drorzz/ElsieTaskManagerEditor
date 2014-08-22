@@ -1,33 +1,49 @@
 package org.drorzz.elsie.service;
 
 import org.drorzz.elsie.dao.AbstractDAO;
-import org.drorzz.elsie.domain.PersistentObject;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Drorzz on 08.08.2014.
  */
+@SuppressWarnings("UnusedDeclaration")
 @Transactional(readOnly = true)
-public  interface AbstractEntityService<T extends PersistentObject, M extends AbstractDAO<T>>{
-    public void setEntityDAO(M entityDAO);
+public  interface AbstractEntityService<E, M extends AbstractDAO<E>>{
+
+    void setEntityDAO(M entityDAO);
+
+    E get(Serializable id);
 
     @Transactional(readOnly = false)
-    public T create();
-    @Transactional(readOnly = false)
-    public void save(T obj);
-    @Transactional(readOnly = false)
-    public void delete(T obj);
-    @Transactional(readOnly = false)
-    public void deleteById(Integer id);
-    public void refresh(T obj);
+    E create();
 
-    public List<T> getAll();
-    public List<T> getAllWithOrder(String orderField);
-    public List<T> getAllWithOrderDesc(String orderField);
+    @Transactional(readOnly = false)
+    void save(E obj);
 
-    public T getById(Integer id);
-    public List<T> getByField(String fieldName, Object fieldValue);
-    public List<T> getByFieldWithOrder(String fieldName, Object fieldValue, String orderField);
+    @Transactional(readOnly = false)
+    void delete(E obj);
+
+    @Transactional(readOnly = false)
+    void deleteById(Serializable id);
+
+    void refresh(E obj);
+
+    E initialize(E detachedParent, String fieldName);
+
+    Long getCount();
+
+    List<E> getAll();
+    List<E> getAll(String orderField, String sortDirection);
+
+    List<E> getByField(String fieldName, Object fieldValue);
+    List<E> getByField(String fieldName, Object fieldValue, String orderDirection);
+    List<E> getByField(String fieldName, Object fieldValue, String orderField, String orderDirection);
+
+    List<E> getLike(String property, String value);
+
+    List<E> getPage(int skip, int pageSize);
+    List<E> getPage(int skip, int pageSize, String sortField, String sortDirection);
 }

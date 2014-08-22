@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="title=#{dayReportList.label.title}">
+    <th:block th:include="template/main::template(${title})"/>
+    <th:block th:remove="all">
+        <th:block th:fragment="toHead">
+            <link rel="stylesheet" type="text/css"
+                  href="../../resources/css/table.css"
+                  th:href="@{/css/table.css}"/>
+            <script type="text/javascript" src="../../resources/js/jquery.js" th:src="@{/js/jquery.js}" />
+            <script type="text/javascript" src="../../resources/js/utils.js" th:src="@{/js/utils.js}" />
+            <script>
+            // <![CDATA[
+                $(function() {
+                    var reports = $(".order-table-row td>div.report");
+                    reports.each(function(index,elem){
+                        var element = $(elem)
+                        if( element.height() > 48 ){
+                            element.after("<div class='wrapLine'></div>");
+                        }
+                    });
+                    reports.css({"max-height": "3.6em"});
+
+                   $(".order-table-row td").bind({
+                       mouseenter : function(){
+                           var element = $(this).find(".report");
+                           if($(this).children(".wrapLine").length > 0) {
+                               var tooltip = $("<div class='tooltip'>" + element.html() + "</div>");
+                               var heightBefore = $(document).height();
+                               element.before(tooltip);
+                               var overHeight = $(document).height() - heightBefore;
+                               if (overHeight > 0) {
+                                   tooltip.css({"margin-top": -overHeight});
+                               }
+                               tooltip.hide().delay(1500).fadeIn(500);
+                           }
+                       },
+                       mouseleave: function(){
+                           $(".order-table-row td div.tooltip").stop().remove();
+                       }});
+               });
+            // ]]>
+            </script>
+       </th:block>
+       <th:block th:fragment="leftMenu">
+           <li>
+               <a th:href="@{/dayReports/new}" th:text="#{dayReportList.label.new}"/>
+           </li>
+       </th:block>
+       <th:block th:fragment="content">
+           <table class="order-table">
+               <caption th:text="#{dayReportList.label.title}"/>
+               <thead>
+               <tr class="order-table-header">
+                   <th th:text="#{dayReportList.label.user}" />
+                   <th th:text="#{dayReportList.label.date}" />
+                   <th th:text="#{dayReportList.label.text}" />
+                   <th colspan="2"/>
+               </tr>
+               </thead>
+               <tbody>
+               <tr th:each="entity: ${entityList}" class="order-table-row"
+                   th:ondblclick="|redirectToPath('@{/dayReports/{id}(id=${entity.id})}')|">
+                   <td th:text="(${entity.user} == null) ? '' : ${entity.user.fullName}" class="nowrap"/>
+                   <td th:text="${{entity.date}}" class="nowrap"/>
+                   <td>
+                       <div class="report" th:id="${entity.id}" th:utext="${{entity.text}}" />
+                   </td>
+                   <td class="icon">
+                       <a th:href="@{/dayReports/{id}(id=${entity.id})}">
+                           <img alt="Edit"
+                                src="../../resources/img/edit.png"
+                                th:src="@{/img/edit.png}"/>
+                       </a>
+                   </td>
+                   <td class="icon">
+                       <a th:href="@{/dayReports/{id}(id=${entity.id},delete)}">
+                           <img alt="Edit"
+                                src="../../resources/img/delete.png"
+                                th:src="@{/img/delete.png}"/>
+                       </a>
+                   </td>
+               </tr>
+               </tbody>
+           </table>
+           <div class="pagingBlock">
+               <a class="pg-normal" th:href="@{/dayReports(page=${pageHolder.firstPage ? 1 : pageHolder.page})}" > « Prev </a>
+                | <a th:each="i : ${#numbers.sequence(pageHolder.firstLinkedPage+1, pageHolder.lastLinkedPage+1)}"
+                        th:id="|pg${i}|"
+                        th:href="@{/dayReports(page=${i})}"
+                        th:class="${pageHolder.page + 1 == i}? 'pg-selected' : 'pg-normal'"
+                        th:text="${i}"/>
+                | <a  class="pg-normal"
+                      th:href="@{/dayReports(page=${pageHolder.lastPage ? pageHolder.pageCount : pageHolder.page + 2})}"> Next »</a>
+           </div>
+       </th:block>
+   </th:block>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownAttribute, CheckEmptyScriptTag -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="title=#{user.label.title} + ' ' + (${entity.fullName}?:#{user.label.new})">
+<th:block th:replace="template/main::template(${title})"/>
+<th:block th:remove="all">
+    <th:block th:fragment="toHead">
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/entityEdit.css"
+              th:href="@{/css/entityEdit.css}"/>
+    </th:block>
+    <th:block th:fragment="leftMenu">
+        <li><a th:href="@{/users}"  th:text="#{user.label.toUserList}"/></li>
+    </th:block>
+    <th:block th:fragment="content">
+        <form  th:object="${entity}" method="post" class="marginTop20">
+            <input type="hidden" th:field="*{id}"/>
+            <fieldset class="editTable">
+                <legend th:text="${title}"/>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="login"  th:text="#{user.label.login}" />
+                    </div>
+                    <div class="editCell widthAll   ">
+                        <input type="text" id="login" th:field="*{login}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="password"  th:text="#{user.label.password}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="password" id="password" th:field="*{password}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="lastName"  th:text="#{user.label.lastName}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="lastName" th:field="*{lastName}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="firstName"  th:text="#{user.label.firstName}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="firstName" th:field="*{firstName}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="email"  th:text="#{user.label.email}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="email" id="email" th:field="*{email}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="department"  th:text="#{user.label.department}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <select id="department" th:field="*{department}">
+                            <option th:if="*{department}==null" value="" th:text="#{user.label.departmentPlaceholder}" class="placeholder" />
+                            <option th:each="department : ${departmentList}"
+                                    th:value="${department.id}"
+                                    th:text="${department.name}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="chief"  th:text="#{user.label.chief}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <select id="chief" th:field="*{chief}">
+                            <option th:if="*{chief}==null" value="" th:text="#{user.label.chiefPlaceholder}" class="placeholder" />
+                            <option th:each="chief : ${userList}"
+                                    th:value="${chief.id}"
+                                    th:text="${chief.fullName}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="accessLevel"  th:text="#{user.label.accessLevel}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <select id="accessLevel" th:field="*{accessLevel}">
+                            <option th:if="*{accessLevel}==null" value="" th:text="#{user.label.accessLevelPlaceholder}" class="placeholder" />
+                            <option th:each="accessLevel : ${accessLevelList}"
+                                    th:value="${accessLevel}"
+                                    th:text="#{${'accessLevel.name.' + accessLevel}}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="position"  th:text="#{user.label.position}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="text" id="position" th:field="*{position}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="vacation"  th:text="#{user.label.vacation}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="checkbox" id="vacation" th:field="*{vacation}" />
+                    </div>
+                </div>
+                <div class="editRow">
+                    <div class="editCell">
+                        <label for="active"  th:text="#{user.label.active}" />
+                    </div>
+                    <div class="editCell widthAll">
+                        <input type="checkbox" id="active" th:field="*{active}" />
+                    </div>
+                </div>
+                <input type="submit" th:value="#{button.label.saveButton}" />
+            </fieldset>
+        </form>
+    </th:block>
+</th:block>
+</html>
