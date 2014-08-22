@@ -13,15 +13,31 @@
             <script>
             // <![CDATA[
                 $(function() {
+                    var reports = $(".order-table-row td>div.report");
+                    reports.each(function(index,elem){
+                        var element = $(elem)
+                        if( element.height() > 48 ){
+                            element.after("<div class='wrapLine'></div>");
+                        }
+                    });
+                    reports.css({"max-height": "3.6em"});
+
                    $(".order-table-row td").bind({
                        mouseenter : function(){
                            var element = $(this).find(".report");
-                           if(element != undefined && element.text().trim() != "") {
-                               element.before("<div class='tooltip'>" + element.html() + "</div>");
+                           if($(this).children(".wrapLine").length > 0) {
+                               var tooltip = $("<div class='tooltip'>" + element.html() + "</div>");
+                               var heightBefore = $(document).height();
+                               element.before(tooltip);
+                               var overHeight = $(document).height() - heightBefore;
+                               if (overHeight > 0) {
+                                   tooltip.css({"margin-top": -overHeight});
+                               }
+                               tooltip.hide().delay(1500).fadeIn(500);
                            }
                        },
                        mouseleave: function(){
-                           $("div.tooltip").remove();
+                           $(".order-table-row td div.tooltip").stop().remove();
                        }});
                });
             // ]]>
@@ -49,7 +65,7 @@
                    <td th:text="(${entity.user} == null) ? '' : ${entity.user.fullName}" class="nowrap"/>
                    <td th:text="${{entity.date}}" class="nowrap"/>
                    <td>
-                       <div class="report" th:id="${entity.id}" th:utext="${{entity.text}}"/>
+                       <div class="report" th:id="${entity.id}" th:utext="${{entity.text}}" />
                    </td>
                    <td class="icon">
                        <a th:href="@{/dayReports/{id}(id=${entity.id})}">
