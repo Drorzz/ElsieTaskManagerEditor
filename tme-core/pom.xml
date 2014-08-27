@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>ElsieTaskManagerEditor</artifactId>
+        <groupId>ElsieTaskManagerEditor</groupId>
+        <version>${tme.version}</version>
+    </parent>
+
+    <artifactId>tme-core</artifactId>
+    <packaging>jar</packaging>
+    <version>0.8</version>
+
+    <properties>
+        <hibernate>4.3.6.Final</hibernate>
+        <mysqlConnector>5.1.32</mysqlConnector>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ElsieTaskManagerEditor</groupId>
+            <artifactId>utils</artifactId>
+            <version>[0,)</version>
+        </dependency>
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysqlConnector}</version>
+        </dependency>
+    </dependencies>
+</project>
